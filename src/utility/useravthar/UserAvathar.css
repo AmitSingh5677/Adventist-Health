@@ -1,0 +1,12 @@
+.avatar {
+    width: 70px;
+    height: 70px;
+    background-color: #4285f4; /* Use the color you want for the avatar background */
+    color: #ffffff;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+  

@@ -1,0 +1,79 @@
+.bussinessPage__Conatiner {
+  margin-bottom: 5%;
+  margin-top: 7%;
+}
+
+.dashboard-container {
+  margin-top: 25%;
+}
+
+.bottom__conatiner {
+  position: relative;
+  top: 45px;
+  left: 50px;
+}
+.text-cart{
+  text-align: center;
+}
+
+.bottom_txt {
+  color: #00A0DD;
+  font-family: 'Poppins';
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.bottom_btn {
+  width: 320%;
+  background: #026937;
+  color: #fff;
+  border: none;
+  padding: 6px;
+  font-family: 'Poppins';
+  border-radius: 3px;
+}
+
+.bussiness__btn {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 80px;
+  padding-left: 10px;
+  padding-right: 105px;
+  /* margin-bottom: 50px; */
+  /* margin-left: 20%; */
+}
+
+.send__inquiry {
+  width: 30%;
+  background: #fff;
+  color: #026937;
+  border: 1px solid #026937;
+  padding: 8px;
+  border-radius: 7px;
+  font-family: 'Inter';
+  font-weight: 600;
+  outline: none;
+}
+
+.rate__bussiness {
+  width: 30%;
+  background: #026937;
+  color: #fff;
+  border: 1px solid #026937;
+  padding: 8px;
+  border-radius: 7px;
+  font-family: 'Inter';
+  font-weight: 600;
+}
+
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    margin-top: -80%;
+  }
+
+  .bussinessPage__Conatiner {
+    margin-bottom: 30%;
+    margin-top: 30%;
+  }
+}

@@ -1,0 +1,41 @@
+.inventory__label {
+    font-family: 'Poppins';
+    margin-bottom: 5px;
+}
+
+.inventory__inputBox {
+    border: 1px solid #DDDDDD;
+    padding: 5px;
+    height: 40px;
+    font-family: 'Poppins';
+    outline: none;
+    border-radius: 8px;
+    color: #AAAAAA;
+}
+
+.inventory__Descbox {
+    font-family: 'Poppins';
+    padding: 7px;
+    border: 1px solid #DDDDDD;
+    border-radius: 8px;
+    outline: none;
+}
+
+.inventory__label {
+    font-family: 'Poppins';
+    margin-bottom: 5px;
+}
+
+.inventory__inputBox,
+.inventory__Descbox {
+    font-family: 'Poppins';
+    padding: 7px;
+    border: 1px solid #DDDDDD;
+    border-radius: 8px;
+    outline: none;
+}
+
+.inventory__inputBox::placeholder,
+.inventory__Descbox::placeholder {
+    color: #AAAAAA;
+}

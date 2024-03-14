@@ -1,0 +1,72 @@
+.resetPassword {
+    color: #00A0DD;
+    text-align: end;
+    font-family: Inter;
+  }
+  
+  .loginBtn {
+    margin-top: 5px;
+    background-color: #026937;
+    color: #fff;
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    font-family: "Poppins", sans-serif !important;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logoImg {
+    height: 70px;
+    text-align: center;
+    display: block;
+    margin: auto;
+    position: relative;
+    top: 75px;
+    filter: brightness(1.2) contrast(1.2);
+    image-rendering: pixelated;
+  
+  }
+  
+  .doodgleImg {
+    height: 450px;
+    max-width: 100%;
+    padding: 10px;
+  }
+  
+  
+  .input-group {
+    position: relative;
+  }
+  
+  .input-group-text {
+    cursor: pointer;
+    background-color: none;
+  }
+  
+  .resetPassword {
+    cursor: pointer;
+  }
+  
+  .loginBtn {
+    cursor: pointer;
+  }
+  
+  .error-mess {
+    font-family: Poppins;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #FF0000;
+    position: relative;
+    bottom: 7px;
+  }
+  
+  .sign_up {
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: center;
+    font-weight: 500;
+  }

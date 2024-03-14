@@ -1,0 +1,32 @@
+.specific__content {
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+.specific__txt {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.specific__subtxt {
+    font-family: "Poppins";
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.specific__btn {
+    background-color: #026937;
+    color: #ffff;
+    width: 40%;
+    border: none;
+    font-family: 'Poppins';
+    padding: 7px;
+    border-radius: 7px;
+    text-align: center;
+}
+
+.img_product {
+    height: 275px;
+    width: 253px;
+    object-fit: cover;
+}

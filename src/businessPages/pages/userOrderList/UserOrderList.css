@@ -1,0 +1,53 @@
+.table-margin {
+  margin-left: 5vw;
+  margin-top: 1vw;
+  width: 90vw;
+
+  font-family: 'Poppins', sans-serif;
+}
+
+.orderHistory__conatiner {
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  /* width: 97%; */
+  padding: 0px;
+  border-radius: 8px;
+  max-width: 95%;
+  margin: 0 auto;
+}
+
+.re-order_btn {
+  background: #026937;
+  color: #ffff;
+  padding: 5px;
+  font-size: 12px;
+  border: none;
+  width: 50%;
+  outline: none;
+  border-radius: 5px;
+  font-family: 'Poppins';
+}
+
+.deatils__btn {
+  color: black;
+  border: none;
+  padding: 7px;
+  border-radius: 6px;
+  font-family: 'Poppins';
+  font-size: 13px;
+}
+
+.body__elemnts {
+  font-family: Poppins;
+  color: #000000;
+}
+
+.wayText {
+  background: #FFCACA;
+  color: #D90000;
+  border: none;
+  font-family: 'Poppins';
+  padding: 2px;
+  font-size: 15px;
+  font-weight: 600;
+}

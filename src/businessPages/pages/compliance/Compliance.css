@@ -1,0 +1,36 @@
+.title_Header {
+    background-color: #062F2D;
+    color: #ffff;
+    padding: 20px;
+}
+
+.compliance__txt {
+    max-width: 90%;
+    margin: 0 auto;
+    font-family: 'Poppins';
+    margin-top: 25px;
+    font-weight: 400;
+}
+
+.back_btn {
+    color: #026937;
+    border: 1px solid #026937;
+    padding: 7px;
+    width: 20%;
+    background: none;
+    border-radius: 5px;
+    font-family: 'Poppins';
+    font-weight: 500;
+
+}
+
+.continu_txt {
+    color: #ffff;
+    padding: 7px;
+    width: 20%;
+    background: #026937;
+    border-radius: 5px;
+    font-family: 'Poppins';
+    font-weight: 500;
+    border: none;
+}

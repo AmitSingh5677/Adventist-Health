@@ -1,0 +1,25 @@
+/* SpinLoader.css */
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+
+}
+
+.redirect_content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 0vh;
+    position: relative;
+    top: -50px;
+    font-family: Poppins;
+    font-weight: 500;
+}
+
+.loader-container,
+.redirect_content {
+    flex-direction: column;
+
+}

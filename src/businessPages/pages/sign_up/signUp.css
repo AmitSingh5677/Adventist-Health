@@ -1,0 +1,67 @@
+.input--file {
+  position: relative;
+  color: #ffff;
+  height: 90px !important;
+  width: 90px;
+  background: #026937;
+  text-align: center;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.input--file input[type="file"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  height: 80px;
+  width: 80px;
+}
+
+.signUpBtn {
+  width: 100%;
+  color: #ffff;
+  border: none;
+  background: #026937;
+  padding: 6px;
+  border-radius: 6px;
+  font-family: 'Poppins';
+}
+
+.cancelBtn {
+  width: 100%;
+  color: #026937;
+  border: 1px solid #026937;
+  background: none;
+  padding: 6px;
+  border-radius: 6px;
+  font-family: 'Poppins';
+}
+
+.checkBox {
+  font-family: 'Poppins';
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+.pending__status {
+  color: #FD8900;
+  background: #FFE1B4;
+  padding: 7px;
+  font-size: 12px;
+  border-radius: 5px;
+  position: relative;
+  left: -170px;
+  top: -5px;
+  font-weight: 600;
+}
+
+.uploaded_img {
+  height: 80px;
+    width: 80px;
+    border-radius: 13px;
+    object-fit: cover;
+    position: relative;
+    top: -20px;
+    left: 0px;
+}

@@ -1,0 +1,202 @@
+.profile__Input {
+    height: 160px;
+    width: 160px;
+    border-radius: 50%;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 30px;
+
+}
+
+.uploaded-image {
+    height: 160px;
+    width: 160px;
+    border-radius: 87px;
+    border: 1px solid black;
+}
+
+.custom-input {
+    height: 130px;
+    width: 130px;
+    border-radius: 50%;
+    margin-left: 0px;
+    margin-right: 20px;
+    margin-top: 30px;
+    /* border: 1px solid #026937; */
+}
+
+.profile_Upload_btn {
+    width: 100%;
+    position: relative;
+    left: 10px;
+    top: 90px;
+    color: #ffff;
+    border: none;
+    padding: 5px;
+    width: 15%;
+    background: #026937;
+    border-radius: 10px;
+    font-family: 'Poppins';
+}
+
+.profile_btn {
+    display: flex;
+    justify-content: space-around;
+}
+
+.upload_btn {
+    color: #026937;
+    border: 1px solid #026937;
+    padding: 5px;
+    width: 10%;
+    background: none;
+    border-radius: 10px;
+    font-family: 'Poppins';
+
+}
+
+.profile_save_btn {
+    color: #ffff;
+    border: none;
+    padding: 5px;
+    width: 15%;
+    background: #026937;
+    border-radius: 10px;
+    font-family: 'Poppins';
+}
+
+.upload__btn {
+    position: relative;
+    top: 95px;
+    color: #ffff;
+    border: none;
+    padding: 5px;
+    width: 10%;
+    background: #026937;
+    border-radius: 10px;
+    font-family: 'Poppins';
+    left: -35px;
+}
+
+.upload__btn_profile {
+    background-color: #026937;
+    color: #ffff;
+    width: 85%;
+    padding: 4px;
+    font-family: 'Poppins';
+    border: none;
+    border-radius: 7px;
+    outline: none;
+    margin-left: -15px;
+    font-size: 14px;
+    margin-right: 100px;
+}
+
+.remove__profile_btn {
+    background-color: #ffff;
+    color: #026937;
+    width: 85%;
+    padding: 4px;
+    font-family: 'Poppins';
+    border: 1px solid #026937;
+    border-radius: 7px;
+    outline: none;
+    font-size: 14px;
+    margin-top: 10px;
+    margin-left: -15px;
+    margin-right: 80px;
+
+}
+
+.custom-input.no-border {
+    border: none;
+}
+
+.camera__icons {
+    text-align: center;
+    position: relative;
+    top: 25px;
+    left: 45px;
+    font-size: 40px;
+}
+
+.no_profile {
+    height: 108px;
+    width: 125px;
+    border: 2px solid black;
+    border-radius: 50%;
+    padding: 36px;
+    position: relative;
+    left: -40px;
+    top: 20px;
+
+}
+
+.edit__Img {
+    position: relative;
+}
+
+.no_camera {
+    position: relative;
+    cursor: pointer;
+    top: -59px;
+    left: -46px;
+    z-index: 2;
+    /* Set a higher z-index to place it above the image */
+    font-size: 30px;
+    color: #026937;
+    cursor: pointer;
+}
+
+.file-input-label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    /* Set a lower z-index to place it behind the camera icon */
+}
+
+/* Adjust other styles as needed */
+
+
+.edit__Img {
+    position: relative;
+    top: 70px;
+    left: 80px;
+}
+
+.report__user_btn {
+    width: 35%;
+    background-color: #026937;
+    color: #ffff;
+    font-family: 'Poppins';
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    outline: none;
+    position: relative;
+    top: 15px;
+    left: 60%;
+
+}
+
+.error_messages {
+    color: rgb(255, 0, 0);
+    position: relative;
+    bottom: -3px;
+    font-family: 'Poppins';
+    font-size: 12px;
+}
+
+.label_form {
+    font-family: 'Poppins';
+    color: #3E403D;
+}
+
+.non-editable {
+    background-color: none;
+    /* or any color you prefer */
+    /* cursor: not-allowed; */
+    /* optional: change cursor for visual indication */
+}

@@ -1,0 +1,151 @@
+.payment_div {
+    margin-bottom: 5%;
+    margin-top: 10%;
+}
+
+.header_row {
+    padding: 10px;
+    background: #007D8A;
+    font-family: 'Poppins';
+    color: #ffff;
+    margin-bottom: 18px;
+    margin-left: 0;
+    /* Remove default margin */
+    margin-right: 0;
+}
+
+.payment_conatiner {
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+
+}
+
+.cards_conatiner {
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0px;
+    border-radius: 8px;
+}
+
+.confrim__btn {
+    background: #026937;
+    color: #ffff;
+    font-family: 'Poppins';
+    padding: 5px 19px 11px 25px;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 10px;
+
+}
+
+.tr__txt {
+    font-size: 14px;
+    color: #6B6B6B;
+    font-family: Poppins;
+    font-weight: 400;
+}
+
+.payment__input {
+    outline: none;
+    padding: 3px;
+    width: 15%;
+    text-align: center;
+    border: 1px solid grey;
+    border-radius: 5px;
+    font-size: 13px;
+    font-family: Poppins;
+    font-weight: 700;
+}
+
+.payment__btn {
+    border-radius: 5px;
+    font-family: Poppins;
+    font-weight: 400;
+    background-color: #026937;
+    color: #ffff;
+    padding: 7px;
+    border: none;
+    outline: none;
+    width: 30%;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card__input {
+    font-family: 'Poppins';
+    font-weight: 500;
+    color: #000000;
+}
+
+.payment__input:focus {
+    outline: none;
+}
+
+.addCard__conatiner {
+    margin-top: 2%;
+    margin-bottom: 5%;
+}
+
+.payment_conatiner_div {
+    display: flex;
+    justify-content: space-around;
+    max-width: 80%;
+    margin: 0 auto;
+    position: relative;
+    top: 25px;
+}
+
+.add_more_Items {
+    font-family: Poppins;
+    color: #026937;
+    border: 1px solid #026937;
+    background-color: none;
+    background: none;
+    padding: 5px;
+    width: 30%;
+    border-radius: 7px;
+}
+
+
+@media (max-width: 768px) {
+    .payment_div {
+        padding: 5px;
+        max-width: 98%;
+        margin: 0 auto;
+        position: relative;
+        top: 160px;
+        left: 8px;
+        margin-top: 20px;
+    }
+
+    .payment_deatils {
+        font-size: 12px;
+    }
+
+    .header_row {
+        font-size: 14px;
+    }
+
+    .payment_conatiner {
+        margin-bottom: 25px;
+    }
+
+    .payment__input {
+        width: 100%;
+    }
+
+    .addCard__conatiner {
+        margin-top: 8%;
+        margin-bottom: 25%;
+    }
+
+    .payment__btn {
+        width: 30%;
+    }
+}

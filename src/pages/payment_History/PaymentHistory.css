@@ -1,0 +1,26 @@
+
+ .page__title {
+    background-color: #007D8A;
+    color: #ffff;
+    padding: 20px;
+    border-radius: 5px;
+    font-family: 'Poppins';
+ }
+
+ .header__txt {
+    color: #6E6E6E;
+    font-weight: 500;
+    font-family: 'Poppins';
+    font-size: 16px;
+ }
+
+ .body__txt {
+    font-size: 14px;
+    font-family: 'Poppins';
+    font-weight: 500;
+ }
+
+ .body__elemnts {
+    position: relative;
+    left: 5px;
+ }

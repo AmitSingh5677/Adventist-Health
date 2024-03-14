@@ -1,0 +1,26 @@
+
+
+ .feedBack__btn {
+    color: #026937;
+    border: 1px solid #026937;
+    background: none;
+    width: 15%;
+    padding: 5px;
+    border-radius: 7px;
+    font-family: 'Poppins';
+    outline: none;
+
+ }
+
+ .feedBack__submitBtn {
+    color: #ffff;
+    border: none;
+    width: 15%;
+    padding: 5px;
+    border-radius: 7px;
+    font-family: 'Poppins';
+    background: #026937;
+    position: relative;
+    left: -30%;
+    outline: none;
+ }

@@ -1,0 +1,16 @@
+.bankDeatils__btn {
+    background-color: #026937;
+    color: #ffff;
+    border: none;
+    padding: 5px;
+    width: 82%;
+    border-radius: 6px;
+    margin-top: 15px;
+}
+
+.bankDeatils__HeadingTxt {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+
+}

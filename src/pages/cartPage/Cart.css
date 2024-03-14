@@ -1,0 +1,54 @@
+.addTOCart__button {
+    width: 25%;
+    border: 1px solid #026937;
+    color: #026937;
+    padding: 5px;
+    border-radius: 3px;
+    background-color: #ffff;
+    font-family: inter;
+}
+
+.buy__btn {
+    font-family: inter;
+    width: 25%;
+    border: 1px solid #026937;
+    color: #ffff;
+    padding: 5px;
+    border-radius: 3px;
+    background-color: #026937;
+}
+
+.decrement__btn {
+    width: 30px;
+    height: 30px;
+    background-color: #E1E8EE;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+}
+
+.increment__btn {
+    width: 30px;
+    height: 30px;
+    background-color: #E1E8EE;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+}
+
+.quantity__txt {
+    -webkit-appearance: none;
+    border: none;
+    text-align: center;
+    width: 35px;
+    font-size: 16px;
+    color: #43484D;
+    font-weight: 300;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.amount__conatiner {
+    font-size: 16px;
+    font-weight: 700
+}

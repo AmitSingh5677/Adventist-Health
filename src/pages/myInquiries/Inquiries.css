@@ -1,0 +1,36 @@
+.inquireies__txt {
+   font-size: 1rem;
+   color: #333333;
+   font-family: 'Poppins';
+   font-size: 17px;
+   font-weight: 600;
+   position: relative;
+   left: -30px;
+}
+
+.inquireies__subTxt {
+   color: #333333;
+   position: relative;
+   /* bottom: 5px; */
+   right: 30px;
+   font-family: 'Poppins';
+   font-weight: 500;
+   font-size: 13px;
+}
+
+.userLogo_imquiry {
+   height: 60px;
+   width: 60px;
+   border-radius: 50%;
+   object-fit: cover;
+}
+
+.noData_txt {
+   text-align: center;
+   font-size: 30px;
+   font-family: 'Poppins';
+   font-weight: 400;
+   position: relative;
+   top: 40px;
+
+}

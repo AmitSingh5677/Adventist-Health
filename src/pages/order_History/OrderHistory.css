@@ -1,0 +1,45 @@
+.orderHistory__conatiner {
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    /* width: 97%; */
+    padding: 0px;
+    border-radius: 8px;
+    max-width: 95%;
+    margin: 0 auto;
+}
+
+.re-order_btn {
+    background: #026937;
+    color: #ffff;
+    padding: 5px;
+    font-size: 12px;
+    border: none;
+    width: 50%;
+    outline: none;
+    border-radius: 5px;
+    font-family: 'Poppins';
+}
+
+.deatils__btn {
+    color: black;
+    border: none;
+    padding: 7px;
+    border-radius: 6px;
+    font-family: 'Poppins';
+    font-size: 13px;
+}
+
+.order_info {
+    font-family: 'Poppins';
+    text-align: center;
+    font-weight: 500;
+    margin-top: 10px;
+}
+
+.green{
+    color: green;
+}
+
+.red{
+    color: red;
+}

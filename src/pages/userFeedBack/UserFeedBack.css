@@ -1,0 +1,61 @@
+.cardTxt {
+    font-weight: 700;
+    font-size: 35px;
+    margin-top: 30px;
+}
+
+.userRiews {
+    font-size: 25px;
+    font-family: Poppins;
+    font-weight: 400;
+    margin-top: 10px;
+    margin-bottom: 20px;
+
+}
+
+.rating__btn {
+    border: none;
+    background-color: #219653;
+    color: #fff;
+    padding: 5px 15px 5px 15px;
+    outline: none;
+    border-radius: 5px;
+    font-family: Poppins;
+}
+
+.all_Reviews {
+    max-width: 40%;
+    margin: 0 auto;
+    margin-top: 50px;
+    padding: 10px;
+    background: none;
+    color: #026937;
+    font-family: 'Poppins';
+    border: 1px solid #026937;
+    outline: none;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+.rating__txt {
+    font-size: 20px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    font-family: Poppins;
+}
+
+.total_reviews {
+    font-size: 20px;
+    font-family: Poppins;
+    color: #8A9BAD;
+    font-weight: 600;
+}
+.nxt__btn{
+    width: 700px;
+}
+.btn-container{
+    text-align: end;
+    margin-right: 160px;
+}

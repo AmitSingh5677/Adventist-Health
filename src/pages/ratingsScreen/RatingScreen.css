@@ -1,0 +1,58 @@
+.three__icon {
+   position: relative;
+   top: -60px;
+   right: 35px;
+   height: 10px;
+}
+
+.userName__feedback {
+   position: relative;
+   left: 10px;
+   font-weight: 600;
+   font-size: 16px;
+}
+
+.user__feedback {
+   font-family: 'Poppins';
+   position: relative;
+   left: 180px;
+   font-size: 14px;
+   font-weight: 600;
+   top: -25px;
+}
+
+.user_feedback_img {
+   height: 70px;
+   width: 70px;
+   border-radius: 50%;
+   object-fit: cover;
+}
+
+.user__feedback__p {
+   color: #333333;
+   /* position: relative; */
+   margin-bottom: 6px;
+   margin-top: -10px;
+   font-weight: 500;
+   font-family: 'Poppins';
+}
+
+.user__time {
+   position: relative;
+   left: 130px;
+   /* bottom: 17px; */
+   top: -35px;
+}
+
+.user__time {
+   font-family: 'Poppins';
+   position: relative;
+   left: 130px;
+   font-size: 14px;
+   font-weight: 600;
+   top: -30px;
+}
+.navigate-rate-btn{
+   text-align: right;
+   margin-right: 150px ;
+}

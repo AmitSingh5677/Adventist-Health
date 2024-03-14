@@ -1,0 +1,35 @@
+ .Payment_Status {
+     font-family: Poppins;
+     color: #026937;
+     font-weight: 600
+ }
+
+ .payment_subTxt {
+     color: #383938;
+     font-family: 'Poppins';
+     font-weight: 500;
+ }
+
+ .equpiment_txt {
+     font-family: 'Poppins';
+     font-weight: 400;
+     color: #383938;
+ }
+
+ .equpiment_subtxt {
+     font-family: 'Poppins';
+     font-weight: 600;
+     color: #383938;
+     font-size: 15px;
+ }
+
+ .done_btn {
+    background: #026937;
+    font-family: 'Poppins';
+    color: #ffff;
+    width: 90%;
+    border: none;
+    padding: 7px;
+    border-radius: 8px;
+    font-weight: 500;
+ }

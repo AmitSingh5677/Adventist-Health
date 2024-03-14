@@ -1,0 +1,15 @@
+
+
+.subFooterTxt {
+    /* position: relative;
+    left: -45px;
+    padding: 0px; */
+}
+
+@media (max-width: 768px) { 
+    .subFooterTxt {
+        position: relative;
+        left: -45px;
+        padding: 0px;
+    }
+}

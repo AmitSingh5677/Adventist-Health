@@ -1,0 +1,90 @@
+.input-group input::placeholder {
+    font-family: Inter, sans-serif;
+}
+
+.signUpBtn {
+    margin-top: 20px;
+    background-color: #026937;
+    color: #fff;
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    font-family: "Poppins", sans-serif !important;
+}
+
+::-ms-reveal {
+    display: none;
+}
+
+.checkBox {
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 30px;
+    letter-spacing: 0em;
+    text-align: left;
+
+}
+
+.icon-transparent-bg {
+    background-color: transparent;
+    border: none;
+}
+
+.ageVectorImg {
+    position: relative;
+    left: 125px;
+
+    @media (max-width: 767px) {
+        left: 80px;
+
+    }
+}
+
+.ageTxt {
+    font-weight: 700;
+    font-family: Poppins;
+    position: relative;
+    bottom: 85px;
+
+}
+
+.noTxt {
+    border: 2px solid #026937;
+    background: none;
+    padding: 4px 36px 6px 37px;
+    font-family: 'Inter';
+    font-weight: 700;
+    border-radius: 5px;
+    color: #026937;
+}
+
+.yesTxt {
+    background: #026937;
+    padding: 4px 36px 6px 37px;
+    font-family: 'Inter';
+    font-weight: 700;
+    border-radius: 5px;
+    border: none;
+    color: #ffff;
+}
+
+.modal-body {
+    border: none !important;
+    color: #183964;
+    /* margin-bottom: -35px; */
+
+}
+
+.errorTxt {
+    font-family: Poppins;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #FF0000;
+    position: relative;
+    bottom: 0px;
+}

@@ -1,0 +1,57 @@
+.read_txt {
+    color: #2E70E8;
+    font-family: 'Poppins';
+}
+
+.close_icon {
+    color: #64748B;
+    font-family: 'Poppins';
+    margin-left: 10px;
+}
+
+.notif_all {
+    font-family: inter;
+    font-weight: 600;
+    color: #1E293B;
+}
+
+.noti__img {
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+}
+
+.noti__subtxt {
+    color: #334155;
+    /* position: relative; */
+    margin-bottom: 6px;
+    margin-top: -9px;
+    font-weight: 400;
+    font-family: 'Poppins';
+    position: relative;
+    left: 115px;
+    top: -15px;
+    font-size: 13px;
+}
+
+.noti__time {
+    font-family: 'Poppins';
+    position: relative;
+    left: -10px;
+
+}
+
+.noti__btn {
+    background-color: #026937;
+    color: #fff;
+    font-family: 'Poppins';
+    border-radius: 5px;
+    padding: 6px;
+    border: none;
+    margin-top: 2px;
+    margin-bottom: 10px;
+    position: relative;
+    left: -85%;
+    font-size: 12px;
+
+}

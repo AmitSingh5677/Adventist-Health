@@ -1,0 +1,208 @@
+.app-header {
+    background: #007d8a;
+    color: white;
+    cursor: pointer;
+    padding: 0px;
+}
+
+.icon {
+    margin-right: 5px;
+    color: #ffff;
+    cursor: pointer;
+}
+
+.app-logo {
+    padding: 24px;
+    height: 90px;
+    cursor: pointer;
+}
+
+.bussiness-logo {
+    padding: 15px;
+    height: 120px;
+    cursor: pointer;
+    border-radius: 25%;
+}
+
+.bussiness_txt {
+    color: #fff;
+    position: relative;
+    top: 30px;
+    padding: 0px;
+    font-weight: 800;
+}
+
+
+.app-text {
+    font-family: "Poppins", sans-serif !important;
+    color: #ffff;
+    position: relative;
+    right: 4px;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-right: 20px;
+}
+
+.search-icon {
+    color: grey;
+    position: absolute;
+    left: 90%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.search-bar {
+    flex: 1;
+    border: none;
+    border-radius: 20px;
+    padding: 8px;
+    outline: none;
+    width: 440px;
+}
+
+.cart__badge {
+    position: absolute;
+    top: -12px;
+    right: 45px;
+    background: #fff;
+    color: #007d8a;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-bar::placeholder {
+    position: relative;
+    left: 10px;
+    letter-spacing: 2px;
+    color: #25243B;
+    font-family: "Poppins", sans-serif !important;
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: -0.5px;
+    line-height: 22px;
+}
+
+.model_header {
+    background-color: #007D8A;
+    color: #fff;
+    padding: 10px;
+    font-family: 'Poppins';
+}
+
+.modal__footer {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.modal__txt {
+    font-family: 'Poppins';
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    position: relative;
+    top: 10px;
+}
+
+.cancel__btn {
+    background-color: #AEAEAE;
+    border: none;
+    outline: none;
+    width: 25%;
+    font-family: 'Poppins';
+    font-size: 14px;
+    padding: 5px;
+    color: #ffff;
+    border-radius: 5px;
+}
+
+.yes__btn {
+    background-color: #026937;
+    border: none;
+    outline: none;
+    width: 25%;
+    font-family: 'Poppins';
+    font-size: 14px;
+    padding: 5px;
+    color: #ffff;
+    border-radius: 5px;
+}
+
+.offcanavs__conatiner {
+    background-color: #026937;
+    color: #ffff;
+    font-family: 'Poppins';
+}
+
+.offcanvas-header button.close {
+    color: #ffff;
+    /* Change 'red' to the desired color */
+}
+
+
+@media (max-width: 768px) {
+
+    .app-header {
+        height: 160px;
+    }
+
+    .app-logo {
+        padding: 12px;
+        height: 50px;
+        position: relative;
+        top: 10px;
+    }
+
+    .ml-auto {
+        margin-left: auto;
+        position: relative;
+        left: -7px;
+        top: -45px;
+        padding: 10px;
+    }
+
+    .search-container {
+        position: relative;
+        bottom: 30px;
+    }
+
+    .search-bar {
+        width: 100%;
+    }
+
+    .icon {
+        margin-right: 10px;
+
+    }
+
+    .search-bar::placeholder {
+        font-size: 12px;
+        letter-spacing: 1px;
+    }
+
+    .search-bar::placeholder {
+        content: "Search Products";
+    }
+
+    .modal__txt {
+        font-size: 12px;
+    }
+
+    .cancel__btn {
+        font-size: 12px;
+    }
+
+    .yes__btn {
+        font-size: 12px;
+    }
+
+}

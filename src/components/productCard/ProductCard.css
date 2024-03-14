@@ -1,0 +1,86 @@
+.product__item {
+    border: 1px solid #D3D3D3;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 15px;
+}
+
+.product__img {
+    margin-bottom: 10px;
+    transition: 0.4s;
+}
+
+.product__img:hover {
+    transform: scale(1.1);
+}
+
+
+
+.product__content h6 {
+    margin-bottom: 8px;
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.product_dec {
+    font-size: 12px;
+    font-weight: 400;
+    font-family: 'Poppins'
+}
+
+.product__price {
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: #0683F9;
+}
+
+.addToBuy__btn {
+    border: none;
+    padding: 7px 25px;
+    background: #026937;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-family: Inter;
+}
+
+.tooltip_id {
+    font-size: 19px;
+    font-weight: bold;
+    position: relative;
+    top: -48px;
+    left: 45px;
+}
+
+.addToCart_Btn {
+    /* margin-top: 10px; */
+    color: #00A0DD;
+    background: none;
+    border: none;
+    /* margin: 1px auto; */
+    margin-bottom: 1px;
+    position: relative;
+    text-align: center;
+    /* top: 6px; */
+    font-weight: 600;
+}
+
+
+@media only screen and (max-width: 992px) {
+    .product__content h5 a {
+        font-size: 0.8rem;
+    }
+
+    .product__item {
+        padding: 20px;
+    }
+
+    .addToBuy__btn {
+        padding: 0px 7px 4px 8px;
+        font-size: 12px;
+        position: relative;
+        left: 10px;
+    }
+}

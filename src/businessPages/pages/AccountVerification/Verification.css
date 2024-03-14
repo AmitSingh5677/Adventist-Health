@@ -1,0 +1,122 @@
+
+.verification-screen{
+    display: flex;
+    /* width: 100vw; */
+    width: 100vw;
+}
+
+.left-section-ver{
+    width: 59vw;
+    box-shadow: 6px 0 3px -1px #cecdcd30
+}
+.doodle-logo{
+    width: 99%;
+    object-fit: contain;
+}
+.logo-image{
+    width: 60%;
+}
+.logo-section{
+    border: 1px solid #C0C0C2;
+    background-color: #C0C0C2;
+    text-align: center;
+    padding: 80px 150px;
+}
+.ver-form-section{
+    text-align: left;
+    padding: 40px 40px;
+    width: 41vw;
+}
+.status-bar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.status{
+    color: #FD8900;
+    border: 1px solid #FFE1B491;
+    background-color: #FFE1B491;
+    padding: 8px 20px;
+    border-radius: 10px;
+}
+.image-container-edit{
+    border: 1px solid black;
+    height: 120px;
+    width: 120px;
+    margin-left: 30px;
+    margin-top: 15px;
+    border-radius: 10px;
+    text-align: center;
+}
+.top-section-ver-form{
+    display: flex;
+    justify-content: space-between;
+}
+.input-file-ver{
+    opacity: 0;
+}
+/* .create-input-section input{
+    border: 1px solid #A9A9A9;
+    border-radius: 5px;
+    width: 20vw;
+    height: 30px;
+} */
+.name-input-field{
+    border: 1px solid #A9A9A9;
+    border-radius: 5px;
+    width: 20vw;
+    height: 30px;
+}
+.name-input-field input{
+    border: none;
+    width: 92%;
+    border-radius: 5px;
+}
+.ver-mid-form-input{
+    border: 1px solid #A9A9A9;
+    border-radius: 5px;
+    width: 35vw;
+    height: 30px;
+}
+.ver-mid-form-input-desc{
+    border: 1px solid #A9A9A9;
+    border-radius: 5px;
+    width: 35vw;
+    height: 75px;
+}
+.ver-mid-form-input input{
+    border: none;
+    width: 95%;
+    border-radius: 5px;
+}
+.ver-mid-form-input-desc input{
+    border: none;
+    width: 94%;
+    border-radius: 5px;
+}
+.btn-section{
+    margin-top: 70px;
+}
+
+.inventory-btn{
+    width: 100%;
+    color: #ffff;
+    border: none;
+    background: #026937;
+    padding: 6px;
+    border-radius: 6px;
+    font-family: 'Poppins';
+}
+.bank-btn{
+width: 100%;
+  color: #026937;
+  border: 1px solid #026937;
+  background: none;
+  padding: 6px;
+  border-radius: 6px;
+  font-family: 'Poppins';
+}
+.img-icon{
+height: 14px;
+cursor: pointer;
+}
