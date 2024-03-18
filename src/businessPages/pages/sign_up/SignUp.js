@@ -8,7 +8,7 @@ import ErrorToast from "../../components/errorToast/ErrorToast";
 import SucessToast from "../../components/sucessToast/SucessToast"
 import SpinLoader from "../../components/spin_loader/SpinLoader";
 import { useNavigate } from "react-router-dom";
-
+import mixpanel from "../../../mixpanel";
 const SignUpBusiness = () => {
   const [formData, setFormData] = useState({
     business_name: "",
@@ -152,6 +152,12 @@ const SignUpBusiness = () => {
           body: form,
         });
 
+          mixpanel.track("User Registration", {
+            "User Email": formData.email,
+            "User Name": formData.owner_full_name
+          })
+   
+          mixpanel.identify(formData.email)
         const data = await response.json();
           console.log("Account created successfully:", data.id);
         if (response.status === 201) {

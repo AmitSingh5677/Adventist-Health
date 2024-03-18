@@ -10,7 +10,7 @@ import SpinLoader from '../../components/spin-loader/SpinLoader';
 import ToastMessage from '../../components/toast/ToastMessage';
 import { useNavigate } from 'react-router-dom';
 import { CiLocationOn } from "react-icons/ci";
-
+import mixpanel from '../../mixpanel'
 export const HomePage = () => {
     const [searchInput, setSearchInput] = useState('');
     const [products, setProducts] = useState([]);
@@ -87,7 +87,9 @@ export const HomePage = () => {
 
     useEffect(() => {
         const searchWithoutClick = async () => {
+           
             if (searchInput.trim() !== '') {
+                mixpanel.track("Search Queries", { search: searchInput })
                 setIsLoading(true);
                 const token = JSON.parse(sessionStorage.getItem("token"));
                 try {
@@ -133,6 +135,7 @@ export const HomePage = () => {
 
     const searchIconHandler = async () => {
         setIsLoading(true);
+        mixpanel.track("Search Queries", { search: searchInput })
         const token = JSON.parse(sessionStorage.getItem("token"));
         try {
             const response = await fetch(`/patients/search/?search=${searchInput}`, {
