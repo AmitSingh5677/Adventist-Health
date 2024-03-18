@@ -1,19 +1,26 @@
 import AppHeader from '../../components/AppHeader/AppHeader'
 import DashboardFooter from '../../components/DashboardFooter/DashboardFooter'
 import AppFooter from '../../components/AppFooter/AppFooter'
+import './index.css'
 
 
 const OrderHistoryBusiness = ()=>{
     return <div>
+      <div style={{display:'block'}}>
         <AppHeader />
+
+      </div>
       
-      
-    <h6 className='bg-info p-2 rounded m-5 mb-2 mt-3 text-white'>ORDER HISTORY</h6>
+      <div className='order-history-section'>
+        <div className='title-order-history'>
+      <h6 className='ps-3 pt-3 pb-1'>ORDER HISTORY</h6>
+
+        </div>
       <table className=' table-margin'  >
 
-    <thead className='bg-body-secondary'>
-      <tr>
-        <th className='w-2'>EQUIPMENT NAME</th>
+    <thead className='table-header'>
+      <tr >
+        <th className='w-2 py-3 ps-2'>EQUIPMENT NAME</th>
         <th className='w-5'>DATE</th>
         <th className='w-5'>PAYMENT DETAILS</th>
         <th className='w-5'>ORDER DETAILS</th>
@@ -22,8 +29,8 @@ const OrderHistoryBusiness = ()=>{
     </thead>
 
     <tbody>
-      <tr className='border-bottom border-body-secondary'>
-        <td>WHEEL CHAIR</td>
+    <tr className='border-bottom border-body-secondary '>
+        <td className='py-2'>WHEEL CHAIR</td>
         <td>01/24/2024</td>
         <td className='text-wrap'> AMOUNT PAID: 1200.00, PAID VIA: APPLE PAY</td>
         <td>5TH AVENUE,CAMBRIDGE CAMPUS,CALIFORNIA,USA 754296</td>
@@ -80,10 +87,14 @@ const OrderHistoryBusiness = ()=>{
 
     </tbody>
   </table>
+      </div>
+   
                                                    
 
-    
-      <DashboardFooter />
+    <div>
+
+      {/* <DashboardFooter /> */}
+    </div>
       <AppFooter />
      
     </div>

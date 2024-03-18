@@ -1,0 +1,9 @@
+.button-view{
+    border: 1px solid #F3F3F3;
+    background-color: #F3F3F3;
+    padding-left: 10px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    color: #6B7280;
+    width: 120px;
+}

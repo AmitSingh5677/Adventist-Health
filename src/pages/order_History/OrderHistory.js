@@ -97,13 +97,14 @@ const OrderHistory = () => {
             navigate(`/orderDetails/${payment_Id}`);
         }, 1000);
     };
-
-
+    
+    
     const reOrderHandler = (id) => {
+        const payment_Id = id;
         // alert(id)
         setIsLoading(true)
         setTimeout(() => {
-            navigate(`/orderDeatils/${id}`);
+            navigate(`/orderDetails/${payment_Id}`);
         }, 1000)
     }
 

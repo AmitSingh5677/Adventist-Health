@@ -1,0 +1,57 @@
+.my-profile-bsuiness-page{
+    height: 110vh;
+    scroll-behavior: auto;
+}
+.profile-section{
+    margin-top: 150px;
+    margin-left: 100px;
+    margin-right: 100px;
+
+}
+.my-profile-bar{
+    border: 1px solid #007D8A;
+    border-radius: 10px 10px 0 0;
+    background-color: #007D8A ;
+    padding: 20px 45px;
+    width: 93%;
+}
+.my-profile-bar-text{
+    color: #fff;
+    font-size: 24px;
+    border: 1px solid #007D8A;
+    border-radius: 10px, 10px, 0px, 0px;
+}
+
+.input-my-profile-section{
+    margin-top: 36px;
+    border: 1px solid black;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+}
+.image-profile-section{
+    object-fit: contain;
+}
+.text-area-location{
+    width: 460px;
+    height: 77px;
+    border-radius: 10px;
+    border: 1px solid #5E5858;
+}
+.input-business-name{
+    width: 367px;
+    height: 50px;
+    border-radius: 10px;
+    border: 1px solid #5E5858;
+}
+.btn-first-container{
+
+    display: flex;
+    justify-content: space-between;
+}
+.first-container-buttons{
+    width: 370px;
+}
+.second-container-buttons{
+    width: 400px;
+}

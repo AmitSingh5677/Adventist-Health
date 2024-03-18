@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import AppFooter from "../../components/AppFooter/AppFooter"
 import AppHeader from "../../components/AppHeader/AppHeader"
 import InventoryItemCard from "../../components/InventoryItemCard/InventoryItemCard"
+import './index.css'
 
 
 const MyInventory = () => {
