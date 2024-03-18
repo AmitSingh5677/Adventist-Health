@@ -14,10 +14,10 @@ const Verification = () => {
  const [name, setName] = useState("")
  const [data, setData] = useState([])
 
- const { email } = useParams();
+ const { id } = useParams();
 
  const fetchData = async()=>{
-    const response = await fetch(`https://dmecart-38297.botics.co/business/verification_details/${email}/`);
+    const response = await fetch(`https://dmecart-38297.botics.co/business/verification/${id}/`);
     const resData = await response.json()
     setData(resData)
  }

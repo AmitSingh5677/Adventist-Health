@@ -152,15 +152,17 @@ const SignUpBusiness = () => {
           body: form,
         });
 
-        if (response.status === 201) {
           mixpanel.track("User Registration", {
             "User Email": formData.email,
             "User Name": formData.owner_full_name
           })
    
           mixpanel.identify(formData.email)
-          const data = await response.json();
+        const data = await response.json();
           console.log("Account created successfully:", data.id);
+        if (response.status === 201) {
+          // const data = await response.json();
+          // console.log("Account created successfully:", data.id);
         //   setIsLoading(true);
 
           // stripe Account Craetion API.
@@ -204,7 +206,8 @@ const SignUpBusiness = () => {
         setPassError("");
         setConfirmError("");
         setTncError("");
-        naviagte(`/verification/${formData.email}`)
+        naviagte(`/b/verification/${data.id}`)
+        console.log(data.id,"idid")
       } catch (error) {
         console.error("Error fetching data:", error);
       }

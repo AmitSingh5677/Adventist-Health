@@ -1,0 +1,27 @@
+.inquiry-section{
+    margin-top: 132px;
+    padding-inline: 80px;
+}
+.comp-name-sec{
+    align-items: top;
+}
+.equipm-img-box{
+    border: 1px solid black;
+    height: 120px;
+    width: 100px;
+}
+.product-img{
+    object-fit: contain;
+    height: 110px;
+    width: 90px;
+}
+.delete-btn{
+    cursor: pointer;
+}
+.delete-btn:hover{
+    color: brown;
+    transform: scale(1.2);
+}
+textarea{
+    border: none;
+}
