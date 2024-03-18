@@ -78,7 +78,7 @@ const AppRoutes = () => {
       {/* need to work on getting signUp component for business */}
       <Route path="/b/sign-Up" element={<SignUpBusiness />} />
             {/* <Route path='/sign_In' element={<SignIn />} />  */}
-            <Route path='/b/verification/:email' element={<Verification/>} />
+            <Route path='/b/verification/:id' element={<Verification/>} />
             <Route path="/b/bankDeatils" element={<BankDeatils />} />
             <Route path="/b/addInventory" element={<AddInventory />} />
             <Route path="/b/allorders" element={<DashboardAllOrders />} />

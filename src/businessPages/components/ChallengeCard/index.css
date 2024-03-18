@@ -1,0 +1,16 @@
+.business-logo-container{
+    display: flex;
+    /* align-items: center; */
+
+}
+.text_area{
+    /* background-color: #f5f7f86e; */
+    height: 89px;
+    border-radius: 10px;
+}
+.delete-btn{
+    width: 150px;
+    margin-right: 50px;
+    font-weight: 500;
+    border: 1px solid #B1ADAD;
+}

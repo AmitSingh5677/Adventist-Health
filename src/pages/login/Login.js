@@ -49,9 +49,9 @@ const Login = () => {
     } else {
       setUsernameError('');
     }
-    if (password.length < 6) {
-      // alert("Passowrd is Short")
-    }
+    // if (password.length < 6) {
+    //   alert("Passowrd is Short")
+    // }
     if (!password) {
       setPasswordError('Password is required');
     } else {
@@ -81,13 +81,51 @@ const Login = () => {
       if (response.ok) {
         setIsLoading(true)
         const responseData = await response.json();
+        const role = responseData.user_role
+        const id = responseData.user.id
         console.log("Login API Response: " + JSON.stringify(responseData.token));
         // alert('Login successful!');
-        setTimeout(() => {
-          navigate("/homePage")
-        }, 3000)
-        // Store Token for Home Page
-        sessionStorage.setItem("token", JSON.stringify(responseData.token))
+        // console.log(id,role,"123",)
+        if(role === "patient"){
+          setTimeout(() => {
+            navigate("/homePage")
+          }, 3000)
+          sessionStorage.setItem("token", JSON.stringify(responseData.token))
+        }
+        if(role ==="business"){
+          const res = await fetch(`https://dmecart-38297.botics.co/business/stripe_verification/${id}/`) 
+          const resData = await res.json()
+          if(resData.details === "Stripe account available"){
+            console.log(resData,"res")
+            setTimeout(() => {
+              navigate("/b/sign-Up")
+            }, 3000)
+            sessionStorage.setItem("token", JSON.stringify(responseData.token))
+          }
+          else{
+            // stripe Account Craetion API -- connect bank api
+          const stripeApiResponse = await fetch(
+            `/business/connect_bank/${id}/`,
+            {
+              method: "GET",
+            }
+          );
+
+          if (stripeApiResponse.status === 200) {
+            const stripeUrl = await stripeApiResponse.json();
+            setIsLoading(true);
+            // Redirect the user to the received URL
+            window.location.href = stripeUrl.account_creation_url;
+          }
+          else {
+              console.error(
+                "Error calling second API:",
+                stripeApiResponse.statusText
+              );
+            }
+          }
+          // stripe account creation - ends 
+        }
       } else {
         setShowErrorToast(true);
         console.error('Login failed. Please check your credentials.');

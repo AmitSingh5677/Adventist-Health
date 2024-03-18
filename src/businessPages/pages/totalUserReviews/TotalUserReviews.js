@@ -7,6 +7,7 @@ import 'bootstrap';
 import Helmet from '../../components/helmet/Helmet';
 import { Col, Container, Row, Table } from 'reactstrap';
 import { StarRating } from '../../components/starRating/StarRating';
+import './UserReviews.css'
 
 const userReviews = [
   {
@@ -86,9 +87,9 @@ const DashBoardReviews = () => {
                     <thead>
                       <tr>
                         <th className='table_theader'>User/patient</th>
-                        <th className='table_theader'>Equipment DETAILS</th>
-                        <th className='table_theader' >ORDER DETAILS</th>
-                        <th className='table_theader'>ORDER STATUS</th>
+                        <th className='table_theader ps-4'>STARS</th>
+                        <th className='table_theader ps-2' >ORDER DETAILS</th>
+                        <th className='table_theader '></th>
                       </tr>
                     </thead>
                     <tbody className='body__txt'>
@@ -97,8 +98,8 @@ const DashBoardReviews = () => {
                           <td className='body__elemnts'>{item.userName}</td>
                           <td className='body__elemnts'> <StarRating rating={item.userRating} /></td>
                           <td className='body__elemnts'>{item.userDeatils}</td>
-                          <td className='body__elemnts'>
-                            VIEW ALL <MdKeyboardArrowRight />
+                          <td className='body__elemnts button-view'>
+                           <span className='button-view'>VIEW ALL <MdKeyboardArrowRight /></span>  
                           </td>
                         </tr>
                       ))}

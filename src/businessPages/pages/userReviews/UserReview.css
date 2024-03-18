@@ -1,0 +1,28 @@
+.my-review-section{
+    margin-top: 120px;
+}
+.table-reviews{
+    margin-top: 40px;
+}
+
+.reviews-header-section{
+    background-color: #F4F4F4;
+    /* padding: 14px 30px; */
+}
+.t-head-reviews{
+    padding: 14px 20px;
+}
+.profile-container{
+    display: flex;
+    align-items: center;
+    padding: 11px 16px;
+}
+.reviews-header-section th{
+    color: #6E6E6E;
+}
+.input-msg{
+    border-radius: 5px;
+    background-color: #F4F4F4;
+    border:1px solid #f4f4f437;
+    width: 350px;
+}

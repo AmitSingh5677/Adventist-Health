@@ -155,6 +155,18 @@ const DashBoard = () => {
         return ''; // default color or none
     }
   };
+  const getBackgroundOrderStatusColor = (status) => {
+    switch (status) {
+      case 'On the Way':
+        return '#FFCACA';
+      case 'Accepted':
+        return '#FFE7CA';
+      case 'Delivered':
+        return '#CAFFD9';
+      default:
+        return ''; // default color or none
+    }
+  };
 
   return (
     <div>
@@ -186,7 +198,7 @@ const DashBoard = () => {
                             <td className='body__elemnts'>
                               <select
                                 value={item.orderStatus}
-                                style={{ color: getOrderStatusColor(item.orderStatus), fontWeight: "600", border: "none", outline: "none" }}
+                                style={{ color: getOrderStatusColor(item.orderStatus), fontWeight: "600", border: "none", outline: "none", backgroundColor: getBackgroundOrderStatusColor(item.orderStatus) }}
                                 onChange={(e) => handleOrderStatusChange(index, e.target.value)}
                               >
                                 <option value="">Select Status</option>

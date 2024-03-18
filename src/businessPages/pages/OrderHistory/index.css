@@ -1,0 +1,17 @@
+.order-history-section{
+    margin-top: 160px;
+}
+.title-order-history{
+    border: 1px solid #007D8A;
+    background-color: #007D8A;
+    color: #fff;
+    margin-inline: 70px;
+    border-radius: 10px 10px 0 0;
+}
+.table-header{
+    background-color: #F4F4F4;
+}
+.table-header th{
+    color: #6E6E6E;
+    font-weight: 400;
+}

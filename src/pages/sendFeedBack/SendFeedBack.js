@@ -28,7 +28,7 @@ const SendFeedBack = () => {
             };
             if (!userDes) {
                 setShowTost(true);
-                setError("Please Add Message Before Submitting.");
+                setError("Please add message before submitting.");
                 return;
             };
 
