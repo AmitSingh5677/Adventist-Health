@@ -10,7 +10,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from '../../utility/CheckoutForm';
 import { useLocation, useNavigate } from 'react-router-dom';
 import PaymentConfirmation from '../../components/paymentConfirmation/PaymentConfirmation';
-
+import mixpanel from '../../mixpanel'
 
 const PaymentPage = () => {
     const totalPriceFromCart = useSelector((state) => state.cart.totalAmount);
@@ -47,6 +47,10 @@ const PaymentPage = () => {
 
     const paymentHandler = async (e) => {
         e.preventDefault();
+        mixpanel.track("Checkout Initiated", {
+            amount: calculateTotalPrice(),
+            // order_id: data?.order_id
+          })
         try {
             const defaultAddressId = JSON.parse(sessionStorage.getItem("defaultAddressId"))
             const token = JSON.parse(sessionStorage.getItem("token"));

@@ -18,6 +18,7 @@ import { cartActions } from '../../store/shippingCart/cartSlice';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { RiArrowRightDoubleFill } from 'react-icons/ri';
 import noImage from '../../data/assests/noImage.jpg';
+import mixpanel from '../../mixpanel'
 const BussinessPage = () => {
     const { id } = useParams();
     const [searchInput, setSearchInput] = useState('');
@@ -52,6 +53,11 @@ const BussinessPage = () => {
 
     const addToCart = (id, equipment_name, product_signed_url, price) => {
         console.log("Payload:", JSON.stringify({ id }));
+
+        mixpanel.track("Add to Cart", {
+            equipmentId: id,
+            equipmentName: equipment_name
+          })
         dispatch(
             cartActions.addItem({
                 id,

@@ -12,7 +12,7 @@ import PrivacyPage from "../privacy_Page/PrivacyPage";
 import SpinLoader from "../../components/spin-loader/SpinLoader";
 import ToastMessage from "../../components/toast/ToastMessage";
 import SucessMessage from "../../components/successToast/SuccessToast";
-
+import mixpanel from "../../mixpanel"
 const SignUp = () => {
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
@@ -154,6 +154,7 @@ const SignUp = () => {
   };
 
   const moduleHandler = async () => {
+   
     try {
       const response = await fetch("/api/v1/signup/", {
         method: "POST",
@@ -172,6 +173,12 @@ const SignUp = () => {
       });
 
       if (response.ok) {
+        mixpanel.track("User Registration", {
+          "User Email": userEmail,
+          "User Name": userName
+        })
+    
+        mixpanel.identify(userEmail)
         setSucessToast(true);
         setIsucess(
           "Your details have been successfully saved. Please proceed to login to access your account."

@@ -23,7 +23,7 @@ const Login = () => {
 
   const navigate = useNavigate();
   const mixpanelToken = 'c8749db644c346f22ea52410e2ccd7d8';
-  Mixpanel.init(mixpanelToken);
+  Mixpanel.init(mixpanelToken, {debug: true, track_pageview: true, persistence: 'localStorage'});
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -64,7 +64,8 @@ const Login = () => {
 
     setUsernameError('');
     setPasswordError('');
-
+    
+   
 
     try {
       const response = await fetch('/api/v1/login/', {
@@ -79,6 +80,8 @@ const Login = () => {
       });
 
       if (response.ok) {
+        Mixpanel.track("Login")
+        Mixpanel.identify(username)
         setIsLoading(true)
         const responseData = await response.json();
         console.log("Login API Response: " + JSON.stringify(responseData.token));
@@ -105,13 +108,13 @@ const Login = () => {
     }, 2000)
   }
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    Mixpanel.track('User Registration', {
-      username,
-    });
+  //   Mixpanel.track('User Registration', {
+  //     username,
+  //   });
 
-  }, [isLoading])
+  // }, [isLoading])
 
   return (
     <Helmet title="Login Page">

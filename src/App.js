@@ -6,10 +6,12 @@ import Mixpanel from 'mixpanel-browser';
 
 
 function App() {
-  // useEffect(() => {
-  //   // Track an event with specific data
-  //   Mixpanel.track('Button Clicked', { buttonType: 'Primary' });
-  // }, []);
+  const mixpanelToken = 'c8749db644c346f22ea52410e2ccd7d8';
+  Mixpanel.init(mixpanelToken, {debug: true, track_pageview: true, persistence: 'localStorage'});
+
+  useEffect(() => {
+    Mixpanel.track("App Opened");
+  }, []);
 
   return (
     <div>

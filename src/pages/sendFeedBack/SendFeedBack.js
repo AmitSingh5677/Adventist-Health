@@ -8,8 +8,12 @@ import { Col, FormGroup, Input, Label } from 'reactstrap'
 import ToastMessage from '../../components/toast/ToastMessage';
 import SucessMessage from '../../components/successToast/SuccessToast';
 import { useNavigate } from 'react-router-dom';
+import Mixpanel from 'mixpanel-browser';
 
 const SendFeedBack = () => {
+    const mixpanelToken = 'c8749db644c346f22ea52410e2ccd7d8';
+    Mixpanel.init(mixpanelToken, {debug: true, track_pageview: true, persistence: 'localStorage'});
+  
     const [userReason, setUserReason] = useState()
     const [userDes, setUserDes] = useState();
     const [isError, setError] = useState("");
@@ -46,6 +50,8 @@ const SendFeedBack = () => {
             });
 
             if (response.ok) {
+                Mixpanel.track("Feedback Submitted");
+                console.log("Feedback")
                 setSucessTaost(true)
                 setIsSucess("Thanks for sharing FeedBack.")
                 setUserDes("")
