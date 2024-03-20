@@ -158,7 +158,7 @@ const BussinessPage = () => {
                 // console.error('Error fetching data:', error);
                 setIsLoading(false);
                 setIsError(true);
-                setErrorMessage("There is Internal Server.Please Visit After SomeTime.")
+                setErrorMessage("There is internal server error while fetching average rating of this business.")
             }
         };
 
@@ -385,7 +385,7 @@ const BussinessPage = () => {
                                     <StarRating rating={averageRating} />
                                 </div>
                             </Col>
-                            <Col xs="2" lg="2" className='bottom_txt' onClick={ratingHandler} style={{ cursor: "pointer" }}>
+                            <Col xs="2" lg="2" className='bottom_txt rating_text' onClick={ratingHandler} style={{ cursor: "pointer" }}>
                                 View rating
                             </Col>
                             <Col xs="1" lg="1">
