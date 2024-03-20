@@ -5,16 +5,18 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { cartActions } from '../../store/shippingCart/cartSlice';
 import mixpanel from '../../mixpanel'
-const PaymentConfirmation = ({ equipmentName, amount, currentdate }) => {
+const PaymentConfirmation = ({ equipmentName, currentdate }) => {
     const cartTotalAmount = useSelector((state) => state.cart.totalAmount);
     console.log("Total Amount " + JSON.stringify(cartTotalAmount));
     const [currentDateTime, setCurrentDateTime] = useState(new Date());
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch()
+    const amount = localStorage.getItem("amount");
 
     React.useEffect(() => {
-        const order_id = JSON.parse(sessionStorage.getItem("order_id"));
+        // const order_id = JSON.parse(sessionStorage.getItem("order_id"));
+        const order_id = localStorage.getItem("order_id");
         const token = JSON.parse(sessionStorage.getItem("token"));
         const fetchData = async () => {
             try {
@@ -29,17 +31,17 @@ const PaymentConfirmation = ({ equipmentName, amount, currentdate }) => {
                 const data = await response1.json();
                 if(data.payment_status === 'succeeded'){
                     mixpanel.track("Payment Successful", {
-                        amount: cartTotalAmount,
+                        amount: amount,
                         order_id: order_id
                       })
                       mixpanel.track("Purchase Completed by vendor", {
-                        amount: cartTotalAmount,
+                        amount: amount,
                         order_id:order_id
                       })
                 }else{
                     mixpanel.track("Payment Cancelled", {
-                        amount: data?.amount,
-                        order_id: data?.order_id
+                        amount: amount,
+                        order_id: order_id
                       })
                 }
                 console.log(data, "data1")
@@ -72,7 +74,7 @@ const PaymentConfirmation = ({ equipmentName, amount, currentdate }) => {
             <div id="payment card" className="bg-light  d-flex flex-column align-items-center p-3 rounded">
                 <IoIosCheckmarkCircle color={'green'} size={75} />
                 <p className="Payment_Status">Congratulations</p>
-                <p className='payment_subTxt'>You payment was successful, Kindly visit <span style={{ color: "#32A9FF" }} > Payment History</span> for more details. </p>
+                <p className='payment_subTxt'>You payment was successful,Kindly visit <span style={{ color: "#32A9FF" }} > Payment History</span> for more details. </p>
                 <div className="d-flex flex-row justify-content-around align-self-stretch">
                     {/* <p className="equpiment_txt ">Equipment Name</p>
                     <p className='equpiment_subtxt'>{equipmentName || "wheelChair"}</p> */}
@@ -82,7 +84,11 @@ const PaymentConfirmation = ({ equipmentName, amount, currentdate }) => {
                     <p className='equpiment_subtxt'>{cartTotalAmount}.00</p>
                 </div> */}
                 <div className="d-flex flex-row justify-content-around align-self-stretch">
-                    <p className="equpiment_txt">Paid on</p>
+                    <p className="equpiment_txt">Amount Paid</p>
+                    <p className='equpiment_subtxt' style={{ position: "relative", left: "60px" }}>${amount}</p>
+                </div>
+                <div className="d-flex flex-row justify-content-around align-self-stretch">
+                    <p className="equpiment_txt ms-3">Paid on</p>
                     <p className='equpiment_subtxt' style={{ position: "relative", left: "60px" }}>{formattedDateTime}</p>
                 </div>
                 <button className="done_btn" onClick={homepageHandler}>DONE</button>

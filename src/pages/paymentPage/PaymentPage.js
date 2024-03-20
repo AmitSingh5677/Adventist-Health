@@ -49,6 +49,7 @@ const PaymentPage = () => {
         e.preventDefault();
       
         try {
+            // need to work on this for changing address -->
             const defaultAddressId = JSON.parse(sessionStorage.getItem("defaultAddressId"))
             const token = JSON.parse(sessionStorage.getItem("token"));
             const patientId = JSON.parse(sessionStorage.getItem("patientId"))
@@ -77,7 +78,9 @@ const PaymentPage = () => {
                 amount: data?.total_amount,
                  order_id: data?.order_id
               })
-              sessionStorage.setItem("orderId",data?.order_id)
+              localStorage.setItem("order_id",data?.order_id)
+              localStorage.setItem("amount",data?.total_amount)
+            //   localStorage.setItem("amount",data?.total_amount)
             //   https://dmecart-38297.botics.co/patients/payment_intent/retrive/WOVDqT58Y8qf0TXo-1708016139/
 
          
