@@ -4,12 +4,11 @@ import { RiImageAddFill } from "react-icons/ri";
 import AppFooter from "../../components/AppFooter/AppFooter"
 import AppHeader from "../../components/AppHeader/AppHeader"
 import mixpanel from "../../../mixpanel";
-import { Toast } from 'react-bootstrap';
-import SucessToast from "../../components/sucessToast/SucessToast"
-const AddInventory = () => {
+import { useParams } from 'react-router-dom';
+
+const UpdateInventory = () => {
     const [equipment_name, setEquipmentName] = useState("");
     const [price, setPrice] = useState("");
-    const [showSucessToast, setShowSucessToast] = useState(false);
     const [nameError, setnameError] = useState("");
     const [imageError, setImageError] = useState("");
     const [priceError, setPriceError] = useState("");
@@ -18,12 +17,46 @@ const AddInventory = () => {
     const [description, setDescription] = useState("");
     const [other_details, setOtherDetails] = useState("");
     const [image, setImage] = useState(null);
+    const { id } = useParams();
     const [uploadedImage, setUploadedImage] = useState(null);
     const fileInputRef = useRef(null);
-    const [sucessMessage, setSucessMessage] = useState("");
+  const userid = sessionStorage.getItem("userid");
+
+    React.useEffect(() => {
+        
+        const token = JSON.parse(sessionStorage.getItem("token"));
+        const fetchData = async () => {
+            console.log(`https://dmecart-38297.botics.co/business/product/${userid}/${id}/`,"api")
+            try {
+                const response1 = await fetch(`https://dmecart-38297.botics.co/business/product/${userid}/${id}/`, {
+                    method: 'GET',
+                    headers: {
+                        // 'Content-Type': 'Application/json',
+                        'Authorization': `Token ${token}`
+                    },
+                });
+                
+                const data = await response1.json();
+                if(data){
+                    setEquipmentName(data.equipment_name)
+                    setDescription(data.description)
+                    setOtherDetails(data.other_details)
+                    setPrice(data.price)
+                    // setImage(data.product_signed_url)
+                    setUploadedImage(data.product_signed_url)
+                }
+                console.log(data, "data1")
+            } catch (error) {
+                // console.error('Error fetching data');
+            }
+        }
+
+        fetchData();
+    }, []);
+
     const handleImageChange = (e) => {
         const file = e.target.files[0];
-        if (file != '') {
+        if(file !=''){
             setImageError('')
         }
         console.log(file, "file")
@@ -46,9 +79,9 @@ const AddInventory = () => {
         if (!equipment_name) {
             setnameError("Enter your name.")
         }
-        if (!image) {
-            setImageError("Please select image.")
-        }
+        // if (!image) {
+        //     setImageError("Please select image.")
+        // }
 
         if (!price) {
             setPriceError("Please enter price.")
@@ -70,35 +103,33 @@ const AddInventory = () => {
         const formattedDate = `${year}-${month}-${day}`;
 
         const userId = parseInt(sessionStorage.getItem("userid"));
-        console.log(typeof (userId), "userId")
+console.log(typeof(userId),"userId")
         formData.append('equipment_name', equipment_name);
         formData.append('date', formattedDate);
-        formData.append('business', userId);
+        // formData.append('business', userId);
         formData.append('description', description);
         formData.append('price', price);
         formData.append('other_details', other_details);
         mixpanel.track("Listing Creation", {
             equipmentName: equipment_name,
             price: price,
-        })
+          })
 
         if (image) {
             formData.append('images', image);
         }
         const token = JSON.parse(sessionStorage.getItem("token"));
         try {
-            const response = await fetch('https://dmecart-38297.botics.co/business/product/create/', {
-                method: 'POST',
+            const response = await fetch(`https://dmecart-38297.botics.co/business/product/${id}/`, {
+                method: 'PUT',
                 headers: {
                     'Authorization': `Token ${token}`
                 },
                 body: formData,
             });
 
-
             if (response.ok) {
-                setShowSucessToast(true);
-                setSucessMessage("Data saved successfully")
+
             } else {
 
             }
@@ -111,9 +142,9 @@ const AddInventory = () => {
         console.log(e.target.name)
         if (e.target.name === 'name') {
             if (e.target.name != '') {
-                setEquipmentName(e.target.value)
-                setnameError('')
-            } else {
+            setEquipmentName(e.target.value)
+            setnameError('')
+            }else{
                 setEquipmentName('')
             }
         }
@@ -122,7 +153,7 @@ const AddInventory = () => {
             if (e.target.name != '') {
                 setPrice(e.target.value)
                 setPriceError('')
-            } else {
+            }else{
                 setPrice('')
             }
         }
@@ -131,7 +162,7 @@ const AddInventory = () => {
             if (e.target.name != '') {
                 setDescription(e.target.value)
                 setDescError('')
-            } else {
+            }else{
                 setDescription('')
             }
         }
@@ -139,7 +170,7 @@ const AddInventory = () => {
             if (e.target.name != '') {
                 setOtherDetails(e.target.value)
                 setDetailError('')
-            } else {
+            }else{
                 setOtherDetails('')
             }
         }
@@ -151,13 +182,6 @@ const AddInventory = () => {
     return (
         <div>
             <AppHeader />
-            {showSucessToast ? (
-            <SucessToast
-              show={showSucessToast}
-              onClose={() => setShowSucessToast(false)}
-              message={sucessMessage}
-            />
-          ) : null}
             <div style={{ marginTop: "10%", overflow: 'scroll' }}>
                 <form className="d-flex flex-row justify-content-around" onSubmit={submitHandler}>
                     <div className="d-flex flex-column justify-content-start">
@@ -173,8 +197,8 @@ const AddInventory = () => {
 
                         </div>
                         <div className="border rounded p-4 d-flex flex-column align-items-center m-3 mb-0">
-                            {!uploadedImage ? <RiImageAddFill fontSize={40} onClick={handleButtonClick} /> :
-                                <img src={uploadedImage} alt="User Photo" style={{ width: '80px', height: '80px' }} />}
+                            {!uploadedImage?<RiImageAddFill fontSize={40} onClick={handleButtonClick} />:
+                            <img src={uploadedImage} alt="User Photo"  style={{ width: '80px', height: '80px' }} />}
                             <p className="text-secondary " style={{ fontFamily: "Poppins", top: "10px" }}>Choose image from the Device to Upload</p>
                             <input
                                 type="file"
@@ -229,4 +253,4 @@ const AddInventory = () => {
     )
 }
 
-export default AddInventory
+export default UpdateInventory

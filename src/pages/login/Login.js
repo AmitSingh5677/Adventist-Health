@@ -102,9 +102,10 @@ const Login = () => {
             console.log(resData,"res")
             setTimeout(() => {
               navigate("/b/allorders")
+              navigate("/b/allorders")
             }, 3000)
             sessionStorage.setItem("token", JSON.stringify(responseData.token))
-            sessionStorage.setItem("userId", JSON.stringify(responseData.user.id))
+            sessionStorage.setItem("userid", JSON.stringify(responseData.user.id))
           }
           else{
             // stripe Account Craetion API -- connect bank api

@@ -1,29 +1,72 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { LuPencilLine } from "react-icons/lu";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import 'bootstrap'
 import './InventoryItemCard.css'
+import { useNavigate } from 'react-router-dom';
+import { Modal, ModalHeader, ModalBody, ModalFooter, Button, Row, Col } from 'reactstrap';
 
-const InventoryItemCard = () => {
+const InventoryItemCard = (props) => {
+    const navigate = useNavigate();
+    const { productData } = props
+    console.log(productData, "props")
 
-    return <li className="w-100 d-flex flex-row justify-content-evenly" >
+    const [isDelete, setIsDelete] = useState(false)
+    const [id, setId] = useState('')
 
-        <div style={{ width: '35%' }}>
-            <h6 >Wheel Chair</h6>
-            <p>Product description sample wheel Chair</p>
-        </div>
+    const deleteModal = (id) => {
+        setIsDelete(true)
+        setId(id)
+    }
+
+    const deleteProduct = async () => {
+        // https://dmecart-38297.botics.co/business/product/20/
+        const token = JSON.parse(sessionStorage.getItem("token"));
+
+        const response = await fetch(`https://dmecart-38297.botics.co/business/product/${id}/`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Token ${token}`
+            },
+        });
+
+        setIsDelete(false)
+    }
+    return (<>
+        {productData?.map((item) => (
+
+            <div className='inventory-container mb-3'>
+
+                <div className='inventory-text'>
+                    <h6 >{item.equipment_name}</h6>
+                    <p>{item.description}</p>
+                </div>
 
 
-        <img className="product_card_image m-1" src='https://picsum.photos/200/300' alt='product_image' />
+                <img className="product_card_image m-1" style={{ height: 70, width: 100 }} src={item.product_signed_url} alt='product_image' />
 
-        <p className="m-3">$ 1200.00</p>
-        <div className="d-flex flex-column justify-content-around">
-            <LuPencilLine color='green' />
-            <RiDeleteBin6Line color='red' />
-        </div>
+                 <div className='ps-3 pe-3'>$ {item.price}</div>
+                <div className='action '>
+                    <LuPencilLine className='mb-3 mt-0 pt-0' color='green' onClick={() => navigate(`/b/updateInventory/${item.id}`)} />
+                    <RiDeleteBin6Line color='red' onClick={() => deleteModal(item.id)} />
+                </div>
+            </div>
 
+        ))}
 
-    </li>
+        <Modal isOpen={isDelete} centered keyboard={false} backdrop="static" backdropClassName="modal-backdrop-dark" >
+            <ModalHeader toggle={() => setIsDelete(false)} className='model_header' >
+                <span style={{ fontSize: "16px" }}>Delete Product</span>
+            </ModalHeader>
+            <ModalBody className='modal__txt'>
+                Are you sure you want to delete your product?
+            </ModalBody>
+            <ModalFooter style={{ borderTop: 'none' }} className='modal__footer'>
+                <button className='cancel__btn' onClick={() => setIsDelete(false)}>No</button>
+                <Button className='yes__btn' onClick={deleteProduct}>Yes</Button>
+            </ModalFooter>
+        </Modal>
+    </>)
 }
 
 export default InventoryItemCard
