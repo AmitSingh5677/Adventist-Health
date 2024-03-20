@@ -136,15 +136,17 @@ import { useState } from 'react';
 // https://dmecart-38297.botics.co/business/dashboard/5/
 const DashBoard = () => {
   const [selectedOrderStatus, setSelectedOrderStatus] = useState('');
+  const token = JSON.parse(sessionStorage.getItem("token"));
 
    const [orderData, setOrderData] = useState([]);
   React.useEffect(() => {
     const token = JSON.parse(sessionStorage.getItem("token"));
+    const userId = JSON.parse(sessionStorage.getItem("userId"));
     console.log(token,"token")
     const fetchData = async () => {
         try {
           
-            const response = await fetch(`https://dmecart-38297.botics.co/business/dashboard/5/`, {
+            const response = await fetch(`https://dmecart-38297.botics.co/business/dashboard/${userId}/`, {
                 method: 'GET',
                 headers: {
                   'Content-Type': 'Application/json',
@@ -156,7 +158,6 @@ const DashBoard = () => {
             if (data) {
               console.log(data,"data")
               setOrderData(data)
-  
             }
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -167,13 +168,34 @@ const DashBoard = () => {
   
   }, []);
 
-  const handleOrderStatusChange = (index, value) => {
-    const updatedOrderData = [...orderData];
-    updatedOrderData[index].orderStatus = value;
+  const handleOrderStatusChange = async(id, value) => {
+    const token = JSON.parse(sessionStorage.getItem("token"));
+    const userId = JSON.parse(sessionStorage.getItem("userId"));
+    // const updatedOrderData = [...orderData];
+    // updatedOrderData[index].orderStatus = value;
     // Optionally, you can send the updatedOrderData to the server or handle it as needed
     // For now, just updating the local state
-    orderData[index].orderStatus = value;
-    setSelectedOrderStatus(value);
+    // orderData[index].orderStatus = value;
+    // setSelectedOrderStatus(value);
+    try{
+      const response = await fetch('https://dmecart-38297.botics.co/business/order_delivery_status/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'Application/json',
+          'Authorization': `Token ${token}`
+      },
+        body: JSON.stringify({
+          "user_id":userId,
+      "order_id": id,
+      "order_delivery_status": value
+        }),
+      });
+
+    }
+    catch(error){
+      console.error('Error fetching data:', error);
+    }
+    
   };
 
   const getOrderStatusColor = (status) => {
@@ -201,8 +223,8 @@ const DashBoard = () => {
     }
   };
 
-  return (
-    <div>
+  return ( <>
+  {token &&  <div>
       <AppHeader />
 
       <section>
@@ -224,7 +246,7 @@ const DashBoard = () => {
                       </thead>
                       <tbody className='body__txt'>
                         {orderData?.map((item, index) => (
-                          <tr key={index}>
+                          <tr key={item.id}>
                             <td className='body__elemnts'>{item.patientName}</td>
                             <td className='body__elemnts'>{item.equipmentDetails}</td>
                             <td className='body__elemnts'>{item.orderDetails}</td>
@@ -232,7 +254,7 @@ const DashBoard = () => {
                               <select
                                 value={item.orderStatus}
                                 style={{ color: getOrderStatusColor(item.orderStatus), fontWeight: "600", border: "none", outline: "none", backgroundColor: getBackgroundOrderStatusColor(item.orderStatus) }}
-                                onChange={(e) => handleOrderStatusChange(index, e.target.value)}
+                                onChange={(e) => handleOrderStatusChange(item.order_id, e.target.value)}
                               >
                                 <option value="">Select Status</option>
                                 <option value="On the Way">On the Way</option>
@@ -253,7 +275,9 @@ const DashBoard = () => {
         </div>
       </section>
       <AppFooter />
-    </div>
+    </div> }
+  </>
+   
   );
 }
 

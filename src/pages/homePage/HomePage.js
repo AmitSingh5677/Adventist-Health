@@ -64,6 +64,7 @@ export const HomePage = () => {
     useEffect(() => {
         const fetchuserData = async () => {
             try {
+                // this is to get patient id
                 const token = JSON.parse(sessionStorage.getItem("token"));
                 const response = await fetch(`/rest-auth/user/`, {
                     method: 'GET',
@@ -163,14 +164,14 @@ export const HomePage = () => {
     };
 
     const routeHandler = (item) => {
-        const { id, avatar_signed_url, business_name, business_location } = item;
+        const { user_id, avatar_signed_url, business_name, business_location } = item;
 
-        sessionStorage.setItem("bussiness_id", id);
+        sessionStorage.setItem("bussiness_id", user_id.id);
         sessionStorage.setItem("avatar_signed_url", avatar_signed_url);
         sessionStorage.setItem("business_name", business_name);
         sessionStorage.setItem("business_location", business_location);
 
-        navigate(`/bussinessPage/${id}`);
+        navigate(`/bussinessPage/${user_id.id}`);
     };
 
     return (

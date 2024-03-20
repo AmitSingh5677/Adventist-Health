@@ -11,6 +11,7 @@ const AppHeader = ({ name, ...props }) => {
 
     const [show, setShow] = useState(false);
     const [isDelete, setIsDelete] = useState(false)
+    const [isOpen, setIsOpen] = useState(false)
     const navigate = useNavigate()
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -22,9 +23,10 @@ const AppHeader = ({ name, ...props }) => {
 
     const logoutHandler = () => {
         setTimeout(() => {
-            navigate("/sign-up");
+            navigate("/login");
             sessionStorage.clear()
         }, 2000)
+        console.log("helloworld")
 
     };
 
@@ -104,7 +106,7 @@ const AppHeader = ({ name, ...props }) => {
 
 
                     <NavItem>
-                        <NavLink >
+                        <NavLink onClick={() => setIsOpen(true)}>
                             <FaSignOutAlt className="icon" /> <span className="app-text">Logout</span>
                         </NavLink>
                     </NavItem>
@@ -112,15 +114,15 @@ const AppHeader = ({ name, ...props }) => {
             </Navbar>
 
             {/* Logout Model */}
-            <Modal isOpen={false} centered keyboard={false} backdrop="static" backdropClassName="modal-backdrop-dark" >
-                <ModalHeader toggle={()=>false} className='model_header' >
+            <Modal isOpen={isOpen} centered keyboard={false} backdrop="static" backdropClassName="modal-backdrop-dark" >
+                <ModalHeader toggle={() => setIsOpen(false)} className='model_header' >
                     <span style={{ fontSize: "16px" }}>Logout</span>
                 </ModalHeader>
                 <ModalBody className='modal__txt'>
                     Are you sure you want to perform the choosen action?
                 </ModalBody>
                 <ModalFooter style={{ borderTop: 'none' }} className='modal__footer'>
-                    <button className='cancel__btn'>No</button>
+                    <button className='cancel__btn' onClick={()=>setIsOpen(false)}>No</button>
                     <Button className='yes__btn' onClick={logoutHandler}>Yes</Button>
                 </ModalFooter>
             </Modal>
