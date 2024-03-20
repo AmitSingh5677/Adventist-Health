@@ -101,9 +101,10 @@ const Login = () => {
           if(resData.details === "Stripe account available"){
             console.log(resData,"res")
             setTimeout(() => {
-              navigate("/b/sign-Up")
+              navigate("/b/allorders")
             }, 3000)
             sessionStorage.setItem("token", JSON.stringify(responseData.token))
+            sessionStorage.setItem("userid", JSON.stringify(responseData.user.id))
           }
           else{
             // stripe Account Craetion API -- connect bank api

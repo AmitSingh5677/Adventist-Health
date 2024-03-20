@@ -47,10 +47,7 @@ const PaymentPage = () => {
 
     const paymentHandler = async (e) => {
         e.preventDefault();
-        mixpanel.track("Checkout Initiated", {
-            amount: calculateTotalPrice(),
-            // order_id: data?.order_id
-          })
+      
         try {
             const defaultAddressId = JSON.parse(sessionStorage.getItem("defaultAddressId"))
             const token = JSON.parse(sessionStorage.getItem("token"));
@@ -75,6 +72,15 @@ const PaymentPage = () => {
             }
 
             const data = await response.json();
+
+            mixpanel.track("Checkout Initiated", {
+                amount: data?.total_amount,
+                 order_id: data?.order_id
+              })
+              sessionStorage.setItem("orderId",data?.order_id)
+            //   https://dmecart-38297.botics.co/patients/payment_intent/retrive/WOVDqT58Y8qf0TXo-1708016139/
+
+         
             console.log("Payment ", JSON.stringify(data));
             setBussiness_Id(data.stripe_business_id)
             setClientSecret(data.client_secret)

@@ -4,31 +4,66 @@ import { IoIosCheckmarkCircle } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { cartActions } from '../../store/shippingCart/cartSlice';
-
+import mixpanel from '../../mixpanel'
 const PaymentConfirmation = ({ equipmentName, amount, currentdate }) => {
     const cartTotalAmount = useSelector((state) => state.cart.totalAmount);
-     console.log("Total Amount " + JSON.stringify(cartTotalAmount));
+    console.log("Total Amount " + JSON.stringify(cartTotalAmount));
     const [currentDateTime, setCurrentDateTime] = useState(new Date());
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch()
 
-    // React.useEffect(() => {
-    //     const intervalId = setInterval(() => {
-    //         setCurrentDateTime(new Date());
-    //     }, 1000);
-    //     return () => clearInterval(intervalId);
-    // }, []); 
+    React.useEffect(() => {
+        const order_id = JSON.parse(sessionStorage.getItem("order_id"));
+        const token = JSON.parse(sessionStorage.getItem("token"));
+        const fetchData = async () => {
+            try {
+                const response1 = await fetch(`https://dmecart-38297.botics.co/patients/payment_intent/retrive/${order_id}/`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'Application/json',
+                        'Authorization': `Token ${token}`
+                    },
+                });
+                
+                const data = await response1.json();
+                if(data.payment_status === 'succeeded'){
+                    mixpanel.track("Payment Successful", {
+                        amount: cartTotalAmount,
+                        order_id: order_id
+                      })
+                      mixpanel.track("Purchase Completed by vendor", {
+                        amount: cartTotalAmount,
+                        order_id:order_id
+                      })
+                }else{
+                    mixpanel.track("Payment Cancelled", {
+                        amount: data?.amount,
+                        order_id: data?.order_id
+                      })
+                }
+                console.log(data, "data1")
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        fetchData();
+        // const intervalId = setInterval(() => {
+        //     setCurrentDateTime(new Date());
+        // }, 1000);
+        // return () => clearInterval(intervalId);
+    }, []);
 
     const formattedDateTime = currentDateTime.toLocaleString();
 
     const homepageHandler = () => {
         dispatch(cartActions.resetCart());
         setIsLoading(true)
-        
-            // window.location.reload();
-            navigate("/homepage")
-       
+
+        // window.location.reload();
+        navigate("/homepage")
+
 
     }
 

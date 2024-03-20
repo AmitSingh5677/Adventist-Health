@@ -242,6 +242,12 @@ const BussinessPage = () => {
         };
     };
 
+    const onImageClick =(name)=> {
+        
+        mixpanel.track("Product Views", {
+            equipmentName: name
+          })
+    }
     // const img = "https://dmecart-38297.s3.amazonaws.com/media/images/order/None/th.jfif?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA4KGTUZ6KMU75EMVU%2F20240305%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20240305T050859Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=a2fd03a3370ee4b5b2f52e3f84702f1f8f3e8130e25f25fcc6810ae662b1b3a3"
     return (
         <Helmet title="BussinessPage">
@@ -274,7 +280,7 @@ const BussinessPage = () => {
                                                 <div className="product__item">
                                                     <div className="product__img">
                                                         {/* <img src={noImage} alt="product-img" className="w-50" /> */}
-                                                        <img src={item.product_signed_url || noImage} alt="product-img" className="w-50" />
+                                                        <img src={item.product_signed_url || noImage} alt="product-img" className="w-50" onClick={() => onImageClick(item.equipment_name)}/>
                                                         <span
                                                             id="ScheduleUpdateTooltip"
                                                             onClick={item.toggleTooltip}
@@ -323,7 +329,7 @@ const BussinessPage = () => {
                                                 <Col lg="3" md="4" sm="6" xs="6" key={item.id} className="mt-5">
                                                     <div className="product__item">
                                                         <div className="product__img">
-                                                            <img src={item.product_signed_url || noImage} alt="product-img" className="w-50" />
+                                                            <img src={item.product_signed_url || noImage} alt="product-img" className="w-50" onClick={() => onImageClick(item.equipment_name)}/>
                                                             <span
                                                                 id="ScheduleUpdateTooltip"
                                                                 onClick={item.toggleTooltip}

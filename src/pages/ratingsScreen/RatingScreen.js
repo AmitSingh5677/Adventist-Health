@@ -3,7 +3,7 @@ import "./RatingScreen.css"
 import Helmet from '../../components/helmet/Helmet';
 import AppHeader from '../../components/header/AppHeader';
 import AppFooter from '../../components/footer/AppFooter';
-import { Col, Container, Row } from 'reactstrap';
+import { Col, Container, Row, Label, Modal, ModalHeader, ModalBody, ModalFooter, Button, FormGroup } from 'reactstrap';
 import BussinessCard from '../../components/bussiness_card/BussinessCard';
 import { BiSortDown } from "react-icons/bi";
 import { BsThreeDotsVertical } from "react-icons/bs";
@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import SpinLoader from '../../components/spin-loader/SpinLoader';
 import UserProfile from '../../utility/useravthar/UserAvathar';
-
+import mixpanel from "../../mixpanel";
 export const StarRating = ({ rating }) => {
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating - fullStars >= 0.5;
@@ -61,8 +61,11 @@ const RatingScreen = () => {
     const [userData, setUserData] = useState([]);
     const naviagte = useNavigate();
     const [isLoading, setisLoading] = useState(true)
+    const [isRating, setIsRating] = useState(false)
+    const business_id = JSON.parse(sessionStorage.getItem("bussiness_id"))
 
     React.useEffect(() => {
+
         const uniqueUserNumbers = Array.from(new Set(rating.map(item => item.user)));
 
         const fetchData = async () => {
@@ -80,6 +83,7 @@ const RatingScreen = () => {
                 });
 
                 const userResponses = await Promise.all(promises);
+                console.log(userResponses,"userResponses")
                 if (userResponses) {
                     setUserData(userResponses);
                     setisLoading(false)
@@ -96,9 +100,89 @@ const RatingScreen = () => {
         const user = userData.find(item => item.userNumber === userId);
         return user ? user.userData : null;
     };
+    const [sortby, setsortby] = useState('')
+    const [filter_by_stars, setFilter] = useState('')
+    const filterData = () => {
+        setsortby('')
+        setFilter('')
+        setIsRating(true)
+    }
 
+   
+    const handleFilterChange = (e) => {
+        setsortby(e.target.value)
+    }
 
+    const handleRatingChange = (e) => {
+        setFilter(e.target.value)
+    }
+    console.log(rating,"rating")
+    console.log(typeof(rating))
+    
+    const applyFilter = () => {
 
+        const token = JSON.parse(sessionStorage.getItem("token"));
+
+        const fetchData = async () => {
+            try {
+
+                if(filter_by_stars){
+                    // mixpanel.track("Filters Applied", {
+                    //     rating: filter_by_stars,
+                    //   })
+
+                      const response = await fetch(`https://dmecart-38297.botics.co/patients/average-rating/${business_id}/?filter_by_stars= ${filter_by_stars}&sort_by=${sortby}`, {
+                        method: 'GET',
+                        headers: {
+                            //   'Content-Type': 'Application/json',
+                            'Authorization': `Token ${token}`
+                        }
+                    });
+
+                    const data = await response.json();
+               
+                    if (data) {
+                       
+                        const data1=data.ratings
+                        data1?.map((item1)=>{
+                           
+                            rating?.filter((item)=> item.user === item1.user)
+                             //userData?.filter((item)=> item.userNumber === item1.user)
+                        })
+                       
+                        // setUserData(data.ratings)
+                        setIsRating(false)
+                    }
+                }else{
+
+                    const response = await fetch(`https://dmecart-38297.botics.co/patients/average-rating/${business_id}/?sort_by=${sortby}`, {
+                        method: 'GET',
+                        headers: {
+                            //   'Content-Type': 'Application/json',
+                            'Authorization': `Token ${token}`
+                        }
+                    });
+
+                    const data = await response.json();
+               
+                    if (data) {
+                        // setUserData(data.ratings)
+                        setIsRating(false)
+                    }
+                }
+
+               
+
+               
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+        // https://dmecart-38297.botics.co/patients/average-rating/5/
+    }
+console.log(rating,"rating")
     return (
         <Helmet title="Ratings Screen">
             <AppHeader />
@@ -116,7 +200,7 @@ const RatingScreen = () => {
                                     <h6 style={{ fontSize: "25px" }}>Ratings & Reviews</h6>
                                 </Col>
                                 <Col xs={1} sm={1} lg={1} className="ml-auto">
-                                    <span><BiSortDown /></span>
+                                    <span style={{ cursor: 'pointer' }}><BiSortDown onClick={filterData} /></span>
                                 </Col>
                             </Row>
                         </Container>
@@ -165,11 +249,62 @@ const RatingScreen = () => {
                     </Container>
                 </div>
                 <div className='navigate-rate-btn'>
-                        <button className='nxt__btn' style={{ marginBottom: "7%" }} onClick={() => naviagte("/feedBack")}>Rate Business</button>
+                    <button className='nxt__btn' style={{ marginBottom: "7%" }} onClick={() => naviagte("/feedBack")}>Rate Business</button>
 
                 </div>
+
+
             </div>
             <AppFooter />
+            <Modal isOpen={isRating} centered keyboard={false} backdrop="static" backdropClassName="modal-backdrop-dark" >
+                <ModalHeader toggle={() => setIsRating(false)} className='model_header' >
+                    <span style={{ fontSize: "16px" }}>Filter</span>
+                </ModalHeader>
+                <ModalBody className='modal__txt'>
+                    <Row>
+                        <Col md={6}>
+                            <FormGroup>
+                                <Label for="exampleEmail" className='label_form start'>Sort By</Label>
+                                <select
+                                    className={`form-control`}
+                                    id="exampleGender"
+                                    name="sort_by"
+                                    value={sortby}
+                                    onChange={handleFilterChange}
+                                    style={{ fontFamily: "Poppins" }}
+                                >
+                                    <option value=""  style={{ fontFamily: "Poppins" }}>Sort By</option>
+                                    <option value="oldest" style={{ fontFamily: "Poppins" }}>Oldest</option>
+                                    <option value="newest" style={{ fontFamily: "Poppins" }}>Newest</option>
+                                </select>
+                            </FormGroup>
+                        </Col>
+                        <Col md={6}>
+                            <FormGroup>
+                                <Label for="exampleEmail" className='label_form '>Rating</Label>
+                                <select
+                                    className={`form-control`}
+                                    id="exampleGender"
+                                    name="sort_by"
+                                    value={filter_by_stars}
+                                    onChange={handleRatingChange}
+                                    style={{ fontFamily: "Poppins" }}
+                                >
+                                    <option value=""  style={{ fontFamily: "Poppins" }}>All</option>
+                                    <option value="1" style={{ fontFamily: "Poppins" }}>1</option>
+                                    <option value="2" style={{ fontFamily: "Poppins" }}>2</option>
+                                    <option value="3" style={{ fontFamily: "Poppins" }}>3</option>
+                                    <option value="4" style={{ fontFamily: "Poppins" }}>4</option>
+                                    <option value="5" style={{ fontFamily: "Poppins" }}>5</option>
+                                </select>
+                            </FormGroup>
+                        </Col></Row>
+                </ModalBody>
+                <ModalFooter style={{ borderTop: 'none' }} className='modal__footer'>
+                    <button className='cancel__btn' onClick={() => setIsRating(false)}>Cancel</button>
+                    <Button className='yes__btn' onClick={applyFilter} >Apply</Button>
+                </ModalFooter>
+            </Modal>
         </Helmet>
     );
 };

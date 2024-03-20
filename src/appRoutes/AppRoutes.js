@@ -46,6 +46,7 @@ import OrderHistoryBusiness from '../businessPages/pages/OrderHistory';
 import InquiriesBusiness from '../businessPages/pages/Inquiries';
 import PaymentConfirmationBusiness from '../businessPages/pages/paymentConfirmation/PaymentConfirmation';
 import MyProfileBusiness from '../businessPages/pages/MyProfile';
+import UpdateInventory from '../businessPages/pages/addInventory/UpdateInventory';
 
 
 const AppRoutes = () => {
@@ -81,6 +82,7 @@ const AppRoutes = () => {
             <Route path='/b/verification/:id' element={<Verification/>} />
             <Route path="/b/bankDeatils" element={<BankDeatils />} />
             <Route path="/b/addInventory" element={<AddInventory />} />
+            <Route path="/b/updateInventory/:id" element={<UpdateInventory />} />
             <Route path="/b/allorders" element={<DashboardAllOrders />} />
             <Route path="/b/order-requests" element={<DashboardOrderRequests />} />
             <Route path="/b/reviews" element={<DashBoardReviews />} />

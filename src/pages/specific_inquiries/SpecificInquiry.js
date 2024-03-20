@@ -10,7 +10,7 @@ import mockImg from "../../data/assests/download_img/electricChair1.png"
 import SpinLoader from '../../components/spin-loader/SpinLoader';
 import SucessMessage from '../../components/successToast/SuccessToast';
 import { useParams } from 'react-router-dom';
-
+import mixpanel from "../../mixpanel";
 const SpecificInquiry = () => {
     const { id } = useParams();
 
@@ -100,9 +100,6 @@ const SpecificInquiry = () => {
     }, []);
 
 
-
-
-
     const handleInputChange = (e) => {
         setUserMessage(e.target.value);
         setErrorMessage('');
@@ -135,6 +132,7 @@ const SpecificInquiry = () => {
             const data = await response.json();
 
             if (data) {
+                mixpanel.track("Messages Sent from consumer/patient to vendor")
                 setSucessToast(true)
                 setShowToast(true);
                 setIsSucess("Enquiry added successfully.")
