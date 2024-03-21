@@ -18,7 +18,7 @@ const MyInventory = () => {
         const fetchData = async () => {
             try {
               
-                const response = await fetch(`https://dmecart-38297.botics.co/business/product/${userid}/`, {
+                const response = await fetch(`https://dmecart-38297.botics.co/business/inventory/${userid}/`, {
                     method: 'GET',
                     headers: {
                       'Content-Type': 'Application/json',

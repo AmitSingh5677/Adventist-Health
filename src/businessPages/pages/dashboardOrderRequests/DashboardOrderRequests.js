@@ -6,6 +6,7 @@ import AppFooter from "../../components/AppFooter/AppFooter";
 import "bootstrap";
 import { Col, Container, Row, Table } from "reactstrap";
 import Helmet from "../../components/helmet/Helmet";
+import { useNavigate } from "react-router-dom";
 
 // const userData = [
 //   {
@@ -66,6 +67,7 @@ import Helmet from "../../components/helmet/Helmet";
 
 const DashboardOrderRequests = () => {
   const [userData,setUserData] = useState([])
+  const navigate=useNavigate()
 
   const userid = sessionStorage.getItem("userid");
   const token = JSON.parse(sessionStorage.getItem("token"));
@@ -161,7 +163,7 @@ const DashboardOrderRequests = () => {
                       <tbody className="body__txt">
                         {userData.map((item, index) => (
                           <tr key={item.id}>
-                            <td className="body__elemnts">{item.patient_name}</td>
+                            <td className="body__elemnts cursor" onClick={()=>navigate(`/b/patient-profile-screen/${item.patient_user}`)}>{item.patient_name}</td>
                             <td className="body__elemnts">
                               {item.equipment_name}
                             </td>
