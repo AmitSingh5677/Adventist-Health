@@ -131,7 +131,13 @@ const Login = () => {
           }
           // stripe account creation - ends 
         }
-      } else {
+      }
+      if(response.status==403) {
+        setShowErrorToast(true);
+        console.error('Login failed. Please check your credentials.');
+        setToastError("Your business is not approved yet, please try again after some time")
+      }
+      else {
         setShowErrorToast(true);
         console.error('Login failed. Please check your credentials.');
         setToastError("Unable to log in with provided credentials.")
