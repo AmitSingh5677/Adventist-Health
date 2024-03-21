@@ -1,0 +1,29 @@
+.profile_report_btn{
+    background-color: rgba(111, 191, 73, 1);
+    color: white;
+    padding: 10px 20px;
+    width: 300px;
+    border: none;
+    border-radius: 10px;
+    
+}
+
+
+.patient_page_title {
+    background-color: rgba(236, 236, 236, 1);
+    color: black;
+    padding: 12px;
+    border-radius: 5px;
+    font-family: 'Poppins';
+    font-size: 24px;
+ }
+
+ .reportHeader{
+    padding: 0px 50px;
+    /* display: flex; */
+
+ }
+
+.reporttxt{
+    border-bottom: 1px solid rgba(166, 166, 166, 1);
+}

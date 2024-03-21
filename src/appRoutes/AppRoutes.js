@@ -47,6 +47,7 @@ import InquiriesBusiness from '../businessPages/pages/Inquiries';
 import PaymentConfirmationBusiness from '../businessPages/pages/paymentConfirmation/PaymentConfirmation';
 import MyProfileBusiness from '../businessPages/pages/MyProfile';
 import UpdateInventory from '../businessPages/pages/addInventory/UpdateInventory';
+import PatientProfileScreen from '../businessPages/pages/PatientProfileScreen/PatientProfileScreen';
 
 
 const AppRoutes = () => {
@@ -85,6 +86,7 @@ const AppRoutes = () => {
             <Route path="/b/updateInventory/:id" element={<UpdateInventory />} />
             <Route path="/b/allorders" element={<DashboardAllOrders />} />
             <Route path="/b/order-requests" element={<DashboardOrderRequests />} />
+            <Route path="/b/patient-profile-screen/:id" element={<PatientProfileScreen />} />
             <Route path="/b/reviews" element={<DashBoardReviews />} />
             <Route path='/b/my-inventory' element={<MyInventory />} />
             <Route path='/b/add-inventory' element={<AddInventory />} />
