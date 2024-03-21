@@ -191,6 +191,7 @@ const DashBoard = () => {
           }),
         }
       );
+      window.location.reload()
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -260,18 +261,18 @@ const DashBoard = () => {
                                   {item.state}, {item.country}, {item.zip_code}
                                 </td>
                                 <td className="body__elemnts">
-                                  <select
-                                    value={item.orderStatus}
+                                 <select
+                                    value={item.delivery_status}
                                     style={{
                                       color: getOrderStatusColor(
-                                        item.orderStatus
+                                        item.delivery_status
                                       ),
                                       fontWeight: "600",
                                       border: "none",
                                       outline: "none",
                                       backgroundColor:
                                         getBackgroundOrderStatusColor(
-                                          item.orderStatus
+                                          item.delivery_status
                                         ),
                                     }}
                                     onChange={(e) =>
@@ -289,7 +290,52 @@ const DashBoard = () => {
                                     <option value="Accepted">Accepted</option>
                                     <option value="Delivered">Delivered</option>
                                   </select>
+                                  
                                 </td>
+                                {/* <td className="body__elemnts">
+                                  {item.delivery_status !== "pending" ? <div className="me-5 text-center" style={{
+                                      color: getOrderStatusColor(
+                                        item.delivery_status
+                                      ),
+                                      fontWeight: "600",
+                                      border: "none",
+                                      outline: "none",
+                                      backgroundColor:
+                                        getBackgroundOrderStatusColor(
+                                          item.delivery_status
+                                        ),
+                                        textTransform:"uppercase"
+                                    }}><p>{item.delivery_status}</p></div> : <select
+                                    value={item.delivery_status}
+                                    style={{
+                                      color: getOrderStatusColor(
+                                        item.delivery_status
+                                      ),
+                                      fontWeight: "600",
+                                      border: "none",
+                                      outline: "none",
+                                      backgroundColor:
+                                        getBackgroundOrderStatusColor(
+                                          item.delivery_status
+                                        ),
+                                    }}
+                                    onChange={(e) =>
+                                      handleOrderStatusChange(
+                                        item.id,
+                                        item.business_user,
+                                        e.target.value
+                                      )
+                                    }
+                                  >
+                                    <option value="">Select Status</option>
+                                    <option value="On the Way">
+                                      On the Way
+                                    </option>
+                                    <option value="Accepted">Accepted</option>
+                                    <option value="Delivered">Delivered</option>
+                                  </select>}
+                                  
+                                </td> */}
                               </tr>
                             ))}
                           </tbody>

@@ -28,9 +28,14 @@
     border-radius: 50%;
     width: 200px;
     height: 200px;
+    object-fit: contain;
+    text-align: center;
+    padding: 24px;
 }
 .image-profile-section{
     object-fit: contain;
+    height: 140px;
+    width: 140px;
 }
 .text-area-location{
     width: 460px;
@@ -54,4 +59,23 @@
 }
 .second-container-buttons{
     width: 400px;
+}
+.edit-btn{
+  width: 10vw;
+  border: 2px solid #198754;  
+  background-color: transparent;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #198754;
+}
+.edit-btn:hover{
+color: #002413;
+}
+.submit-btn{
+    width: 10vw;
+    border: 2px solid #198754;  
+background-color: #198754;  
+color: #fff;
+border-radius: 5px;
+cursor: pointer;
 }

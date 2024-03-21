@@ -50,6 +50,8 @@ const SignUpBusiness = () => {
   const [passError, setPassError] = useState("");
   const [confirmError, setConfirmError] = useState("");
   const [tncError, setTncError] = useState("");
+  const [hipa, setHipa] = useState(false);
+  const [hipaError, setHipaError] = useState("");
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -107,7 +109,7 @@ const SignUpBusiness = () => {
     }
     if (!passwordRegex.test(formData.password)) {
       setPassError(
-        "Password must contain minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character"
+        "Please choose a stronger password. Try mix of letters, numbers, and symbols (e.g. Example@1)"
       );
     } else {
       setPassError("");
@@ -122,9 +124,14 @@ const SignUpBusiness = () => {
     } else {
       setTncError("");
     }
+    if (!hipa) {
+      setHipaError("Please accept the Hipaa & compliance");
+    } else {
+      setHipaError("");
+    }
 
     if (
-      tnc &&
+      tnc && hipa &&
       formData.password == formData.confirm_password &&
       textRegex.test(formData.business_location) &&
       textRegex.test(formData.owner_full_name) &&
@@ -206,6 +213,7 @@ const SignUpBusiness = () => {
         setPassError("");
         setConfirmError("");
         setTncError("");
+        setHipaError("");
         naviagte(`/b/verification/${data.id}`)
         console.log(data.id,"idid")
       } catch (error) {
@@ -310,13 +318,16 @@ const SignUpBusiness = () => {
                             <input
                               name="avatar"
                               type="file"
+                              id="avatar"
                               style={{ cursor: "pointer" }}
                               accept="image/jpeg,image/png,image/gif"
                               onChange={handleImageChange}
                             />
+                            <label for="avatar">
                             <span style={{ position: "relative", top: "25px" }}>
                               {renderImage()}
                             </span>
+                            </label>
                           </div>
                         </div>
                       </Col>
@@ -441,7 +452,7 @@ const SignUpBusiness = () => {
                   </span>
                 )}
                 <div className="checkBox mt-3 mb-0">
-                  <Input type="checkbox" onClick={() => setTnc(!tnc)} />{" "}
+                  <Input type="checkbox" className="mt-2" onClick={() => setTnc(!tnc)} />{" "}
                   <span>
                     I have read the{" "}
                     <span style={{ color: "#00A0DD", cursor: "pointer" }}>
@@ -459,6 +470,27 @@ const SignUpBusiness = () => {
                     style={{ color: "red", fontSize: "10px" }}
                   >
                     {tncError}
+                  </span>
+                )}
+                <div className="checkBox mt-3 mb-0">
+                  <Input type="checkbox" className="mt-2" onClick={() => setHipa(!hipa)} />{" "}
+                  <span>
+                    I agree to{" "}
+                    <span style={{ color: "#00A0DD", cursor: "pointer" }} onClick={()=>naviagte("/b/compliance")}>
+                      Hipaa and Compliance
+                    </span>{" "}
+                    terms{" "}
+                    {/* <span style={{ color: "#00A0DD", cursor: "pointer" }}>
+                      Privacy Policy
+                    </span>{" "} */}
+                  </span>
+                </div>
+                {hipaError && (
+                  <span
+                    className="ms-1"
+                    style={{ color: "red", fontSize: "10px" }}
+                  >
+                    {hipaError}
                   </span>
                 )}
                 <div className="mb-3 mt-3 input-group">
