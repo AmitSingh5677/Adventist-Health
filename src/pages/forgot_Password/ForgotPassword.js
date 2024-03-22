@@ -83,7 +83,7 @@ const ForgotPassword = ({ show, handleClose }) => {
     else if( otp && otp.length == 6){
         try{
             const otpVerification = await fetch(
-                "https://dmecart-38297.botics.co/api/v1/otp_verification",
+                "https://dmecart-38297.botics.co/api/v1/otp_verification/",
                 {
                   method: "POST",
                   headers: {
@@ -96,6 +96,10 @@ const ForgotPassword = ({ show, handleClose }) => {
 
               if (otpVerification.ok) {
                 const responseData = await otpVerification.json();
+                const token = responseData.auth_token
+                const id = responseData.uid
+                // console.log(token,id,"hi")
+                navigate(`/createPassword/${token}/${id}`)
                 setIsDialog(false);
                 setOtp("")
                 setOtpError(false)

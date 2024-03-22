@@ -76,7 +76,7 @@ const formData = new FormData();
             console.log(resData)
             setShowErrorToast(true)
             setIsSuccess("Deatils have been updated successfully")
-            navigate("/b/sign-Up")
+            // navigate("/login")
   
 }
   

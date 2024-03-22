@@ -53,8 +53,8 @@ const ChangePassword = () => {
                 body: JSON.stringify({
                     "new_password1": password,
                     "new_password2": confrimPassword,
-                    "uid": "MjA",
-                    "token": "6i5-70f405bbca36120ee511"
+                    "uid": id,
+                    "token": token,
                 }),
             });
 
@@ -62,10 +62,10 @@ const ChangePassword = () => {
                 // setIsLoading(true)
                 const responseData = await response.json();
                 console.log("Login API Response: " + JSON.stringify(responseData));
-                alert('Login successful!');
+                alert('Password updated successfully');
                 setTimeout(() => {
-                    navigate("/homePage")
-                }, 3000)
+                    navigate("/login")
+                }, 2000)
                 // Store Token for Home Page
             } else {
                 alert("Failed")

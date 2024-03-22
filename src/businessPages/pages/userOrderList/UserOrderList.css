@@ -1,3 +1,7 @@
+.order-section{
+  overflow-y: auto;
+  max-height: 100vh;
+}
 .table-margin {
   margin-left: 5vw;
   margin-top: 1vw;

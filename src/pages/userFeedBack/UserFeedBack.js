@@ -66,7 +66,7 @@ const UserFeedback = ({ imgSrc, productTitle, userViews, rating }) => {
             const data = await response.json();
             if (data) {
                 setSucessToast(true)
-                setIsSuccess("Your Feedback has been successfully recorded.")
+                setIsSuccess("Your feedback has been successfully recorded.")
             }
         } catch (error) {
             setShowErrorToast(true)

@@ -1,0 +1,49 @@
+.main-section-account{
+    margin-top: 100px;
+    padding: 50px 100px;
+    margin-bottom: 100px;
+}
+.my-profile-section{
+    border: 1px solid #ECECEC;
+    /* height: 6vh; */
+    padding: 15px 20px;
+    border-radius: 5px;
+    background-color: #ECECEC;
+    font-weight: 600;
+    
+}
+.image-container{
+    border: 1px solid black;
+    height: 180px;
+    width: 180px;
+    border-radius: 50%;
+}
+.input-section{
+    display: flex;
+    flex-direction: column;
+    row-gap: 14px;
+}
+.input-section input{
+    width: 20vw;
+    height: 40px;
+    border: 1px solid #5E5858;
+    border-radius: 10px;
+    padding-left: 5px;
+}
+
+.cancel-btn{
+    width: 150px;
+    padding: 5px;
+    border: 1px solid #198754;
+    color: #198754;
+    background-color: white;
+    border-radius: 10px;
+}
+.save-btn{
+    width: 150px;
+    padding: 5px;
+    color: #fff;
+    border: 1px solid #198754;
+    background-color:#198754;
+    border-radius: 10px;
+}
