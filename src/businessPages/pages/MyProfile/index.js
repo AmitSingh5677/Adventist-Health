@@ -5,13 +5,19 @@ import "./index.css";
 import profile_img from "../../../data/assests/download_img/profile_img.png";
 import edit from "../../data/assests/downloaded__imgs/editIcon.png";
 import SucessMessage from "../../../components/successToast/SuccessToast";
+import SucessToast from "../../components/sucessToast/SucessToast";
+
+
 const MyProfileBusiness = () => {
   const [location, setLocation] = useState("");
   const [desc, setDesc] = useState("");
   const [name, setName] = useState("");
   const [profileInfo, setProfileInfo] = useState([]);
+  const [sucessMessage, setSucessMessage] = useState("");
   const [image, setImage] = useState("");
+  const [businessName, setBusinessName] = useState("");
   const [updatedImage, setUpdatedImage] = useState("");
+  const [showSucessToast, setShowSucessToast] = useState(false);
   const [editable, setEditable] = useState(true);
   const [submit,setSubmit] = useState(false)
   // const [editable, setEditable] = useState({
@@ -25,7 +31,7 @@ const MyProfileBusiness = () => {
   const token = JSON.parse(sessionStorage.getItem("token"));
 
   const profileResponse = async()=>{
-    const response = await fetch(`https://dmecart-38297.botics.co/business/business_details/${userid}/`, {
+    const response = await fetch(`https://dmecart-38297.botics.co/business/business_profile/${userid}/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'Application/json',
@@ -41,6 +47,7 @@ const MyProfileBusiness = () => {
     setLocation(resData.business_location)
     setDesc(resData.description)
     setImage(resData.avatar_signed_url)
+    setBusinessName(resData.business_name)
   }
 
   const handleUpdateData=async(e)=>{
@@ -49,21 +56,27 @@ const MyProfileBusiness = () => {
     formData.append("owner_full_name",name)
     formData.append("business_location",location)
     formData.append("description",desc)
-    formData.append( "avatar_signed_url",image)
+    if(updatedImage){
+      formData.append( "avatar",updatedImage)
+    }
     try{
-      const response = await fetch(`https://dmecart-38297.botics.co/business/business_details/${userid}/`,{
+      const response = await fetch(`https://dmecart-38297.botics.co/business/business_profile/${userid}/`,{
         method:'PUT',
         headers: {
-          'Content-Type': 'Application/json',
           'Authorization':` Token ${token}`
         },
         body:formData
       })
       const resData = await response.json()
-      console.log(resData)
+      if(resData){
+        console.log(resData)
+        setShowSucessToast(true);
+        setSucessMessage("Details have been updated sucessfully")
+      }
     }catch(error){
       console.log(error)
     }
+    console.log(name,location,desc,businessName)
   }
   useEffect(()=>{
     profileResponse()
@@ -72,6 +85,13 @@ const MyProfileBusiness = () => {
   return (
     <div className="my-profile-bsuiness-page">
       <AppHeader />
+      {showSucessToast ? (
+            <SucessToast
+              show={showSucessToast}
+              onClose={() => setShowSucessToast(false)}
+              message={sucessMessage}
+            />
+          ) : null}
       <div className="profile-section">
         <div className="my-profile-bar">
           <h6 className="my-profile-bar-text">My Profile</h6>
@@ -81,14 +101,14 @@ const MyProfileBusiness = () => {
         >
           <div className="d-flex mt-3 ">
             <div className="m-3  input-my-profile-section">
-              <img
+              {/* <img
                 src={ updatedImage ? URL.createObjectURL(updatedImage) : image}
                 alt="no-img"
                 className="image-profile-section"
-              />
-            </div>
-            <input
+              /> */}
+              <input
               type="file"
+              id="avatar"
               className="input-file-ver"
               placeholder="Upload Image"
               // value={updatedImage}
@@ -97,8 +117,22 @@ const MyProfileBusiness = () => {
               disabled={editable}
               onChange={(e) => setUpdatedImage(e.target.files[0])}
             />
+            <span className="label-image">
+              <label for="avatar">
+              <img
+                src={ updatedImage ? URL.createObjectURL(updatedImage) : image}
+                alt="no-img"
+                className="image-profile-section"
+              />
+              </label>
+            
+
+            </span>
+            </div>
+            
+
             <div className="ms-5">
-              <h1 className="m-3 ">ABC ENTERPRISES</h1>
+              <h1 className="m-3 ">{businessName}</h1>
 
               <div className="d-flex flex-column align-items-start m-3">
                 <label htmlFor="business-location">Business Location</label>
@@ -148,10 +182,13 @@ const MyProfileBusiness = () => {
                 </div>
               </div>
               <div className="ms-3 mt-4">
-                <button className="edit-btn py-1" onClick={()=>{setEditable(!editable);setSubmit(true)}}>Edit</button>
-                <button type="submit"className="submit-btn py-1 ms-4" disabled={submit==false}>
+                <span className="edit-btn1" onClick={()=>{setEditable(!editable)}}>Edit</span>
+                {
+                !editable &&
+                <button type="submit"className="submit-btn py-1 ms-4">
                   Submit
                 </button>
+                }
               </div>
             </div>
           </div>

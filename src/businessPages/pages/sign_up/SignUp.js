@@ -5,7 +5,7 @@ import { Col, FormGroup, Input, Row } from "reactstrap";
 import LeftSection from "../../components/leftSidePannel/LeftSideSection";
 import { FaEnvelope, FaEye, FaEyeSlash } from "react-icons/fa";
 import ErrorToast from "../../components/errorToast/ErrorToast";
-import SucessToast from "../../components/sucessToast/SucessToast"
+import SucessToast from "../../components/sucessToast/SucessToast";
 import SpinLoader from "../../components/spin_loader/SpinLoader";
 import { useNavigate } from "react-router-dom";
 import mixpanel from "../../../mixpanel";
@@ -221,6 +221,18 @@ const SignUpBusiness = () => {
       }
     }
   };
+
+  const handleCancel =()=>{
+    setFormData({
+      business_name: "",
+      owner_full_name: "",
+      business_location: "",
+      description: "",
+      password: "",
+      confirm_password: "",
+      email: "",
+    })
+  }
 
   return (
     <Helmet title="Create Your Account">
@@ -455,13 +467,13 @@ const SignUpBusiness = () => {
                   <Input type="checkbox" className="mt-2" onClick={() => setTnc(!tnc)} />{" "}
                   <span>
                     I have read the{" "}
-                    <span style={{ color: "#00A0DD", cursor: "pointer" }}>
+                    <a href="/Terms&&Conditions" style={{ color: "#00A0DD", cursor: "pointer",textDecoration:"none" }} target="_blank">
                       Terms and Conditions
-                    </span>{" "}
+                    </a>{" "}
                     and{" "}
-                    <span style={{ color: "#00A0DD", cursor: "pointer" }}>
+                    <a href="/Privacy-Policy" style={{ color: "#00A0DD", cursor: "pointer",textDecoration:"none" }} target="_blank">
                       Privacy Policy
-                    </span>{" "}
+                    </a>{" "}
                   </span>
                 </div>
                 {tncError && (
@@ -476,9 +488,12 @@ const SignUpBusiness = () => {
                   <Input type="checkbox" className="mt-2" onClick={() => setHipa(!hipa)} />{" "}
                   <span>
                     I agree to{" "}
-                    <span style={{ color: "#00A0DD", cursor: "pointer" }} onClick={()=>naviagte("/b/compliance")}>
+                    <a href="/b/compliance" style={{ color: "#00A0DD", cursor: "pointer",textDecoration:"none" }} target="_blank">
                       Hipaa and Compliance
-                    </span>{" "}
+                    </a>{" "}
+                    {/* <span style={{ color: "#00A0DD", cursor: "pointer" }} onClick={()=>naviagte("/b/compliance")}>
+                      Hipaa and Compliance
+                    </span>{" "} */}
                     terms{" "}
                     {/* <span style={{ color: "#00A0DD", cursor: "pointer" }}>
                       Privacy Policy
@@ -503,9 +518,9 @@ const SignUpBusiness = () => {
                   </button>
                 </div>
                 <div className="mb-3 input-group">
-                  <button type="submit" className="cancelBtn">
+                  <p style={{textAlign:"center"}} className="cancelBtn" onClick={handleCancel}>
                     Cancel
-                  </button>
+                  </p>
                 </div>
               </form>
               <div>

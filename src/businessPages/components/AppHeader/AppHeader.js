@@ -17,7 +17,7 @@ const AppHeader = ({ name, ...props }) => {
     const handleShow = () => setShow(true);
 
 
-
+    const token = sessionStorage.getItem('token')
 
 
 
@@ -63,8 +63,7 @@ const AppHeader = ({ name, ...props }) => {
                         />
                     </div>
                  */}
-
-                <Nav className="ml-auto" navbar style={{ position: 'relative', right: '75px', top: '0px' }}>
+ {token && <Nav className="ml-auto" navbar style={{ position: 'relative', right: '75px', top: '0px' }}>
                     <NavItem>
                         <NavLink >
                             <FaCartArrowDown className="icon" /> <span className="app-text">Cart</span>
@@ -110,7 +109,8 @@ const AppHeader = ({ name, ...props }) => {
                             <FaSignOutAlt className="icon" /> <span className="app-text">Logout</span>
                         </NavLink>
                     </NavItem>
-                </Nav>
+                </Nav> }
+                
             </Navbar>
 
             {/* Logout Model */}

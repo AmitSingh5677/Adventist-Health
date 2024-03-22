@@ -107,7 +107,7 @@ const BussinessPage = () => {
         const fetchData = async () => {
             try {
                 const token = JSON.parse(sessionStorage.getItem("token"));
-                const response = await fetch(`/business/product/${id}/`, {
+                const response = await fetch(`/business/inventory/${id}/`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Token ${token}`

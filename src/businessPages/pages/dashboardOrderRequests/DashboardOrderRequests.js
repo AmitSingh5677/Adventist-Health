@@ -144,7 +144,7 @@ const DashboardOrderRequests = () => {
         <AppHeader />
         <DashboardNavbar btn_name={"order_requests"} />
 
-        <div style={{ marginTop: "1%", marginBottom: "2%" }}>
+        <div style={{ marginTop: "1%", marginBottom: "2%",overflowY:"auto",maxHeight:"150vh" }}>
           <section>
             <Container>
               <Row className="orderHistory__conatiner">
@@ -153,8 +153,8 @@ const DashboardOrderRequests = () => {
                     <Table className="table table-hover borderless responsive striped">
                       <thead>
                         <tr>
-                          <th className="table_theader">User/patient</th>
-                          <th className="table_theader">Equipment DETAILS</th>
+                          <th className="table_theader">USER/PATIENT</th>
+                          <th className="table_theader">EQUIPMENT DETAILS</th>
                           <th className="table_theader">ORDER DETAILS</th>
                           <th className="table_theader ps-5">ACTIONS</th>
                           <th className="table_theader"></th>
@@ -198,8 +198,8 @@ const DashboardOrderRequests = () => {
               </Row>
             </Container>
           </section>
+        <DashboardFooter  />
         </div>
-        <DashboardFooter />
         <AppFooter />
       </div>
     </div> }
