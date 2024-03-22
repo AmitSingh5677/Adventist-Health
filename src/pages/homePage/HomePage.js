@@ -47,8 +47,10 @@ export const HomePage = () => {
                 const data = await response.json();
                 if (data) {
                     setIsLoading(false);
+                    setProducts(data);
+                    // console.log(data,data.id,"id-id")
                 }
-                setProducts(data);
+                // sessionStorage.setItem("business_getProduct_id",data.id)
             } catch (error) {
                 setIsLoading(false);
                 setIsError(true);

@@ -228,7 +228,7 @@ const DashBoard = () => {
         <div>
           <AppHeader />
 
-          <section>
+          <section className="order-section">
             <div style={{ marginTop: "7%", marginBottom: "5%" }}>
               <DashboardNavbar btn_name={"all_orders"} />
               <section>
@@ -239,9 +239,9 @@ const DashBoard = () => {
                         <Table className="table table-hover borderless responsive striped">
                           <thead>
                             <tr>
-                              <th className="table_theader">User/patient</th>
+                              <th className="table_theader">USER/PATIENT</th>
                               <th className="table_theader">
-                                Equipment DETAILS
+                                EQUIPMENT DETAILS
                               </th>
                               <th className="table_theader">ORDER DETAILS</th>
                               <th className="table_theader">ORDER STATUS</th>

@@ -21,7 +21,13 @@
 
 .products__img {
     margin-top: 15px;
+    margin-left: 25px;
+    margin-right: 25px;
     transition: 0.4s;
+    /* border: 1px solid green; */
+    object-fit: contain;
+    overflow: hidden;
+
 }
 
 .products__img:hover {
@@ -67,6 +73,7 @@
 
 .bussiness__img {
     object-fit: contain;
+    overflow: hidden;
 }
 
 @media only screen and (max-width: 992px) {
