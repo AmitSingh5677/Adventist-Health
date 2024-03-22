@@ -15,7 +15,7 @@ const AppHeader = ({ name, ...props }) => {
     const navigate = useNavigate()
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
+    const role = JSON.parse(sessionStorage.getItem("role"));
 
 
 
@@ -65,11 +65,11 @@ const AppHeader = ({ name, ...props }) => {
                  */}
 
                 <Nav className="ml-auto" navbar style={{ position: 'relative', right: '75px', top: '0px' }}>
-                    <NavItem>
+                   {role === 'patient' && <NavItem>
                         <NavLink >
                             <FaCartArrowDown className="icon" /> <span className="app-text">Cart</span>
                         </NavLink>
-                    </NavItem>
+                    </NavItem>}
 
                     <NavItem>
                         <NavLink >

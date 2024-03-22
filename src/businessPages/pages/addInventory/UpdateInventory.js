@@ -5,6 +5,7 @@ import AppFooter from "../../components/AppFooter/AppFooter"
 import AppHeader from "../../components/AppHeader/AppHeader"
 import mixpanel from "../../../mixpanel";
 import { useParams } from 'react-router-dom';
+import SucessToast from "../../components/sucessToast/SucessToast"
 
 const UpdateInventory = () => {
     const [equipment_name, setEquipmentName] = useState("");
@@ -20,13 +21,16 @@ const UpdateInventory = () => {
     const { id } = useParams();
     const [uploadedImage, setUploadedImage] = useState(null);
     const fileInputRef = useRef(null);
-  const userid = sessionStorage.getItem("userid");
+    const [sucessMessage, setSucessMessage] = useState("");
+    const [showSucessToast, setShowSucessToast] = useState(false);
+
+    const userid = sessionStorage.getItem("userid");
 
     React.useEffect(() => {
-        
+
         const token = JSON.parse(sessionStorage.getItem("token"));
         const fetchData = async () => {
-            console.log(`https://dmecart-38297.botics.co/business/product/${userid}/${id}/`,"api")
+            console.log(`https://dmecart-38297.botics.co/business/product/${userid}/${id}/`, "api")
             try {
                 const response1 = await fetch(`https://dmecart-38297.botics.co/business/product/${userid}/${id}/`, {
                     method: 'GET',
@@ -35,9 +39,10 @@ const UpdateInventory = () => {
                         'Authorization': `Token ${token}`
                     },
                 });
-                
+
                 const data = await response1.json();
-                if(data){
+                if (data) {
+                   
                     setEquipmentName(data.equipment_name)
                     setDescription(data.description)
                     setOtherDetails(data.other_details)
@@ -56,7 +61,7 @@ const UpdateInventory = () => {
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
-        if(file !=''){
+        if (file != '') {
             setImageError('')
         }
         console.log(file, "file")
@@ -103,7 +108,7 @@ const UpdateInventory = () => {
         const formattedDate = `${year}-${month}-${day}`;
 
         const userId = parseInt(sessionStorage.getItem("userid"));
-console.log(typeof(userId),"userId")
+        console.log(typeof (userId), "userId")
         formData.append('equipment_name', equipment_name);
         formData.append('date', formattedDate);
         // formData.append('business', userId);
@@ -113,7 +118,7 @@ console.log(typeof(userId),"userId")
         mixpanel.track("Listing Creation", {
             equipmentName: equipment_name,
             price: price,
-          })
+        })
 
         if (image) {
             formData.append('images', image);
@@ -128,7 +133,9 @@ console.log(typeof(userId),"userId")
                 body: formData,
             });
 
-            if (response.ok) {
+            if (response) {
+                setShowSucessToast(true);
+                setSucessMessage("Data updated successfully")
 
             } else {
 
@@ -142,9 +149,9 @@ console.log(typeof(userId),"userId")
         console.log(e.target.name)
         if (e.target.name === 'name') {
             if (e.target.name != '') {
-            setEquipmentName(e.target.value)
-            setnameError('')
-            }else{
+                setEquipmentName(e.target.value)
+                setnameError('')
+            } else {
                 setEquipmentName('')
             }
         }
@@ -153,7 +160,7 @@ console.log(typeof(userId),"userId")
             if (e.target.name != '') {
                 setPrice(e.target.value)
                 setPriceError('')
-            }else{
+            } else {
                 setPrice('')
             }
         }
@@ -162,7 +169,7 @@ console.log(typeof(userId),"userId")
             if (e.target.name != '') {
                 setDescription(e.target.value)
                 setDescError('')
-            }else{
+            } else {
                 setDescription('')
             }
         }
@@ -170,7 +177,7 @@ console.log(typeof(userId),"userId")
             if (e.target.name != '') {
                 setOtherDetails(e.target.value)
                 setDetailError('')
-            }else{
+            } else {
                 setOtherDetails('')
             }
         }
@@ -182,6 +189,13 @@ console.log(typeof(userId),"userId")
     return (
         <div>
             <AppHeader />
+            {showSucessToast ? (
+                <SucessToast
+                    show={showSucessToast}
+                    onClose={() => setShowSucessToast(false)}
+                    message={sucessMessage}
+                />
+            ) : null}
             <div style={{ marginTop: "10%", overflow: 'scroll' }}>
                 <form className="d-flex flex-row justify-content-around" onSubmit={submitHandler}>
                     <div className="d-flex flex-column justify-content-start">
@@ -197,8 +211,8 @@ console.log(typeof(userId),"userId")
 
                         </div>
                         <div className="border rounded p-4 d-flex flex-column align-items-center m-3 mb-0">
-                            {!uploadedImage?<RiImageAddFill fontSize={40} onClick={handleButtonClick} />:
-                            <img src={uploadedImage} alt="User Photo"  style={{ width: '80px', height: '80px' }} />}
+                            {!uploadedImage ? <RiImageAddFill fontSize={40} onClick={handleButtonClick} /> :
+                                <img src={uploadedImage} alt="User Photo" style={{ width: '80px', height: '80px' }} />}
                             <p className="text-secondary " style={{ fontFamily: "Poppins", top: "10px" }}>Choose image from the Device to Upload</p>
                             <input
                                 type="file"

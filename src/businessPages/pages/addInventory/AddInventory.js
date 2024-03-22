@@ -95,8 +95,9 @@ const AddInventory = () => {
                 body: formData,
             });
 
-
-            if (response.ok) {
+           console.log(response,"response")
+          
+            if (response) {
                 setShowSucessToast(true);
                 setSucessMessage("Data saved successfully")
             } else {

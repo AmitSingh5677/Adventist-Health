@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import SucessMessage from '../../../components/successToast/SuccessToast';
 import UserProfile from '../../../utility/useravthar/UserAvathar';
 import './PatientProfileScreen.css'
-import {  Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
 
 
 export default function PatientProfileScreen() {
@@ -22,9 +22,25 @@ export default function PatientProfileScreen() {
     const [sucessToast, setSucessToast] = useState("");
     const [showToast, setShowToast] = useState(false)
     const nagviate = useNavigate()
+    const [bussinessId, setbussinessId] = useState('')
+    const [selectedOption, setSelectedOption] = useState(null);
+
 
     const [isOpen, setIsOpen] = useState(false)
-    
+
+    const reasondata = [
+        { id: 1, reason: 'Spam' },
+        { id: 2, reason: 'Pornography' },
+        { id: 3, reason: 'Hatred and Bullying' },
+        { id: 4, reason: 'Self - harm' },
+        { id: 5, reason: 'Violent,Gory, and harmful content' },
+        { id: 6, reason: 'Child Porn' },
+        { id: 7, reason: 'Illegal Activities(e.g. drug uses)' },
+        { id: 8, reason: 'Deceptive Content' },
+        { id: 9, reason: 'Copyright and Trademark Infringement' },
+        { id: 10, reason: 'Illegal Activities(e.g. drug uses)' }
+    ]
+
 
     React.useEffect(() => {
         const fetchData = async () => {
@@ -42,6 +58,7 @@ export default function PatientProfileScreen() {
                 if (data) {
                     setIsLoading(false);
                     setGetUserData(data);
+                    setbussinessId(data.id)
                     setUserImg(data.avatar_signed_url);
                 }
             } catch (error) {
@@ -60,14 +77,64 @@ export default function PatientProfileScreen() {
     }, [isLoading]);
 
     const profileSubmitHandler = () => {
-        // setIsOpen(true)
+        setIsOpen(true)
     }
+    const reportOptions = [
+        'Spam',
+        'Pornography',
+        'Hatred and Bullying',
+        'Self-harm',
+        'Violent, Gory, and harmful content',
+        'Child Porn',
+        'Illegal Activities (e.g. drug use)',
+        'Deceptive Content',
+        'Copyright and Trademark Infringement',
+    ];
+    const onreasonClick = () => {
+
+        const userid = parseInt(sessionStorage.getItem("userid"));
+        const fetchData = async () => {
+            try {
+
+                const token = JSON.parse(sessionStorage.getItem("token"));
+                const response = await fetch(`https://dmecart-38297.botics.co/business/patientreport/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'Application/json',
+                        'Authorization': `Token ${token}`
+                    },
+                    body: JSON.stringify({
+                        "patient": bussinessId,
+                        "reason": selectedOption,
+                        "description": ""
+                    })
+
+                });
+
+                const data = await response.json();
+                if (data) {
+                    setShowToast(true);
+                    setSucessToast("Your Feedback has been successfully recorded.")
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+
+            }
+        };
+
+        fetchData();
+    }
+
+    const handleOptionSelect = (option) => {
+        setSelectedOption(option);
+        console.log(`Selected option: ${option}`);
+    };
     return (
         <Helmet title="My Profile">
             <AppHeader />
             {showToast ? <SucessMessage show={showToast} onClose={() => setShowToast(false)} message={sucessToast} /> : null}
             {isLoading ? <SpinLoader /> : <div style={{ marginTop: '9%', marginBottom: "8%" }}>
-               
+
                 <Container>
                     <Row xs="12" sm="12" lg="12">
                         <div>
@@ -76,7 +143,7 @@ export default function PatientProfileScreen() {
                     </Row>
                 </Container>
                 <Container >
-                    <div style={{ display: "flex"}} className='m-3'>
+                    <div style={{ display: "flex" }} className='m-3'>
 
 
                         <div style={{ display: 'inline-block', textAlign: 'center' }}>
@@ -98,7 +165,7 @@ export default function PatientProfileScreen() {
                                                 Full Name
                                             </Label>
                                             <Input
-                                            disabled
+                                                disabled
                                                 className={`form-control shadow-none mt-10 ${isEditMode ? 'editable' : ''}`}
                                                 id="exampleEmail"
                                                 name="full_name"
@@ -117,7 +184,7 @@ export default function PatientProfileScreen() {
                                                 Email Address
                                             </Label>
                                             <Input
-                                            disabled
+                                                disabled
                                                 className={`form-control shadow-none mt-10 ${isEditMode ? 'editable' : ''}`}
                                                 id="exampleEmail"
                                                 name="email"
@@ -128,8 +195,8 @@ export default function PatientProfileScreen() {
                                             />
                                         </FormGroup>
                                     </Col>
-                                    </Row>
-                                    <Row >
+                                </Row>
+                                <Row >
                                     <Col md={5}>
                                         <FormGroup>
                                             <Label for="exampleEmail" className='label_form '>
@@ -157,7 +224,7 @@ export default function PatientProfileScreen() {
                                                 Birthday
                                             </Label>
                                             <Input
-                                            disabled
+                                                disabled
                                                 className={`form-control shadow-none mt-10 ${isEditMode ? 'editable' : ''}`}
                                                 id="exampleEmail"
                                                 name="birthday"
@@ -169,7 +236,7 @@ export default function PatientProfileScreen() {
 
                                         </FormGroup>
                                     </Col></Row>
-                                    <Row >
+                                <Row >
                                     <Col md={5}>
                                         <FormGroup>
                                             <Label for="exampleEmail" className='label_form '>Gender</Label>
@@ -197,7 +264,7 @@ export default function PatientProfileScreen() {
                                                 City
                                             </Label>
                                             <Input
-                                            disabled
+                                                disabled
                                                 className={`form-control shadow-none mt-10 ${isEditMode ? 'editable' : ''} ${!isEditMode && 'non-editable'}`}
                                                 id="exampleEmail"
                                                 name="city"
@@ -208,14 +275,14 @@ export default function PatientProfileScreen() {
 
                                         </FormGroup>
                                     </Col></Row>
-                                    <Row>
+                                <Row>
                                     <Col md={5}>
                                         <FormGroup>
                                             <Label for="exampleEmail" className='label_form '>
                                                 Zip
                                             </Label>
                                             <Input
-                                            disabled
+                                                disabled
                                                 className={`form-control shadow-none mt-10 ${isEditMode ? 'editable' : ''}`}
                                                 id="exampleEmail"
                                                 name="zip_code"
@@ -234,7 +301,7 @@ export default function PatientProfileScreen() {
                                                 State
                                             </Label>
                                             <Input
-                                            disabled
+                                                disabled
                                                 className={`form-control shadow-none mt-10 ${isEditMode ? 'editable' : ''}`}
                                                 id="exampleEmail"
                                                 name="state"
@@ -252,7 +319,7 @@ export default function PatientProfileScreen() {
                                                 Country
                                             </Label>
                                             <Input
-                                            disabled
+                                                disabled
                                                 className={`form-control shadow-none mt-10 ${isEditMode ? 'editable' : ''}`}
                                                 id="exampleEmail"
                                                 name="country"
@@ -279,18 +346,40 @@ export default function PatientProfileScreen() {
             <AppFooter />
 
             <Modal isOpen={isOpen} centered keyboard={false} backdrop="static" backdropClassName="modal-backdrop-dark" >
-                <div className='reportHeader' >
-                    <span  className='ms-5 reporttxt'>Report</span>
-                </div>
-                <ModalBody className='modal__txt'>
-                Why are you reporting this ?<br></br>
-                <span>
-                Your report is anonymous, except if you’re reporting an intellectual property infringement.
-                </span>
+                {/* <div className='reportHead mb-2 mt-5' >
+                    <span className='ms-5 '>Report</span>
+                </div> */}
+                <ModalHeader toggle={() => setIsOpen(false)} className='model_header' >
+                    <span style={{ fontSize: "16px" }}>Report</span>
+                </ModalHeader>
+                {/* <span className='reporttxt ms-5 me-5'></span> */}
+                <ModalBody >
+                    <div className='p-5 pt-2 pb-0 reportContainer'>
+                        <span className='reportText'>Why are you reporting this ?</span>
+                        <span className='reportText1'>
+                            Your report is anonymous, except if you’re reporting an intellectual property infringement.
+                        </span><br></br>
+                        {/* <span className='reasontext' onClick={() => onreasonClick('Spam')}>Spam</span> */}
+
+                        {/* {reasondata.map((item) => (
+                            <span className={selectedOption === item ? 'selectedOption' : ''} onClick={() => handleOptionSelect(item)}>{item.reason}</span>
+                        ))} */}
+
+                        {reportOptions.map((option, index) => (
+                            <div key={index} onClick={() => handleOptionSelect(option)}
+                                className={selectedOption === option ? 'selectedOption' : ''} >
+                                {option}
+                            </div>
+                        ))}
+                    </div>
+                    <div className='p-2 reportContainer' ><textarea style={{ width: '70%' }} className='p-1 bg-dark-subtle' rows={3} placeholder="Others" ></textarea></div>
                 </ModalBody>
+
                 <ModalFooter style={{ borderTop: 'none' }} className='modal__footer'>
-                    <button className='cancel__btn' onClick={()=>setIsOpen(false)}>No</button>
-                    <Button className='yes__btn' >Yes</Button>
+                    <div className='d-flex justify-content-around'>
+
+                        <button className='profile_report_btn' onClick={onreasonClick}>Confirm</button>
+                    </div>
                 </ModalFooter>
             </Modal>
         </Helmet>

@@ -5,11 +5,14 @@ import 'bootstrap'
 import './InventoryItemCard.css'
 import { useNavigate } from 'react-router-dom';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button, Row, Col } from 'reactstrap';
+import SucessToast from "../../components/sucessToast/SucessToast"
 
 const InventoryItemCard = (props) => {
     const navigate = useNavigate();
     const { productData } = props
-    console.log(productData, "props")
+    const [sucessMessage, setSucessMessage] = useState("");
+    const [showSucessToast, setShowSucessToast] = useState(false);
+
 
     const [isDelete, setIsDelete] = useState(false)
     const [id, setId] = useState('')
@@ -30,9 +33,22 @@ const InventoryItemCard = (props) => {
             },
         });
 
+        if (response) {
+            setShowSucessToast(true);
+            setSucessMessage("Data deleted successfully")
+
+        }
+
         setIsDelete(false)
     }
     return (<>
+     {showSucessToast ? (
+                <SucessToast
+                    show={showSucessToast}
+                    onClose={() => setShowSucessToast(false)}
+                    message={sucessMessage}
+                />
+            ) : null}
         {productData?.map((item) => (
 
             <div className='inventory-container mb-3'>
@@ -47,8 +63,8 @@ const InventoryItemCard = (props) => {
 
                  <div className='ps-3 pe-3'>$ {item.price}</div>
                 <div className='action '>
-                    <LuPencilLine className='mb-3 mt-0 pt-0' color='green' onClick={() => navigate(`/b/updateInventory/${item.id}`)} />
-                    <RiDeleteBin6Line color='red' onClick={() => deleteModal(item.id)} />
+                    <LuPencilLine className='mb-3 mt-0 pt-0 cursor' color='green' onClick={() => navigate(`/b/updateInventory/${item.id}`)} />
+                    <RiDeleteBin6Line className='cursor' color='red' onClick={() => deleteModal(item.id)} />
                 </div>
             </div>
 
