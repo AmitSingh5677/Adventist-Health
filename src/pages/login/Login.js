@@ -89,6 +89,7 @@ const Login = () => {
         console.log("Login API Response: " + JSON.stringify(responseData.token));
         // alert('Login successful!');
         // console.log(id,role,"123",)
+        sessionStorage.setItem("role", JSON.stringify(responseData.user_role))
         if(role === "patient"){
           setTimeout(() => {
             navigate("/homePage")

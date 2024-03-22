@@ -9,6 +9,7 @@
 }
 
 
+
 .patient_page_title {
     background-color: rgba(236, 236, 236, 1);
     color: black;
@@ -26,4 +27,41 @@
 
 .reporttxt{
     border-bottom: 1px solid rgba(166, 166, 166, 1);
+}
+
+.reportText{
+    font-family: 'Poppins';
+    font-size: 18px;
+    font-weight: 700;
+    top: 10px;
+    color: rgba(85, 86, 90, 1);
+}
+
+.reportText1{
+    font-family: 'Poppins';
+    font-size: 16px;
+    font-weight: 200;
+    color: rgba(166, 166, 166, 1);
+}
+.reasontext{
+    color: rgba(85, 86, 90, 1);
+    font-family: 'Poppins';
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+
+.reportContainer{
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.reportHead{
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: start !important;
+    justify-content: center !important;
 }

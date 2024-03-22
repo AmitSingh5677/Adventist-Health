@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import AppFooter from "../../components/AppFooter/AppFooter"
 import AppHeader from "../../components/AppHeader/AppHeader"
 import InventoryItemCard from "../../components/InventoryItemCard/InventoryItemCard"
@@ -8,6 +8,7 @@ import { Col, Row } from 'reactstrap';
 
 
 const MyInventory = () => {
+    const navigate=useNavigate()
 
     const[productData,setProductData]=useState([])
     React.useEffect(() => {
@@ -40,7 +41,7 @@ const MyInventory = () => {
       
         fetchData();
       
-      }, []);
+      }, [productData]);
 
     return <div>
         <AppHeader />
@@ -66,7 +67,7 @@ const MyInventory = () => {
 
 
         <div className="d-flex flex-row justify-content-end ">
-            <Link to='/addInventory'> <button className="btn btn-success p-5 pt-1 pb-1 m-5 mt-3  " type="button">Add New/Edit</button></Link>
+            <Link to='/b/addInventory'> <button className="btn btn-success p-5 pt-1 pb-1 m-5 mt-3  " type="button" >Add New/Edit</button></Link>
         </div>
 
         <AppFooter />

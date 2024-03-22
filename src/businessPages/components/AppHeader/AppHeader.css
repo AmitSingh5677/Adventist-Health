@@ -1,6 +1,6 @@
 .app-header {
-    background: #007d8a;
-    color: white;
+    background: rgba(236, 236, 236, 1);
+    color: rgba(85, 86, 90, 1);
     cursor: pointer;
     padding: 0px;
     position: fixed;
@@ -11,7 +11,7 @@
 
 .icon {
     margin-right: 5px;
-    color: #ffff;
+    color: rgba(85, 86, 90, 1);;
     cursor: pointer;
 }
 
@@ -23,7 +23,7 @@
 
 .app-text {
     font-family: "Poppins", sans-serif !important;
-    color: #ffff;
+    color: rgba(85, 86, 90, 1);;
     position: relative;
     right: 4px;
 }
@@ -81,8 +81,10 @@
 }
 
 .model_header {
-    background-color: #007D8A;
-    color: #fff;
+    /* background-color: #007D8A;
+    color: #fff; */
+    background-color: rgba(236, 236, 236, 1);
+    color: rgba(85, 86, 90, 1);
     padding: 10px;
     font-family: 'Poppins';
 }
