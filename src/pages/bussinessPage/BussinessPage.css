@@ -2,6 +2,11 @@
   margin-bottom: 5%;
   margin-top: 7%;
 }
+.product__img{
+  height: 170px;
+  overflow: hidden;
+  padding-top: 20px;
+}
 
 .dashboard-container {
   margin-top: 25%;

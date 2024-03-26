@@ -47,6 +47,8 @@ const OrderHistoryBusiness = () => {
         return "#D90000";
       case "Accepted":
         return "#FB1515";
+      case "accepted":
+        return "#FB1515";
       case "Delivered":
         return "#04D23E";
       case "pending":
@@ -58,7 +60,7 @@ const OrderHistoryBusiness = () => {
 
   return (
     <>
-    {token && <div>
+    {token && <div className="order-history-page">
       <div style={{ display: "block" }}>
         <AppHeader />
       </div>
@@ -67,7 +69,7 @@ const OrderHistoryBusiness = () => {
         <div className="title-order-history">
           <h6 className="ps-3 pt-3 pb-1">ORDER HISTORY</h6>
         </div>
-        <table className=" table-margin">
+        <table className=" table-margin mb-5">
           <thead className="table-header">
             <tr>
               <th className="w-2 py-3 ps-2">EQUIPMENT NAME</th>
@@ -111,8 +113,8 @@ const OrderHistoryBusiness = () => {
         </table>
       </div>
 
-      <div>{/* <DashboardFooter /> */}</div>
-      <AppFooter />
+      <div className="mb-5">{/* <DashboardFooter /> */}</div>
+      <AppFooter className="mt-5"/>
     </div>}
     </>
     

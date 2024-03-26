@@ -1,6 +1,6 @@
 // Cart.js
 
-import React, { useEffect } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { cartActions } from '../../store/shippingCart/cartSlice';
 import { RiDeleteBinLine } from "react-icons/ri";
@@ -14,6 +14,9 @@ import AppFooter from '../../components/footer/AppFooter';
 import noImage from '../../data/assests/noImage.jpg'
 
 const Cart = () => {
+  const [tax,setTax] =useState("")
+    const [applicationFee,setApplicationFee] =useState("")
+    const [totalPayable,setTotalPayable] =useState("")
   const cartItems = useSelector((state) => state.cart.cartItems);
 
   const calculateTotalPrice = () => {
@@ -23,6 +26,31 @@ const Cart = () => {
     });
     return totalPrice;
   };
+
+  const fetchOtherFee = async()=>{
+    const price = calculateTotalPrice()
+    const token = JSON.parse(sessionStorage.getItem("token"));
+    console.log(price, "price", token)
+    const response = await fetch("https://dmecart-38297.botics.co/patients/payment_intent/payment_calculation/", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'Application/json',
+            'Authorization': `Token ${token}`
+        },
+        body: JSON.stringify({
+            "amount": price
+        }),
+      })
+    const resData = await response.json()
+    setTax(resData.tax)
+    setApplicationFee(resData.application_fee)
+    setTotalPayable(resData.final_amount)
+}
+console.log(tax,applicationFee,totalPayable, "result123")
+
+useEffect(()=>{
+    fetchOtherFee()
+},[])
 
 
   const cartTotalAmount = useSelector((state) => state.cart.totalAmount);
@@ -37,21 +65,39 @@ const Cart = () => {
     dispatch(cartActions.setSearchItem(storedCartItems));
     dispatch(cartActions.setTotalAmount(storedTotalAmount));
   }, []);
-
+  // const [val,setVal]= useState([])
+  // useEffect(())
+  // console.log(val,cartItems,'j')
+  // TODO : change the hard values.
   useEffect(() => {
     sessionStorage.setItem('cartTotalAmount', JSON.stringify(cartTotalAmount));
   }, [cartTotalAmount]);
 
+  // const duplicateItems = [];
+     
+  //   cartItems.forEach(item => {
+  //       // Extract quantity and id from the item
+  //       const { quantity, id } = item;
+    
+  //       // Duplicate the item based on the quantity
+  //       for (let i = 0; i < quantity; i++) {
+  //         duplicateItems.push(id);
+  //       }
+  //     });
+      // console.log(duplicateItems,"dupli")
   const deleteItem = (id) => {
     dispatch(cartActions.deleteItem(id));
+    window.location.reload()
   };
-
+  
   const addToCart = (item) => {
     dispatch(cartActions.addItem(item));
+    window.location.reload()
   };
-
+  
   const removeCart = (id) => {
     dispatch(cartActions.removeItem(id));
+    window.location.reload()
   };
  
   console.log(cartItems)
@@ -98,15 +144,15 @@ const Cart = () => {
                       Sub-Total: <span>${calculateTotalPrice()}.00</span>
                     </h6>
                     <h6 className="d-flex align-items-center justify-content-between mb-3 amount__conatiner">
-                      Tax: <span>$ {cartItems.length === 0 ? "0.00" : "0.00"}</span>
+                      Tax: <span>$ {tax}</span>
                     </h6>
                     <h6 className="d-flex align-items-center justify-content-between mb-3 amount__conatiner">
-                      Application Fee: <span>${cartItems.length === 0 ? "0.00" : "0.00"}</span>
+                      Application Fee: <span>${applicationFee}</span>
                     </h6>
                     <hr />
                     <div className="checkout__total">
                       <h5 className="d-flex align-items-center justify-content-between amount__conatiner">
-                        Total Order: <span>${cartItems.length === 0 ? "0" : calculateTotalPrice()}.00</span>
+                        Total Order: <span>${totalPayable}</span>
                       </h5>
                     </div>
                   </div>

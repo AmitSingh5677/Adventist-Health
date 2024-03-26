@@ -40,7 +40,7 @@ const Compliance = () => {
                 <label htmlFor="agreement">I agree to the given text.</label> */}
               {token &&
                <div className="d-flex justify-content-around" style={{marginTop:"25px"}}>
-               <button  className="back_btn">Back</button>
+               {/* <button  className="back_btn">Back</button> */}
                {/* <button className="continu_txt">Continue</button> */}
            </div> }
                

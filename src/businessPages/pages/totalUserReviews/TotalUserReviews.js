@@ -88,7 +88,7 @@ const DashBoardReviews = () => {
                       <tr>
                         <th className='table_theader'>User/patient</th>
                         <th className='table_theader ps-4'>STARS</th>
-                        <th className='table_theader ps-2' >ORDER DETAILS</th>
+                        <th className='table_theader ps-2' >REVIEW MESSAGE</th>
                         <th className='table_theader '></th>
                       </tr>
                     </thead>

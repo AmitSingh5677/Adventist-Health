@@ -51,7 +51,7 @@ const AppHeader = ({ name, ...props }) => {
         <div>
             <Navbar className='app-header' expand="md" fixed="top">
                 <NavbarBrand >
-                    <img src={DmeCartLogo} alt="mainLogo" className="app-logo" />
+                    <img src={DmeCartLogo} alt="mainLogo" className="app-logo" onClick={()=>navigate("/b/allorders")} />
                 </NavbarBrand>
 
 

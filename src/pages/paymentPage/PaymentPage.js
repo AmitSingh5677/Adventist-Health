@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import "./PaymentPage.css";
 import { Container, Row, Col, FormGroup, Label, Input, Modal } from 'reactstrap'; // Import FormGroup, Label, and Input
 import Helmet from '../../components/helmet/Helmet';
@@ -13,10 +13,28 @@ import PaymentConfirmation from '../../components/paymentConfirmation/PaymentCon
 import mixpanel from '../../mixpanel'
 
 const PaymentPage = () => {
+    const [tax,setTax] =useState("")
+    const [applicationFee,setApplicationFee] =useState("")
+    const [totalPrice,setTotalPrice] =useState("")
     const totalPriceFromCart = useSelector((state) => state.cart.totalAmount);
     const cartItems = useSelector((state) => state.cart.cartItems);
-    const mappedIds = cartItems.map(item => item.id);
+    // const mappedIds = cartItems.map(item => item.id);
+     
+    const mappedIds = [];
+     
+    cartItems.forEach(item => {
+        // Extract quantity and id from the item
+        const { quantity, id } = item;
+    
+        // Duplicate the item based on the quantity
+        for (let i = 0; i < quantity; i++) {
+            mappedIds.push(id);
+        }
+      });
+
+    // if item quantity is more than once then repeat those orders
     console.log("product " + JSON.stringify(mappedIds));
+    // console.log("productnew " + JSON.stringify(duplicateItems));
  
     
  
@@ -42,8 +60,33 @@ const PaymentPage = () => {
 
     const total_Products = JSON.parse(sessionStorage.getItem("singleItem"))
     const mappedProducts = total_Products ? [productId] : mappedIds
+    
 
-    // TODO : change the hard values.
+    const fetchOtherFee = async()=>{
+        const price = singleProduct ? singleproductPrice : calculateTotalPrice()
+        const token = JSON.parse(sessionStorage.getItem("token"));
+        console.log(price, "price", token)
+        const response = await fetch("https://dmecart-38297.botics.co/patients/payment_intent/payment_calculation/", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'Application/json',
+                'Authorization': `Token ${token}`
+            },
+            body: JSON.stringify({
+                "amount": price
+            }),
+          })
+        const resData = await response.json()
+        setTax(resData.tax)
+        setApplicationFee(resData.application_fee)
+        setTotalPrice(resData.final_amount)
+    }
+    console.log(tax,applicationFee,totalPrice, "result123")
+
+    useEffect(()=>{
+        fetchOtherFee()
+    },[])
+
 
     const paymentHandler = async (e) => {
         e.preventDefault();
@@ -133,17 +176,22 @@ const PaymentPage = () => {
                             <Row className='payment_conatiner'>
                                 <div className='header_row'>Payment Details</div>
                                 <Row xs="12" sm="12" lg="12" className="feature__item text-center">
-                                    <Col xs="3" sm="4" lg="4">
+                                    <Col xs="3" sm="4" lg="3">
                                         <h6 className='payment_deatils'>Total Cost</h6>
                                         <h6 className='payment_deatils'>${singleProduct ? singleproductPrice : calculateTotalPrice()}.00</h6>
                                     </Col>
-                                    <Col xs="3" sm="4" lg="4">
+                                    <Col xs="3" sm="4" lg="3">
                                         <h6 className='payment_deatils'>Tax</h6>
-                                        <h6 className='payment_deatils'>$0.00</h6>
+                                        <h6 className='payment_deatils'>${tax}</h6>
                                     </Col>
-                                    <Col xs="6" sm="4" lg="4">
+                                    <Col xs="3" sm="4" lg="3">
+                                        <h6 className='payment_deatils'>Application Fee</h6>
+                                        <h6 className='payment_deatils'>${applicationFee}</h6>
+                                    </Col>
+                                    <Col xs="6" sm="4" lg="3">
                                         <h6 className='payment_deatils'>Payable Amount</h6>
-                                        <h6 className='payment_deatils'>${singleProduct ? singleproductPrice : calculateTotalPrice()}.00</h6>
+                                        {/* <h6 className='payment_deatils'>${singleProduct ? singleproductPrice : calculateTotalPrice()}.00</h6> */}
+                                        <h6 className='payment_deatils'>${totalPrice}</h6>
                                     </Col>
                                 </Row>
                             </Row>
