@@ -87,7 +87,7 @@ const PaymentHistory = () => {
                                                                 <th>ORDERED EQUIPMENT</th>
                                                                 <th>DATE</th>
                                                                 <th>STATUS</th>
-                                                                <th>order_id</th>
+                                                                <th>ORDER ID</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody className='body__txt'>

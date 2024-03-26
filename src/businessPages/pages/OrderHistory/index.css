@@ -1,5 +1,11 @@
+.order-history-page{
+    /* height: 250vh; */
+}
 .order-history-section{
     margin-top: 160px;
+    overflow-y: auto;
+    max-height: 100vh;
+scroll-behavior: smooth;
 }
 .title-order-history{
     border: 1px solid #007D8A;
