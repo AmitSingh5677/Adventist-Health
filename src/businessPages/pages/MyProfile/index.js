@@ -205,6 +205,7 @@ const MyProfileBusiness = () => {
           <button
             type="button"
             className="btn btn-success first-container-buttons m-2 p-5 pt-2 pb-2"
+            onClick={()=>navigate("/b/bankDeatils")}
           >
             My Bank Account
           </button>

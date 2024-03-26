@@ -87,14 +87,17 @@ useEffect(()=>{
       // console.log(duplicateItems,"dupli")
   const deleteItem = (id) => {
     dispatch(cartActions.deleteItem(id));
+    window.location.reload()
   };
-
+  
   const addToCart = (item) => {
     dispatch(cartActions.addItem(item));
+    window.location.reload()
   };
-
+  
   const removeCart = (id) => {
     dispatch(cartActions.removeItem(id));
+    window.location.reload()
   };
  
   console.log(cartItems)
