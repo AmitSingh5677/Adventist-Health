@@ -3,3 +3,19 @@
     flex-direction: row;
     justify-content: space-between;
 }
+
+.inventory_btn{
+    background-color: rgba(111, 191, 73, 1) !important;
+    color: white !important;
+    padding: 10px 20px !important;
+    width: 300px;
+    border: none;
+    border-radius: 10px;
+    
+}
+
+.inventory_btn:hover {
+    color: white;
+    background-color: rgba(111, 191, 73, 1) !important;
+    border-color: rgba(111, 191, 73, 1) !important;
+}

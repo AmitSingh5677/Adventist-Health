@@ -3,9 +3,10 @@ import AppHeader from "../../components/AppHeader/AppHeader"
 import InquiriesCard from "../../components/InquiriesCard"
 import './index.css'
 import React,{useState} from 'react';
+
 const InquiriesBusiness = ()=>{
    const[inquiryData,setInquiryData]=useState([])
-
+  
    React.useEffect(() => {
       const token = JSON.parse(sessionStorage.getItem("token"));
       const userid =  parseInt(sessionStorage.getItem("userid"));
@@ -40,7 +41,7 @@ const InquiriesBusiness = ()=>{
     return <div>
       <div>
        <AppHeader />
-
+      
       </div>
 
        <div className="inquiry-section">

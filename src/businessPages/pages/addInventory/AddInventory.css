@@ -39,3 +39,11 @@
 .inventory__Descbox::placeholder {
     color: #AAAAAA;
 }
+
+.addinventory_btn{
+    background-color: rgba(111, 191, 73, 1) !important;
+    color: white !important;
+    padding: 5px 20px !important;
+    border: none;
+    border-radius: 10px;
+}
