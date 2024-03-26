@@ -37,11 +37,26 @@ const Cart = () => {
     dispatch(cartActions.setSearchItem(storedCartItems));
     dispatch(cartActions.setTotalAmount(storedTotalAmount));
   }, []);
-
+  // const [val,setVal]= useState([])
+  // useEffect(())
+  // console.log(val,cartItems,'j')
+  // TODO : change the hard values.
   useEffect(() => {
     sessionStorage.setItem('cartTotalAmount', JSON.stringify(cartTotalAmount));
   }, [cartTotalAmount]);
 
+  const duplicateItems = [];
+     
+    cartItems.forEach(item => {
+        // Extract quantity and id from the item
+        const { quantity, id } = item;
+    
+        // Duplicate the item based on the quantity
+        for (let i = 0; i < quantity; i++) {
+          duplicateItems.push(id);
+        }
+      });
+      console.log(duplicateItems,"dupli")
   const deleteItem = (id) => {
     dispatch(cartActions.deleteItem(id));
   };

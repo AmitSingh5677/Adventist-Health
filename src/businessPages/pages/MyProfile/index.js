@@ -6,6 +6,7 @@ import profile_img from "../../../data/assests/download_img/profile_img.png";
 import edit from "../../data/assests/downloaded__imgs/editIcon.png";
 import SucessMessage from "../../../components/successToast/SuccessToast";
 import SucessToast from "../../components/sucessToast/SucessToast";
+import { Navigate, useNavigate } from "react-router-dom";
 
 
 const MyProfileBusiness = () => {
@@ -20,6 +21,7 @@ const MyProfileBusiness = () => {
   const [showSucessToast, setShowSucessToast] = useState(false);
   const [editable, setEditable] = useState(true);
   const [submit,setSubmit] = useState(false)
+  const navigate = useNavigate()
   // const [editable, setEditable] = useState({
   //   location: true,
   //   image: true,
@@ -81,6 +83,12 @@ const MyProfileBusiness = () => {
   useEffect(()=>{
     profileResponse()
   },[])
+
+  const handleLogout =()=>{
+    localStorage.clear()
+    sessionStorage.clear()
+    navigate('/login')
+  }
 
   return (
     <div className="my-profile-bsuiness-page">
@@ -203,18 +211,21 @@ const MyProfileBusiness = () => {
           <button
             type="button"
             className="btn btn-success first-container-buttons m-2  p-5 pt-2 pb-2"
+            onClick={()=>navigate("/Terms&&Conditions")}
           >
             Terms and Conditions
           </button>
           <button
             type="button"
             className="btn btn-success first-container-buttons m-2  p-5 pt-2 pb-2"
+            onClick={()=>navigate("/Terms&&Conditions")}
           >
-            Privacy Policy
+            Privacy-Policy
           </button>
           <button
             type="button"
             className="btn btn-success first-container-buttons m-2 p-5 pt-2 pb-2"
+            onClick={handleLogout}
           >
             Log Out
           </button>
@@ -235,6 +246,7 @@ const MyProfileBusiness = () => {
           <button
             type="button"
             className="btn btn-success second-container-buttons"
+            onClick={()=>navigate("/b/compliance")}
           >
             HIPAA and compliance
           </button>

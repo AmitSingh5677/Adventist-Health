@@ -13,10 +13,10 @@ const PaymentConfirmation = ({ equipmentName, currentdate }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch()
     const amount = localStorage.getItem("amount");
+    const order_id = localStorage.getItem("order_id");
 
     React.useEffect(() => {
         // const order_id = JSON.parse(sessionStorage.getItem("order_id"));
-        const order_id = localStorage.getItem("order_id");
         const token = JSON.parse(sessionStorage.getItem("token"));
         const fetchData = async () => {
             try {
@@ -74,7 +74,7 @@ const PaymentConfirmation = ({ equipmentName, currentdate }) => {
             <div id="payment card" className="bg-light  d-flex flex-column align-items-center p-3 rounded">
                 <IoIosCheckmarkCircle color={'green'} size={75} />
                 <p className="Payment_Status">Congratulations</p>
-                <p className='payment_subTxt'>You payment was successful,Kindly visit <span style={{ color: "#32A9FF" }} > Payment History</span> for more details. </p>
+                <p className='payment_subTxt'>Your payment was successful,Kindly visit <span style={{ color: "#32A9FF" }} > Payment History</span> for more details. </p>
                 <div className="d-flex flex-row justify-content-around align-self-stretch">
                     {/* <p className="equpiment_txt ">Equipment Name</p>
                     <p className='equpiment_subtxt'>{equipmentName || "wheelChair"}</p> */}
@@ -86,6 +86,10 @@ const PaymentConfirmation = ({ equipmentName, currentdate }) => {
                 <div className="d-flex flex-row justify-content-around align-self-stretch">
                     <p className="equpiment_txt">Amount Paid</p>
                     <p className='equpiment_subtxt' style={{ position: "relative", left: "60px" }}>${amount}</p>
+                </div>
+                <div className="d-flex flex-row justify-content-around align-self-stretch">
+                    <p className="equpiment_txt ps-5">Order id</p>
+                    <p className='equpiment_subtxt' style={{ position: "relative", left: "60px" }}>{order_id}</p>
                 </div>
                 <div className="d-flex flex-row justify-content-around align-self-stretch">
                     <p className="equpiment_txt ms-3">Paid on</p>
