@@ -67,7 +67,7 @@ const MyInventory = () => {
 
 
         <div className="d-flex flex-row justify-content-end ">
-            <Link to='/b/addInventory'> <button className="btn btn-success p-5 pt-1 pb-1 m-5 mt-3  " type="button" >Add New/Edit</button></Link>
+            <Link to='/b/addInventory'> <button className="btn btn-success p-5 pt-1 pb-1 m-5 mt-3  inventory_btn" type="button" >Add New/Edit</button></Link>
         </div>
 
         <AppFooter />

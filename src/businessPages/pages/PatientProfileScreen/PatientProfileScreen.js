@@ -11,6 +11,7 @@ import SucessMessage from '../../../components/successToast/SuccessToast';
 import UserProfile from '../../../utility/useravthar/UserAvathar';
 import './PatientProfileScreen.css'
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
+import ToastMessage from '../../../components/toast/ToastMessage';
 
 
 export default function PatientProfileScreen() {
@@ -24,22 +25,14 @@ export default function PatientProfileScreen() {
     const nagviate = useNavigate()
     const [bussinessId, setbussinessId] = useState('')
     const [selectedOption, setSelectedOption] = useState(null);
+    const [userDesc, setuserDesc] = useState("");
+    const [isError, setIsError] = useState("");
+    const [isSuccess, setIsSuccess] = useState("")
+    const [showToastError, setshowToastError] = useState(false)
 
+    
 
     const [isOpen, setIsOpen] = useState(false)
-
-    const reasondata = [
-        { id: 1, reason: 'Spam' },
-        { id: 2, reason: 'Pornography' },
-        { id: 3, reason: 'Hatred and Bullying' },
-        { id: 4, reason: 'Self - harm' },
-        { id: 5, reason: 'Violent,Gory, and harmful content' },
-        { id: 6, reason: 'Child Porn' },
-        { id: 7, reason: 'Illegal Activities(e.g. drug uses)' },
-        { id: 8, reason: 'Deceptive Content' },
-        { id: 9, reason: 'Copyright and Trademark Infringement' },
-        { id: 10, reason: 'Illegal Activities(e.g. drug uses)' }
-    ]
 
 
     React.useEffect(() => {
@@ -90,11 +83,25 @@ export default function PatientProfileScreen() {
         'Deceptive Content',
         'Copyright and Trademark Infringement',
     ];
-    const onreasonClick = () => {
+    const onreasonClick = async () => {
+        try {
+            const userid = parseInt(sessionStorage.getItem("userid"));
+            
+            const trimmedUserDesc = userDesc.trim();
+            if (!selectedOption && !userDesc) {
+                setshowToastError(true);
+                setIsError("Please select an option for Report");
+                return;
+            }
+           
+            if (userDesc && trimmedUserDesc.length < 6) {
+                setshowToastError(true);
+                setIsError("Please enter a valid description (at least 6 characters).");
+                return;
+            }
+            if (trimmedUserDesc || selectedOption) {
 
-        const userid = parseInt(sessionStorage.getItem("userid"));
-        const fetchData = async () => {
-            try {
+
 
                 const token = JSON.parse(sessionStorage.getItem("token"));
                 const response = await fetch(`https://dmecart-38297.botics.co/business/patientreport/`, {
@@ -106,23 +113,24 @@ export default function PatientProfileScreen() {
                     body: JSON.stringify({
                         "patient": bussinessId,
                         "reason": selectedOption,
-                        "description": ""
+                        "description": userDesc
                     })
 
                 });
 
                 const data = await response.json();
                 if (data) {
+                    setshowToastError(false);
                     setShowToast(true);
                     setSucessToast("Your Feedback has been successfully recorded.")
                 }
-            } catch (error) {
-                console.error('Error fetching data:', error);
+
 
             }
-        };
+        } catch (error) {
+            console.error('Error fetching data:', error);
 
-        fetchData();
+        }
     }
 
     const handleOptionSelect = (option) => {
@@ -132,6 +140,8 @@ export default function PatientProfileScreen() {
     return (
         <Helmet title="My Profile">
             <AppHeader />
+            {showToastError ? <ToastMessage show={showToastError} message={isError} onClose={() => setShowToast(false)} /> : null}
+
             {showToast ? <SucessMessage show={showToast} onClose={() => setShowToast(false)} message={sucessToast} /> : null}
             {isLoading ? <SpinLoader /> : <div style={{ marginTop: '9%', marginBottom: "8%" }}>
 
@@ -366,13 +376,14 @@ export default function PatientProfileScreen() {
                         ))} */}
 
                         {reportOptions.map((option, index) => (
-                            <div key={index} onClick={() => handleOptionSelect(option)}
-                                className={selectedOption === option ? 'selectedOption' : ''} >
+                            <div  key={index} onClick={() => handleOptionSelect(option)}
+                                className={selectedOption === option ? 'selectedOption pb-2 cursor' : 'pb-2 cursor'} >
                                 {option}
                             </div>
                         ))}
                     </div>
-                    <div className='p-2 reportContainer' ><textarea style={{ width: '70%' }} className='p-1 bg-dark-subtle' rows={3} placeholder="Others" ></textarea></div>
+                    <div className='p-2 reportContainer' >
+                        <textarea style={{ width: '70%' }} className='p-2 bg-dark-subtle' onChange={(e) => setuserDesc(e.target.value)} rows={3} placeholder="Others" ></textarea></div>
                 </ModalBody>
 
                 <ModalFooter style={{ borderTop: 'none' }} className='modal__footer'>

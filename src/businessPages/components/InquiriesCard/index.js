@@ -3,9 +3,12 @@ import avatar_logo from '../../../data/assests/avatar_logo.png';
 import electric_chair from '../../../data/assests/download_img/electricChair1.png'
 import React,{ useState } from "react";
 
+import SucessToast from './../../components/sucessToast/SucessToast';
 
 const InquiriesCard = (props) => {
-
+    const [showSucessToast, setShowSucessToast] = useState(false);
+    const [sucessMessage, setSucessMessage] = useState("");
+ 
     const { inquiryData } = props
 
     const [userdata, setData] = useState([])
@@ -40,7 +43,8 @@ const InquiriesCard = (props) => {
 
                 const data = await response.json();
                 if (data) {
-
+                    setShowSucessToast(true);
+                    setSucessMessage("Inquiry send successfully")
 
                 }
             } catch (error) {
@@ -78,7 +82,13 @@ const InquiriesCard = (props) => {
     }
 
     return <div className="m-2">
-
+ {showSucessToast ? (
+            <SucessToast
+              show={showSucessToast}
+              onClose={() => setShowSucessToast(false)}
+              message={sucessMessage}
+            />
+          ) : null}
 
 
 
@@ -107,7 +117,7 @@ const InquiriesCard = (props) => {
                     <p>Wheel chair wheel chair wheel chair description Lorem Ipsum door sit amwr consectur, nec mass ulrieces  Wheel chair wheel chair wheel chair description Lorem Ipsum door sit amwr consectur, nec mass ulrieces  Wheel chair wheel chair wheel chair description Lorem Ipsum door sit amwr consectur, nec mass ulrieces</p>
                     <div className="d-flex flex-column mt-3 mb-4">
                         <label htmlfor='message-input' style={{ fontWeight: "bold" }}>Add new message</label>
-                        <textarea className="bg-dark-subtle p-1" rows={2} placeholder="Write your message here..." onClick={(e) => setMessage(e.target.value)}></textarea>
+                        <textarea className="bg-dark-subtle p-1" rows={2} placeholder="Write your message here..." onChange={(e) => setMessage(e.target.value)} ></textarea>
                         <button type="button" className="btn btn-success align-self-end m-1 p-5 pt-1 pb-1 mt-3" onClick={sendMessage}>Send</button>
                     </div>
                 </div>

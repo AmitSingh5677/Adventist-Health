@@ -185,7 +185,7 @@ const AddInventory = () => {
                                 onChange={handleImageChange}
                             />
 
-                            <button className="inventory__Descbox" type='button' onClick={handleButtonClick} style={{ background: "#026937", color: "#ffff", height: "30px", fontSize: "13px", padding: "5px", fontFamily: "Poppins", width: "60%" }} >Upload Image</button>
+                            <button className="inventory__Descbox addinventory_btn" type='button' onClick={handleButtonClick} style={{ background: "#026937", color: "#ffff", height: "30px", fontSize: "13px", padding: "5px", fontFamily: "Poppins", width: "60%" }} >Upload Image</button>
 
                         </div> <span className='errorTxt ms-3'> {imageError && <span style={{ color: '#FF0000' }}>{imageError}</span>} </span>
 
@@ -221,7 +221,7 @@ const AddInventory = () => {
                             <span className='errorTxt'> {detailError && <span style={{ color: '#FF0000' }}>{detailError}</span>} </span>
 
                         </div>
-                        <button type="submit" className="btn btn-success p-5 pt-1 pb-1 m-3" style={{ fontFamily: "Poppins" }}>Save</button>
+                        <button type="submit" className="btn btn-success p-5 pt-1 pb-1 m-3 addinventory_btn" style={{ fontFamily: "Poppins" }}>Save</button>
                     </div>
                 </form >
             </div>
