@@ -50,14 +50,15 @@ const UserFeedback = ({ imgSrc, productTitle, userViews, rating }) => {
             const patient_Id = JSON.parse(sessionStorage.getItem("patientId"))
             const token = JSON.parse(sessionStorage.getItem("token"));
             const business_id = JSON.parse(sessionStorage.getItem("bussiness_id"))
-            const response = await fetch(`/patients/ratings/${patient_Id}/`, {
+            const businessId = sessionStorage.getItem("businessId")
+            const response = await fetch(`https://dmecart-38297.botics.co/patients/ratings/create/`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Token ${token}`,
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    "business": business_id,
+                    "business": businessId,
                     "stars": selectedRating,
                     "message": ratingMessage,
                 }),

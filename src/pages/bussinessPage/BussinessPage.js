@@ -116,6 +116,8 @@ const BussinessPage = () => {
 
                 const data = await response.json();
                 if (data && data.length > 0) {
+                    console.log(data[0].business,"data")
+                    sessionStorage.setItem("businessId",data[0].business)
                     setIsLoading(false);
                     setAllProducts(data)
                 } else {

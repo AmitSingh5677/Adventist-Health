@@ -15,10 +15,10 @@ const InquiriesCard = (props) => {
     const [message, setMessage] = useState('')
 
     React.useEffect(() => {
-        setData(inquiryData[0])
+        setData(inquiryData)
     },[inquiryData])
 
-    const sendMessage = () => {
+    const sendMessage = (patient,product,inquiry_id) => {
         const token = JSON.parse(sessionStorage.getItem("token"));
         const userid = parseInt(sessionStorage.getItem("userid"));
         console.log(userid, "userid")
@@ -34,10 +34,10 @@ const InquiriesCard = (props) => {
                     },
                     body: JSON.stringify({
                         "user_id": userid,
-                        "patient_user_id": userdata.patient,
-                        "product_id": userdata.product,
+                        "patient_user_id": patient,
+                        "product_id": product,
                         "message": message,
-                        "inquiry_id": userdata.inquiry_id
+                        "inquiry_id": inquiry_id
                     })
                 });
 
@@ -92,40 +92,40 @@ const InquiriesCard = (props) => {
 
 
 
-        {userdata ?<div className="d-flex flex-row justify-content-between" >
+        {userdata.map((item)=>( <div className="d-flex flex-row justify-content-between" >
             <div>
                 <div className="d-flex comp-name-sec">
 
-                    <img src={userdata.business_avatar} alt=' logo' />
-                    <h4 className="ms-2 mt-1">{userdata.business_name}</h4>
+                    <img src={item.business_avatar} alt=' logo' />
+                    <h4 className="ms-2 mt-1">{item.business_name}</h4>
                 </div>
 
 
                 <div className="d-flex flex-row mt-2">
                     <div className="equipm-img-box">
-                        <img src={userdata.product_avatar} alt='product' className="product-img" />
+                        <img src={item.product_avatar} alt='product' className="product-img" />
                     </div>
                     <div className="m-2 ms-5">
-                        <h6 style={{ fontWeight: "bold" }}>{userdata.equipment_name}</h6>
+                        <h6 style={{ fontWeight: "bold" }}>{item.equipment_name}</h6>
                         <p>Wheel chair wheel chair wheel chair wheel chair</p>
                     </div>
-                    <h6 className="ms-5" style={{ fontWeight: "bold" }}>{userdata.product_amount}</h6>
+                    <h6 className="ms-5" style={{ fontWeight: "bold" }}>{item.product_amount}</h6>
 
                 </div>
 
                 <div className="w-75 mt-2">
-                    <p>Wheel chair wheel chair wheel chair description Lorem Ipsum door sit amwr consectur, nec mass ulrieces  Wheel chair wheel chair wheel chair description Lorem Ipsum door sit amwr consectur, nec mass ulrieces  Wheel chair wheel chair wheel chair description Lorem Ipsum door sit amwr consectur, nec mass ulrieces</p>
+                    <p>{item.message}</p>
                     <div className="d-flex flex-column mt-3 mb-4">
                         <label htmlfor='message-input' style={{ fontWeight: "bold" }}>Add new message</label>
                         <textarea className="bg-dark-subtle p-1" rows={2} placeholder="Write your message here..." onChange={(e) => setMessage(e.target.value)} ></textarea>
-                        <button type="button" className="btn btn-success align-self-end m-1 p-5 pt-1 pb-1 mt-3" onClick={sendMessage}>Send</button>
+                        <button type="button" className="btn btn-success align-self-end m-1 p-5 pt-1 pb-1 mt-3" onClick={()=>sendMessage(item.patient,item.product,item.inquiry_id)}>Send</button>
                     </div>
                 </div>
 
             </div>
 
             <RiDeleteBin6Line color="red" size={40} className="delete-btn" onClick={deletInquiry} />
-        </div>:''}
+        </div>))}
 
 
         <hr />

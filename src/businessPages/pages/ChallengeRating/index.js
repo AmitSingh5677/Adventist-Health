@@ -6,16 +6,15 @@ import React,{useState} from 'react';
 
 const ChallengeRating = ()=>{
 
-   const[productData,setProductData]=useState([])
+   const[ratingData,setratingData]=useState([])
    React.useEffect(() => {
        const token = JSON.parse(sessionStorage.getItem("token"));
        const userid =  parseInt(sessionStorage.getItem("userid"));
-       console.log(userid,"userid")
-     
+      
        const fetchData = async () => {
            try {
              
-               const response = await fetch(`https://dmecart-38297.botics.co/business/challenge_rating/${userid}/`, {
+               const response = await fetch(`https://dmecart-38297.botics.co/patients/ratings/${userid}/`, {
                    method: 'GET',
                    headers: {
                      'Content-Type': 'Application/json',
@@ -27,7 +26,7 @@ const ChallengeRating = ()=>{
                if (data) {
                  console.log(data,"data")
                 // setOrderData(data)
-                setProductData(data)
+                setratingData(data)
      
                }
            } catch (error) {
@@ -45,7 +44,7 @@ const ChallengeRating = ()=>{
         <div className="rounded bg-dark-subtle p-3 m-1">
            <div className="bg-light rounded p-3">
             <h1 className="my-1">Challenge Rating</h1>
-            <ChallengeCard />
+            <ChallengeCard  ratingData={ratingData}/>
            </div>
         </div>
        </div>
