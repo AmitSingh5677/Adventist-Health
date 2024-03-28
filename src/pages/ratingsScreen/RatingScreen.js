@@ -57,7 +57,7 @@ const calculateDaysAgo = (created_at) => {
 
 const RatingScreen = () => {
     const rating = useSelector((state) => state.cart.allRatings);
-    // console.log("useData" + JSON.stringify(rating));
+     console.log("useData" + JSON.stringify(rating));
     const [userData, setUserData] = useState([]);
     const naviagte = useNavigate();
     const [isLoading, setisLoading] = useState(true)

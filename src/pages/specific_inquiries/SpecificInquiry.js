@@ -30,8 +30,9 @@ const SpecificInquiry = () => {
         const fetchData = async () => {
             try {
                 const patient_id = JSON.parse(sessionStorage.getItem("patientId"))
+                console.log(patient_id,"patient_id")
                 const token = JSON.parse(sessionStorage.getItem("token"));
-                const response = await fetch(`patients/inquiries/${patient_id}/`, {
+                const response = await fetch(`https://dmecart-38297.botics.co/patients/inquiries/${patient_id}/${id}/`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Token ${token}`
@@ -50,7 +51,7 @@ const SpecificInquiry = () => {
                 }
             } catch (error) {
                 // showToast(true)
-                setIsError("There is Internal Server.Please Visit After SomeTime.")
+                // setIsError("There is Internal Server.Please Visit After SomeTime.")
             }
         };
 
@@ -64,7 +65,7 @@ const SpecificInquiry = () => {
             try {
                 const bussiness_id = JSON.parse(sessionStorage.getItem("bussiness_id"))
                 const token = JSON.parse(sessionStorage.getItem("token"));
-                const response = await fetch(`/business/product/${bussiness_id}/`, {
+                const response = await fetch(`https://dmecart-38297.botics.co/business/product/${bussiness_id}/${id}/`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Token ${token}`
@@ -72,25 +73,26 @@ const SpecificInquiry = () => {
                 });
 
                 const data = await response.json();
-                if (data && data.length > 0) {
+                console.log(data,"datadata")
+                if (data) {
                     setIsLoading(false);
                     // console.log("bussiness_id" + JSON.stringify(data));
                     const filteredDataById = data.filter(item => item.id === parseInt(id));
                     if (filteredDataById.length > 0) {
                         setFilteredData(filteredDataById);
                     } else {
-                        alert("No Data Found for the Specified ID");
+                       // alert("No Data Found for the Specified ID");
                         // Handle the case where no data matches the ID
                     }
                 } else {
-                    alert("No Data Found for Particular Bussiness");
+                  //  alert("No Data Found for Particular Bussiness");
                     // Handle the case where no data is returned
                 }
             } catch (error) {
                 // console.error('Error fetching data:', error);
                 setIsLoading(false);
                 setIsError(true);
-                setErrorMessage("There is Internal Server.Please Visit After SomeTime.")
+                // setErrorMessage("There is Internal Server.Please Visit After SomeTime.")
             }
         };
 
@@ -198,7 +200,7 @@ const SpecificInquiry = () => {
                     </div>
                 </Container>
                 <div className='specific__content'>
-                    <Row>
+                   {filteredData && <Row>
                         <h4 style={{ marginBottom: "15px", fontSize: "18px" }}>Inquiry for:</h4>
                         <Col md={6} lg={2}>
                             <img src={filteredData[0].product_signed_url} alt="img" width="50%" />
@@ -211,7 +213,7 @@ const SpecificInquiry = () => {
                             <h6 className='specific__txt '>${filteredData[0].price}</h6>
                         </Col>
                         <hr />
-                    </Row>
+                    </Row>}
                     <Row>
 
                         <Row>
