@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import "./AccountInfo.css";
 import AppHeader from "../../components/AppHeader/AppHeader";
 import AppFooter from "../../components/AppFooter/AppFooter";
@@ -10,18 +10,31 @@ import SucessMessage from "../../../components/successToast/SuccessToast";
 import SucessToast from "../../components/sucessToast/SucessToast";
 
 const AccountInfo = () => {
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [dob, setDob] = useState("");
+  const [gender, setGender] = useState("");
+  const [city, setCity] = useState("");
+  const [zip, setZip] = useState("");
+  const [state, setState] = useState("");
+  const [country, setCountry] = useState("");
   const [uploadedImage, setUploadedImage] = useState(null);
+  const [updatedImage, setUpdatedImage] = useState(null);
   const [userImg, setUserImg] = useState();
   const [getUserData, setGetUserData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isEditMode, setIsEditMode] = useState(false);
   const [sucessToast, setSucessToast] = useState("");
+  const [showSucessToast, setShowSucessToast] = useState(false);
+  const [sucessMessage, setSucessMessage] = useState("");
   const [showToast, setShowToast] = useState(false);
   const [fieldErrors, setFieldErrors] = useState({});
   const nagviate = useNavigate();
   const fileInputRef = React.useRef(null);
   const [birthdayError, setBirthdayError] = useState("");
+  const [data, setData] = useState([]);
 
   const openFileInput = () => {
     if (fileInputRef.current) {
@@ -29,41 +42,38 @@ const AccountInfo = () => {
     }
   };
 
-  React.useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const patientId = JSON.parse(sessionStorage.getItem("patientId"));
-        const token = JSON.parse(sessionStorage.getItem("token"));
-        const response = await fetch(
-          `/patients/patients_details/${patientId}/`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Token ${token}`,
-            },
-          }
-        );
+  const id = sessionStorage.getItem("userid");
+  const token = JSON.parse(sessionStorage.getItem("token"));
 
-        const data = await response.json();
-        if (data) {
-          setIsLoading(false);
-          setGetUserData(data);
-          setUserImg(data.avatar_signed_url);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setIsLoading(false);
-      } finally {
-        setIsLoading(false); // Set loading state to false regardless of success or failure
+  const profileResponse = async () => {
+    const response = await fetch(
+      `https://dmecart-38297.botics.co/business/business_profile/${id}/`,
+      {
+        method: "GET",
+        headers: {
+          // "Content-Type": "Application/json",
+          Authorization: ` Token ${token}`,
+        },
       }
-    };
+    );
 
-    fetchData();
+    const resData = await response.json();
+    console.log(resData, "data");
+    setName(resData.owner_full_name);
+    setEmail(resData.user_id.email);
+    setPhone(resData.phone);
+    setGender(resData.user_gender);
+    setDob(resData.user_birthday);
+    setCity(resData.business_location);
+    setZip(resData.business_zip_code);
+    setState(resData.state);
+    setCountry(resData.country);
+    setImage(resData.user_avatar_signed_url);
+  };
 
-    if (getUserData.avatar_signed_url) {
-      setUserImg(getUserData.avatar_signed_url);
-    }
-  }, [isLoading]);
+  useEffect(() => {
+    profileResponse();
+  }, []);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -192,104 +202,104 @@ const AccountInfo = () => {
   };
 
   // save Button Function
-  const profileSubmitHandler = async () => {
-    const validationErrors = validateForm();
-    if (Object.keys(validationErrors).length > 0) {
-      // There are validation errors, display them to the user
-      setFieldErrors(validationErrors);
-      return;
-    }
-    setFieldErrors({});
-    const patientId = JSON.parse(sessionStorage.getItem("patientId"));
-    const token = JSON.parse(sessionStorage.getItem("token"));
-    const formData = new FormData();
+  // const profileSubmitHandler = async () => {
+  //   const validationErrors = validateForm();
+  //   if (Object.keys(validationErrors).length > 0) {
+  //     // There are validation errors, display them to the user
+  //     setFieldErrors(validationErrors);
+  //     return;
+  //   }
+  //   setFieldErrors({});
+  //   const patientId = JSON.parse(sessionStorage.getItem("patientId"));
+  //   const token = JSON.parse(sessionStorage.getItem("token"));
+  //   const formData = new FormData();
 
-    formData.append("full_name", getUserData.full_name);
-    formData.append("location", getUserData.location);
-    formData.append("zip_code", getUserData.zip_code);
-    formData.append("phone", getUserData.phone);
-    formData.append("birthday", getUserData.birthday);
-    formData.append("gender", getUserData.gender);
-    formData.append("address", getUserData.address);
-    formData.append("city", getUserData.city);
-    formData.append("state", getUserData.state);
-    formData.append("country", getUserData.country);
+  //   formData.append("full_name", getUserData.full_name);
+  //   formData.append("location", getUserData.location);
+  //   formData.append("zip_code", getUserData.zip_code);
+  //   formData.append("phone", getUserData.phone);
+  //   formData.append("birthday", getUserData.birthday);
+  //   formData.append("gender", getUserData.gender);
+  //   formData.append("address", getUserData.address);
+  //   formData.append("city", getUserData.city);
+  //   formData.append("state", getUserData.state);
+  //   formData.append("country", getUserData.country);
 
-    if (image) {
-      formData.append("avatar", image);
-    }
+  //   if (image) {
+  //     formData.append("avatar", image);
+  //   }
 
-    try {
-      const response = await fetch(`/patients/patients_details/${patientId}/`, {
-        method: "PUT",
-        headers: {
-          Authorization: `Token ${token}`,
-        },
-        body: formData,
-      });
+  //   try {
+  //     const response = await fetch(`/patients/patients_details/${patientId}/`, {
+  //       method: "PUT",
+  //       headers: {
+  //         Authorization: `Token ${token}`,
+  //       },
+  //       body: formData,
+  //     });
 
-      if (response.ok) {
-        setIsLoading(true);
-        setIsEditMode(false);
-        setShowToast(true);
-        setSucessToast("Your Deatils are Saved Sucessfully.");
-        // setTimeout(() => {
-        //     nagviate("/MyProfile")
-        // }, 1000)
-      } else {
-        // Handle error
-      }
-    } catch (error) {
-      console.error("An error occurred:", error.message);
-    }
-  };
+  //     if (response.ok) {
+  //       setIsLoading(true);
+  //       setIsEditMode(false);
+  //       setShowToast(true);
+  //       setSucessToast("Your Deatils are Saved Sucessfully.");
+  //       // setTimeout(() => {
+  //       //     nagviate("/MyProfile")
+  //       // }, 1000)
+  //     } else {
+  //       // Handle error
+  //     }
+  //   } catch (error) {
+  //     console.error("An error occurred:", error.message);
+  //   }
+  // };
 
-  const uploadHandler = () => {
-    openFileInput();
-    const requiredFields = [
-      "birthday",
-      "phone",
-      "gender",
-      "city",
-      "state",
-      "country",
-    ];
+  // const uploadHandler = () => {
+  //   openFileInput();
+  //   const requiredFields = [
+  //     "birthday",
+  //     "phone",
+  //     "gender",
+  //     "city",
+  //     "state",
+  //     "country",
+  //   ];
 
-    const isEmptyField = requiredFields.some((field) => !getUserData[field]);
+  //   const isEmptyField = requiredFields.some((field) => !getUserData[field]);
 
-    if (isEmptyField) {
-      setGetUserData((prevData) => ({
-        ...prevData,
-        birthday: "",
-        phone: "",
-        gender: "",
-        city: "",
-        state: "",
-        country: "",
-        // Add other fields if needed
-      }));
-    }
+  //   if (isEmptyField) {
+  //     setGetUserData((prevData) => ({
+  //       ...prevData,
+  //       birthday: "",
+  //       phone: "",
+  //       gender: "",
+  //       city: "",
+  //       state: "",
+  //       country: "",
+  //       // Add other fields if needed
+  //     }));
+  //   }
 
-    setIsEditMode(true);
-  };
+  //   setIsEditMode(true);
+  // };
 
-  const handlePhoneChange = (e) => {
-    const value = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
-    setGetUserData({ ...getUserData, phone: value });
-    if (value.length < 10) {
-      setFieldErrors({
-        ...fieldErrors,
-        phone: "Mobile Number must be at least 10 digits",
-      });
-    } else {
-      setFieldErrors({ ...fieldErrors, phone: "" });
-    }
-  };
+  // const handlePhoneChange = (e) => {
+  //   const value = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
+  //   setGetUserData({ ...getUserData, phone: value });
+  //   if (value.length < 10) {
+  //     setFieldErrors({
+  //       ...fieldErrors,
+  //       phone: "Mobile Number must be at least 10 digits",
+  //     });
+  //   } else {
+  //     setFieldErrors({ ...fieldErrors, phone: "" });
+  //   }
+  // };
 
-  const handleZipCodeChange = (e) => {
-    const value = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
-    setGetUserData({ ...getUserData, zip_code: value });
-  };
+  // const handleZipCodeChange = (e) => {
+  //   const value = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
+  //   setGetUserData({ ...getUserData, zip_code: value });
+  // };
 
   //DOB Function
   const handleBirthdayChange = (e) => {
@@ -307,58 +317,167 @@ const AccountInfo = () => {
       setGetUserData({ ...getUserData, birthday: e.target.value });
     }
   };
+  // console.log(dob, "date")
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    let formData = new FormData();
+    formData.append("owner_full_name", name);
+    formData.append("business_location", city);
+    formData.append("email", email);
+    formData.append("phone", phone);
+    formData.append("user_gender", gender);
+    // F or M
+    if (dob) {
+      formData.append("user_birthday", dob);
+    }
+    formData.append("business_zip_code", zip);
+    formData.append("state", state);
+    formData.append("country", country);
+    if (updatedImage) {
+      formData.append("user_avatar_signed_url", updatedImage);
+    }
+
+    try {
+      const response = await fetch(
+        `https://dmecart-38297.botics.co/business/business_profile/${id}/`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: ` Token ${token}`,
+          },
+          body: formData,
+        }
+      );
+      const resData = await response.json();
+      if (resData) {
+        console.log(resData);
+        setShowSucessToast(true);
+        setSucessMessage("Details have been updated sucessfully");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // console.log(gender,"gender")
 
   return (
     <div>
       <AppHeader />
+      {showSucessToast ? (
+        <SucessToast
+          show={showSucessToast}
+          onClose={() => setShowSucessToast(false)}
+          message={sucessMessage}
+        />
+      ) : null}
       <div className="main-section-account">
-        <div className="my-profile-section">My Profile</div>
-<div style={{width:"70vw",textAlign:"start" }} className="d-flex mt-5">
-  <div>
-    <div className="image-container">
-    <img
-              // src={updatedImage ? URL.createObjectURL(updatedImage) : image}
-              src={image}
-              alt="image"
-              className="image-avatar"
-              // onClick={() => setShowOverlay(true)}
-            />
-    </div> <br/>
-    <input type="file" value={image} id="avatar" />
-    <label for="avatar" className="mt-2 ps-4 ms-3 save-btn">
-   Upload Picture
-    </label>
-  </div>
-  <div className="ms-5 input-section">
-    <label>Full Name</label>
-    <input type="text"/>
-    <label>Phone Number</label>
-    <input type="number"/>
-    <label>Gender</label>
-    <input type="text"/>
-    <label>Zip</label>
-    <input/>
-    <label>Country</label>
-    <input type="text"/>
-    
-  </div>
-  <div className="ms-5 input-section">
-  <label>Email Address</label>
-    <input type="email"/>
-  <label>Birthday</label>
-    <input type="date"/>
-  <label>City</label>
-    <input type="text"/>
-  <label>State</label>
-    <input type="text"/>
-   
-  </div>
-</div>
-  <div style={{textAlign:"end", width:"58vw"}} className="mt-5">
-<button className="cancel-btn">Cancel</button>
-<button className="save-btn ms-4">Save</button>
-  </div>
-
+        <form onSubmit={handleSubmit}>
+          <div className="my-profile-section">My Profile</div>
+          <div
+            style={{ width: "70vw", textAlign: "start" }}
+            className="d-flex mt-5"
+          >
+            <div>
+              <div className="image-container">
+                <img
+                  // src={updatedImage ? URL.createObjectURL(updatedImage) : image}
+                  src={updatedImage ? URL.createObjectURL(updatedImage) : image}
+                  alt="image"
+                  className="image-avatar"
+                  // onClick={() => setShowOverlay(true)}
+                />
+              </div>{" "}
+              <br />
+              <input
+                type="file"
+                id="avatar"
+                className="input_avatar"
+                onChange={(e) => setUpdatedImage(e.target.files[0])}
+              />
+              <label for="avatar" className="mt-2 ps-4 ms-3 save-btn">
+                Upload Picture
+              </label>
+            </div>
+            <div className="ms-5 input-section">
+              <label>Full Name</label>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+              <label>Phone Number</label>
+              <input
+                type="number"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
+              <label>Gender</label>
+              {/* <input
+                type="text"
+                value={gender}
+                onChange={(e) => setGender(e.target.value)}
+              /> */}
+              <select
+                id="exampleGender"
+                name="gender"
+                onChange={(e)=>setGender(e.target.value)}
+              >
+                <option value="F" style={{ fontFamily: "Poppins" }}>
+                  Female
+                </option>
+                <option value="M" style={{ fontFamily: "Poppins" }}>
+                  Male
+                </option>
+              </select>
+              <label>Zip</label>
+              <input
+                type="number"
+                value={zip}
+                onChange={(e) => setZip(e.target.value)}
+              />
+              <label>Country</label>
+              <input
+                type="text"
+                value={country}
+                onChange={(e) => setCountry(e.target.value)}
+              />
+            </div>
+            <div className="ms-5 input-section">
+              <label>Email Address</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <label>Birthday</label>
+              <input
+                type="date"
+                value={dob}
+                onChange={(e) => setDob(e.target.value)}
+              />
+              <label>City</label>
+              <input
+                type="text"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+              />
+              <label>State</label>
+              <input
+                type="text"
+                value={state}
+                onChange={(e) => setState(e.target.value)}
+              />
+            </div>
+          </div>
+          <div style={{ textAlign: "end", width: "70vw" }} className="mt-5">
+            <button className="cancel-btn">Cancel</button>
+            <button className="save-btn ms-4" type="submit">
+              Save
+            </button>
+          </div>
+        </form>
       </div>
       <AppFooter />
     </div>

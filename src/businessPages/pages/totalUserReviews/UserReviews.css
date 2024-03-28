@@ -7,3 +7,6 @@
     color: #6B7280;
     width: 120px;
 }
+.button-view:hover{
+    cursor: pointer;
+}
