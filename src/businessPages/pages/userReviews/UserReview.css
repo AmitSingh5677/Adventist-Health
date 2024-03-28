@@ -4,6 +4,10 @@
 .table-reviews{
     margin-top: 40px;
 }
+.profImage{
+    height: 40px;
+    width: 40px;
+}
 
 .reviews-header-section{
     background-color: #F4F4F4;

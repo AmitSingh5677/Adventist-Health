@@ -1,0 +1,35 @@
+
+.analytics-section{
+    margin-top: 100px;
+
+}
+.analytics-tab-section{
+    border: 1px solid #E3E3E3;
+    background-color: #E3E3E3;
+    height: 90px;
+    padding-top: 20px ;
+    padding-left: 40px ;
+}
+.analytics-tab-section button{
+    width: 240px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-radius: 100px;
+    font-size: 20px;
+}
+.active{
+    border: 1px solid #6FBF49;
+    background-color: #6FBF49;
+    color: #fff;
+}
+.deactive{
+    border: 1px solid #717171;
+    background-color: #717171;
+    color: #CFCFCF;
+}
+.table-section{
+    padding-inline:120px ;
+}
+.table-header-analytics{
+    background-color: #E3E3E3;
+}
