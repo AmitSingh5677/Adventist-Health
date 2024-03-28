@@ -1,4 +1,11 @@
 import React, { useState, useEffect } from "react";
+import {
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+} from "reactstrap";
 import AppFooter from "../../components/AppFooter/AppFooter";
 import AppHeader from "../../components/AppHeader/AppHeader";
 import "./index.css";
@@ -6,10 +13,15 @@ import profile_img from "../../../data/assests/download_img/profile_img.png";
 import edit from "../../data/assests/downloaded__imgs/editIcon.png";
 import SucessMessage from "../../../components/successToast/SuccessToast";
 import SucessToast from "../../components/sucessToast/SucessToast";
+import { Navigate, useNavigate } from "react-router-dom";
 
 
 const MyProfileBusiness = () => {
+  const [show, setShow] = useState(false);
   const [location, setLocation] = useState("");
+  const [isDelete, setIsDelete] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [error, setError] = useState("");
   const [desc, setDesc] = useState("");
   const [name, setName] = useState("");
   const [profileInfo, setProfileInfo] = useState([]);
@@ -20,6 +32,9 @@ const MyProfileBusiness = () => {
   const [showSucessToast, setShowSucessToast] = useState(false);
   const [editable, setEditable] = useState(true);
   const [submit,setSubmit] = useState(false)
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const navigate = useNavigate()
   // const [editable, setEditable] = useState({
   //   location: true,
   //   image: true,
@@ -81,6 +96,44 @@ const MyProfileBusiness = () => {
   useEffect(()=>{
     profileResponse()
   },[])
+
+  const handleLogout =()=>{
+    localStorage.clear()
+    sessionStorage.clear()
+    navigate('/login')
+  }
+
+  const logoutHandler = () => {
+    setTimeout(() => {
+      navigate("/login");
+      sessionStorage.clear();
+      localStorage.clear();
+    }, 2000);
+    console.log("helloworld");
+  };
+
+  const deleteHandler = () => {
+    const token = JSON.parse(sessionStorage.getItem("token"));
+
+    fetch(`/api/v1/delete-account/`, {
+      method: "POST",
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("res" + JSON.stringify(data));
+        setTimeout(() => {
+          navigate("/login");
+          sessionStorage.clear();
+        }, 2000);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        setError("An error occurred.Please try After Sometime");
+      });
+  };
 
   return (
     <div className="my-profile-bsuiness-page">
@@ -197,24 +250,28 @@ const MyProfileBusiness = () => {
           <button
             type="button"
             className="btn btn-success first-container-buttons m-2 p-5 pt-2 pb-2"
+            onClick={()=>navigate("/b/bankDeatils")}
           >
             My Bank Account
           </button>
           <button
             type="button"
             className="btn btn-success first-container-buttons m-2  p-5 pt-2 pb-2"
+            onClick={()=>navigate("/Terms&&Conditions")}
           >
             Terms and Conditions
           </button>
           <button
             type="button"
             className="btn btn-success first-container-buttons m-2  p-5 pt-2 pb-2"
+            onClick={()=>navigate("/Privacy-Policy")}
           >
-            Privacy Policy
+            Privacy-Policy
           </button>
           <button
             type="button"
             className="btn btn-success first-container-buttons m-2 p-5 pt-2 pb-2"
+            onClick={() => setIsOpen(true)}
           >
             Log Out
           </button>
@@ -229,16 +286,63 @@ const MyProfileBusiness = () => {
           <button
             type="button"
             className="btn btn-success second-container-buttons"
+            onClick={() => setIsDelete(true)}
           >
             Delete Account
           </button>
           <button
             type="button"
             className="btn btn-success second-container-buttons"
+            onClick={()=>navigate("/b/compliance")}
           >
             HIPAA and compliance
           </button>
         </div>
+        {/* Logout Model */}
+      <Modal
+        isOpen={isOpen}
+        centered
+        keyboard={false}
+        backdrop="static"
+        backdropClassName="modal-backdrop-dark"
+      >
+        <ModalHeader toggle={() => setIsOpen(false)} className="model_header">
+          <span style={{ fontSize: "16px" }}>Logout</span>
+        </ModalHeader>
+        <ModalBody className="modal__txt">
+          Are you sure you want to perform the choosen action?
+        </ModalBody>
+        <ModalFooter style={{ borderTop: "none" }} className="modal__footer">
+          <button className="cancel__btn" onClick={() => setIsOpen(false)}>
+            No
+          </button>
+          <Button className="yes__btn" onClick={logoutHandler}>
+            Yes
+          </Button>
+        </ModalFooter>
+      </Modal>
+
+      {/* Delete Account Model */}
+      <Modal
+        isOpen={isDelete}
+        centered
+        keyboard={false}
+        backdrop="static"
+        backdropClassName="modal-backdrop-dark"
+      >
+        <ModalHeader toggle={() => setIsDelete(false)} className="model_header">
+          <span style={{ fontSize: "16px" }}>Delete Account</span>
+        </ModalHeader>
+        <ModalBody className="modal__txt">
+          Are you sure you want to delete your account?
+        </ModalBody>
+        <ModalFooter style={{ borderTop: "none" }} className="modal__footer">
+          <button className="cancel__btn" onClick={() => setIsDelete(false)}>
+            No
+          </button>
+          <Button className="yes__btn" onClick={deleteHandler}>Yes</Button>
+        </ModalFooter>
+      </Modal>
       </div>
       <AppFooter />
     </div>

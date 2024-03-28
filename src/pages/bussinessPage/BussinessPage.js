@@ -159,8 +159,8 @@ const BussinessPage = () => {
             } catch (error) {
                 // console.error('Error fetching data:', error);
                 setIsLoading(false);
-                setIsError(true);
-                setErrorMessage("There is internal server error while fetching average rating of this business.")
+                // setIsError(true);
+                // setErrorMessage("There is internal server error while fetching average rating of this business.")
             }
         };
 

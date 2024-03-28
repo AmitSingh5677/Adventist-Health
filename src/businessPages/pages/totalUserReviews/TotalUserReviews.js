@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import AppHeader from '../../components/AppHeader/AppHeader'
 import DashboardNavbar from '../../components/dashboardNavbar/DashboardNavbar'
 import DashboardFooter from '../../components/DashboardFooter/DashboardFooter'
@@ -8,6 +9,7 @@ import Helmet from '../../components/helmet/Helmet';
 import { Col, Container, Row, Table } from 'reactstrap';
 import { StarRating } from '../../components/starRating/StarRating';
 import './UserReviews.css'
+import { useNavigate } from "react-router-dom";
 
 const userReviews = [
   {
@@ -70,6 +72,31 @@ const userReviews = [
 ]
 
 const DashBoardReviews = () => {
+  const navigate = useNavigate()
+  const [data,setData] = useState(null)
+
+  const id = sessionStorage.getItem("userid");
+  const token = JSON.parse(sessionStorage.getItem("token"));
+
+  const fetchRatings = async()=>{
+    const response = await fetch(
+      `https://dmecart-38297.botics.co/patients/ratings/${id}/`,
+      {
+        method: "GET",
+        headers: {
+          // "Content-Type": "Application/json",
+          Authorization: ` Token ${token}`,
+        },
+      }
+    );
+  const resData = await response.json()
+  setData(resData)
+  }
+  console.log(data,"geg")
+
+  useEffect(()=>{
+    fetchRatings()
+  },[])
 
   return (<div>
     <Helmet title="All Reviews" />
@@ -80,26 +107,26 @@ const DashBoardReviews = () => {
       <div style={{ marginTop: "2%" }}>
         <section>
           <Container>
-            <Row className='orderHistory__conatiner'>
+            <Row className=''>
               <Row>
                 <Col xs="12" sm="12" lg="12">
                   <Table className="table table-hover borderless responsive striped">
-                    <thead>
-                      <tr>
-                        <th className='table_theader'>User/patient</th>
-                        <th className='table_theader ps-4'>STARS</th>
-                        <th className='table_theader ps-2' >ORDER DETAILS</th>
-                        <th className='table_theader '></th>
+                    <thead >
+                      <tr >
+                        <th className='table_theader'style={{backgroundColor:"#E3E3E3",color:"#6E6E6E"}}>USER/PATIENT</th>
+                        <th className='table_theader ps-4' style={{backgroundColor:"#E3E3E3",color:"#6E6E6E"}}>STARS</th>
+                        <th className='table_theader ps-2' style={{backgroundColor:"#E3E3E3",color:"#6E6E6E"}}>REVIEW MESSAGE</th>
+                        <th className='table_theader ' style={{backgroundColor:"#E3E3E3",color:"#6E6E6E"}}></th>
                       </tr>
                     </thead>
                     <tbody className='body__txt'>
-                      {userReviews.map((item, index) => (
-                        <tr key={index}>
-                          <td className='body__elemnts'>{item.userName}</td>
-                          <td className='body__elemnts'> <StarRating rating={item.userRating} /></td>
-                          <td className='body__elemnts'>{item.userDeatils}</td>
+                      {data?.map((item, index) => (
+                        <tr key={item.id}>
+                          <td className='body__elemnts' style={{width:"25vw"}}>{item.patient_name}</td>
+                          <td className='body__elemnts'> <StarRating rating={item?.stars} /></td>
+                          <td className='body__elemnts'>{item?.message}</td>
                           <td className='body__elemnts button-view'>
-                           <span className='button-view'>VIEW ALL <MdKeyboardArrowRight /></span>  
+                           <span className='button-view' onClick={()=>navigate("/b/my-reviews")}>VIEW ALL <MdKeyboardArrowRight /></span>  
                           </td>
                         </tr>
                       ))}
