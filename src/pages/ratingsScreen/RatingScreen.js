@@ -56,13 +56,39 @@ const calculateDaysAgo = (created_at) => {
 // ... (existing code)
 
 const RatingScreen = () => {
-    const rating = useSelector((state) => state.cart.allRatings);
-     console.log("useData" + JSON.stringify(rating));
+    // const rating = useSelector((state) => state.cart.allRatings);
+    //  console.log("useData" + JSON.stringify(rating));
     const [userData, setUserData] = useState([]);
     const naviagte = useNavigate();
     const [isLoading, setisLoading] = useState(true)
     const [isRating, setIsRating] = useState(false)
-    const business_id = JSON.parse(sessionStorage.getItem("bussiness_id"))
+    const business_id = JSON.parse(sessionStorage.getItem("businessId"))
+    const [rating, setrating] = useState([])
+    React.useEffect(() => {
+        const fetchData = async () => {
+            const token = JSON.parse(sessionStorage.getItem("token"))
+            try {
+                const business_id = JSON.parse(sessionStorage.getItem("businessId"))
+                const response = await fetch(`/patients/average-rating/${business_id}/`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Token ${token}`
+                    },
+                });
+
+                const data = await response.json();
+                if (data) {
+                    setrating(data.ratings)
+                   
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+
+    }, []);
 
     React.useEffect(() => {
 
@@ -116,9 +142,7 @@ const RatingScreen = () => {
     const handleRatingChange = (e) => {
         setFilter(e.target.value)
     }
-    console.log(rating,"rating")
-    console.log(typeof(rating))
-    
+   
     const applyFilter = () => {
 
         const token = JSON.parse(sessionStorage.getItem("token"));
@@ -127,9 +151,9 @@ const RatingScreen = () => {
             try {
 
                 if(filter_by_stars){
-                    // mixpanel.track("Filters Applied", {
-                    //     rating: filter_by_stars,
-                    //   })
+                    mixpanel.track("Filters Applied", {
+                        rating: filter_by_stars,
+                      })
 
                       const response = await fetch(`https://dmecart-38297.botics.co/patients/average-rating/${business_id}/?filter_by_stars= ${filter_by_stars}&sort_by=${sortby}`, {
                         method: 'GET',
@@ -144,11 +168,13 @@ const RatingScreen = () => {
                     if (data) {
                        
                         const data1=data.ratings
-                        data1?.map((item1)=>{
+                        setrating(data.ratings)
+                        // data1?.map((item1)=>{
                            
-                            rating?.filter((item)=> item.user === item1.user)
-                             //userData?.filter((item)=> item.userNumber === item1.user)
-                        })
+                        //     setrating(rating?.filter((item)=> item.stars === item1.stars))
+                            
+                        // })
+                       
                        
                         // setUserData(data.ratings)
                         setIsRating(false)
@@ -166,6 +192,7 @@ const RatingScreen = () => {
                     const data = await response.json();
                
                     if (data) {
+                        setrating(data.ratings)
                         // setUserData(data.ratings)
                         setIsRating(false)
                     }
@@ -181,6 +208,32 @@ const RatingScreen = () => {
 
         fetchData();
         // https://dmecart-38297.botics.co/patients/average-rating/5/
+    }
+
+    const cancelRating=()=>{
+        setIsRating(false)
+        const fetchData = async () => {
+            const token = JSON.parse(sessionStorage.getItem("token"))
+            try {
+                const business_id = JSON.parse(sessionStorage.getItem("businessId"))
+                const response = await fetch(`/patients/average-rating/${business_id}/`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Token ${token}`
+                    },
+                });
+
+                const data = await response.json();
+                if (data) {
+                    setrating(data.ratings)
+                   
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
     }
 console.log(rating,"rating")
     return (
@@ -301,7 +354,7 @@ console.log(rating,"rating")
                         </Col></Row>
                 </ModalBody>
                 <ModalFooter style={{ borderTop: 'none' }} className='modal__footer'>
-                    <button className='cancel__btn' onClick={() => setIsRating(false)}>Cancel</button>
+                    <button className='cancel__btn' onClick={cancelRating}>Cancel</button>
                     <Button className='yes__btn' onClick={applyFilter} >Apply</Button>
                 </ModalFooter>
             </Modal>

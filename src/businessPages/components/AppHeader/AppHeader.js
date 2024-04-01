@@ -17,6 +17,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import DmeCartLogo from "../../data/assests/downloaded__imgs/DmeCART.png";
 import "./AppHeader.css";
 import Offcanvas from "react-bootstrap/Offcanvas";
+import OneSignal from 'react-onesignal';
 
 const AppHeader = ({ name, ...props }) => {
   const [show, setShow] = useState(false);
@@ -34,6 +35,8 @@ const AppHeader = ({ name, ...props }) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
 
   const logoutHandler = () => {
+    OneSignal.logout()
+
     setTimeout(() => {
       navigate("/login");
       sessionStorage.clear();

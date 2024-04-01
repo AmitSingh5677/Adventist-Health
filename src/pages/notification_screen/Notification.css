@@ -2,7 +2,9 @@
     color: #2E70E8;
     font-family: 'Poppins';
 }
-
+.allContainer{
+    border-bottom: 1px solid rgba(226, 232, 240, 1);
+}
 .close_icon {
     color: #64748B;
     font-family: 'Poppins';
@@ -13,6 +15,11 @@
     font-family: inter;
     font-weight: 600;
     color: #1E293B;
+    font-weight: 600;
+    color: #1E293B;
+    border-bottom: 5px solid rgba(46, 112, 232, 1);
+    width: 70px;
+    margin-bottom: 0px;
 }
 
 .noti__img {

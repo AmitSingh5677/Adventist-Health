@@ -92,7 +92,7 @@ const Inquiries = () => {
                             ) : (
                                 isInquiry.map((inquiry, index) => (
                                     <React.Fragment key={index}>
-                                        <Row className='order_details' onClick={() => navigate(`/specificInquiry/${inquiry.id}`)} style={{ cursor: "pointer" }}>
+                                        <Row className='order_details' onClick={() => navigate(`/specificInquiry/${inquiry.product}`)} style={{ cursor: "pointer" }}>
                                             <Col xs={1} sm={1} lg={1}>
                                                 <img src={inquiry.business_avatar || noImage} alt="Inquiry" className='userLogo_imquiry' />
                                             </Col>
