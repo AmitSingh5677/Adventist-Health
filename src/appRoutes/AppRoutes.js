@@ -50,6 +50,7 @@ import UpdateInventory from '../businessPages/pages/addInventory/UpdateInventory
 import PatientProfileScreen from '../businessPages/pages/PatientProfileScreen/PatientProfileScreen';
 import AccountInfo from '../businessPages/pages/AccountInfo/AccountInfo';
 import Analytics from '../businessPages/pages/AnalyticsBoard/Analytics';
+import TransactionsBusiness from '../businessPages/pages/TransactionsPerBusiness/Transactions';
 
 
 const AppRoutes = () => {
@@ -101,6 +102,7 @@ const AppRoutes = () => {
             <Route path='/b/my-profile' element={<MyProfileBusiness />} />
             <Route path='/b/account-info' element={<AccountInfo />} />
             <Route path='/b/analytics' element={<Analytics />} />
+            <Route path='/b/transactions' element={<TransactionsBusiness />} />
     </Routes>
 
   )

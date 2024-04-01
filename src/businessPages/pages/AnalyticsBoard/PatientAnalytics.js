@@ -6,12 +6,14 @@ const PatientAnalytics = () => {
     const [sortBy,setSortBy] = useState("all_time")
     const [startDate,setStartDate] = useState("")
     const [endDate,setEndDate] = useState("")
+    const [value, setValue] = useState('');
   return (
     <div>
       <div className='text-end mt-3 me-5'>
-        <input type='date' onfocus="(this.type='date')"
+        <input type='date' className='me-3'
  value={startDate} onChange={(e)=>setStartDate(e.target.value)}  placeholder='start date'/>
-        <input type='date' value={endDate} onChange={(e)=>setEndDate(e.target.value)}/>
+        <input type='date' className='me-3' value={endDate} onChange={(e)=>setEndDate(e.target.value)}/>
+        <button className='me-3 px-3'>Filter</button>
         <span>Sort By: </span>
         <select name="languages" id="lang" onChange={(e)=>setSortBy(e.target.value)}>
         <option value="all_time">All Time</option>
