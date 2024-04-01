@@ -176,19 +176,19 @@ const PaymentPage = () => {
                             <Row className='payment_conatiner'>
                                 <div className='header_row'>Payment Details</div>
                                 <Row xs="12" sm="12" lg="12" className="feature__item text-center">
-                                    <Col xs="3" sm="4" lg="3">
+                                    <Col xs="3" sm="4" lg="4">
                                         <h6 className='payment_deatils'>Total Cost</h6>
                                         <h6 className='payment_deatils'>${singleProduct ? singleproductPrice : calculateTotalPrice()}.00</h6>
                                     </Col>
-                                    <Col xs="3" sm="4" lg="3">
-                                        <h6 className='payment_deatils'>Tax</h6>
-                                        <h6 className='payment_deatils'>${tax}</h6>
+                                    <Col xs="3" sm="4" lg="4">
+                                        <h6 className='payment_deatils'>Tax & Application Fee</h6>
+                                        <h6 className='payment_deatils'>${tax+applicationFee}</h6>
                                     </Col>
-                                    <Col xs="3" sm="4" lg="3">
+                                    {/* <Col xs="3" sm="4" lg="3">
                                         <h6 className='payment_deatils'>Application Fee</h6>
                                         <h6 className='payment_deatils'>${applicationFee}</h6>
-                                    </Col>
-                                    <Col xs="6" sm="4" lg="3">
+                                    </Col> */}
+                                    <Col xs="6" sm="4" lg="4">
                                         <h6 className='payment_deatils'>Payable Amount</h6>
                                         {/* <h6 className='payment_deatils'>${singleProduct ? singleproductPrice : calculateTotalPrice()}.00</h6> */}
                                         <h6 className='payment_deatils'>${totalPrice}</h6>

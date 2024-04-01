@@ -136,6 +136,8 @@ const OrderDeatils = () => {
             const data = await response.json();
             setBussiness_Id(data.stripe_business_id)
             setClientSecret(data.client_secret)
+            localStorage.setItem("order_id",data?.order_id)
+            localStorage.setItem("amount",data?.total_amount)
             setIsLoading(false)
         } catch (error) {
             console.error('Error submitting form:', error.message);
