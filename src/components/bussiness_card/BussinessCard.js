@@ -35,7 +35,7 @@ const BussinessCard = ({ rating }) => {
     React.useEffect(() => {
         const fetchData = async () => {
             try {
-                const business_id = JSON.parse(sessionStorage.getItem("bussiness_id"))
+                const business_id = JSON.parse(sessionStorage.getItem("businessId"))
                 const response = await fetch(`/patients/average-rating/${business_id}/`, {
                     method: 'GET',
                     headers: {

@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { cartActions } from '../../store/shippingCart/cartSlice';
 import mixpanel from '../../mixpanel'
+import OneSignal from 'react-onesignal';
 const PaymentConfirmation = ({ equipmentName, currentdate }) => {
     const cartTotalAmount = useSelector((state) => state.cart.totalAmount);
     console.log("Total Amount " + JSON.stringify(cartTotalAmount));
@@ -30,6 +31,10 @@ const PaymentConfirmation = ({ equipmentName, currentdate }) => {
                 
                 const data = await response1.json();
                 if(data.payment_status === 'succeeded'){
+                    OneSignal.Notifications.addEventListener('notificationDisplay', (event) => {
+                        console.log("The notification was clicked!", event);
+                      });
+                      
                     mixpanel.track("Payment Successful", {
                         amount: amount,
                         order_id: order_id

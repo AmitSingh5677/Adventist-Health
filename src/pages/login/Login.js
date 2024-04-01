@@ -9,6 +9,7 @@ import LeftSection from "../../components/leftSidePannel/LeftSection";
 import SpinLoader from "../../components/spin-loader/SpinLoader";
 import ToastMessage from "../../components/toast/ToastMessage";
 import Mixpanel from "mixpanel-browser";
+import OneSignal from 'react-onesignal';
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -81,6 +82,8 @@ const Login = () => {
       });
 
       if (response.ok) {
+        OneSignal.login(username?.toString()||"")
+
         Mixpanel.track("Login");
         Mixpanel.identify(username);
         setIsLoading(true);

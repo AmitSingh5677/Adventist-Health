@@ -38,6 +38,9 @@ const InquiriesBusiness = ()=>{
       fetchData();
     
     }, []);
+
+    
+
     return <div>
       <div>
        <AppHeader />

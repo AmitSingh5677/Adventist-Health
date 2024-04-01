@@ -47,6 +47,7 @@ const BussinessPage = () => {
     const handleTooltipClick = (id, productDetails) => {
         // alert("id" + id);
         setTooltipVisible(false);
+        console.log(id,"id")
         // Navigate to "/specificInquiry" when the tooltip message is clicked
         navigate(`/specificInquiry/${id}`, { state: { productDetails } });
     };
@@ -135,13 +136,15 @@ const BussinessPage = () => {
         setIsLoading(true);
         fetchData();
 
-    }, []);
+    }, []); 
 
     React.useEffect(() => {
         const fetchData = async () => {
             try {
+            const businessId = sessionStorage.getItem("businessId")
+
                 const token = JSON.parse(sessionStorage.getItem("token"));
-                const response = await fetch(`/patients/average-rating/${id}/`, {
+                const response = await fetch(`/patients/average-rating/${businessId}/`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Token ${token}`

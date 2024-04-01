@@ -22,7 +22,7 @@ import { IoLocation } from "react-icons/io5";
 import { FaRegClock } from "react-icons/fa";
 import { FaBell } from "react-icons/fa";
 import { resetCart } from "../../store/shippingCart/cartSlice";
-
+import OneSignal from 'react-onesignal';
 const AppHeader = ({
   bussinessName,
   Bussiness_location,
@@ -78,6 +78,7 @@ const AppHeader = ({
     };
   }, []);
   const logoutHandler = () => {
+    OneSignal.logout()
     dispatch(resetCart());
     sessionStorage.clear();
     // Navigate to the login page

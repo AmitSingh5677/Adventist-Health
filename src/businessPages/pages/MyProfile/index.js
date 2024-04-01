@@ -14,6 +14,7 @@ import edit from "../../data/assests/downloaded__imgs/editIcon.png";
 import SucessMessage from "../../../components/successToast/SuccessToast";
 import SucessToast from "../../components/sucessToast/SucessToast";
 import { Navigate, useNavigate } from "react-router-dom";
+import OneSignal from 'react-onesignal';
 
 
 const MyProfileBusiness = () => {
@@ -104,6 +105,7 @@ const MyProfileBusiness = () => {
   }
 
   const logoutHandler = () => {
+    OneSignal.logout()
     setTimeout(() => {
       navigate("/login");
       sessionStorage.clear();
