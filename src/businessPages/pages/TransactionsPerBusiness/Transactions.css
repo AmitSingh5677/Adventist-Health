@@ -1,0 +1,57 @@
+.analytics-section{
+    margin-top: 150px;
+    padding-left: 150px ;
+    padding-right: 150px ;
+    height: 150vh;
+    overflow-y: auto;
+    margin-bottom: 150px;
+    
+}
+.transaction-tab-section{
+    padding-top: 20px ;
+    padding-left: 40px ;
+}
+.tile-section{
+    justify-content: space-around;
+}
+.box-tile-section{
+    justify-content: space-around;
+    
+}
+.analytics-tile{
+    height: 196px;
+    width: 265px;
+    border: 1px solid #ECECEC;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    /* background-color: #ECECEC; */
+    border-radius: 12px;
+    padding-top: 60px;
+    padding-left: 17px;
+}
+.box-tile-1{
+    height: auto;
+    width: 500px;
+    padding: 20px 12px;
+    border: 1px solid #ECECEC;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    /* background-color: #ECECEC; */
+    border-radius: 12px;
+}
+.box-tile-2{
+    height: auto;
+    width: 500px;
+    padding: 20px 12px;
+    border: 1px solid #ECECEC;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    /* background-color: #ECECEC; */
+    border-radius: 12px;
+}
+.filter-bar{
+    border: 1px solid #C8C8C8;
+    border-radius: 8px;
+    padding: 5px;
+}
+.submit-btn-date{
+    border-radius: 8px;
+    padding: 3px 4px;
+}

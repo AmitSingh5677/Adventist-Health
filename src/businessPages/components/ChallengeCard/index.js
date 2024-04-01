@@ -6,6 +6,7 @@ import { useState } from "react";
 import {  Row,Col } from 'reactstrap'
 import SucessMessage from '../../components/sucessToast/SucessToast';
 import ToastMessage from './../../../components/toast/ToastMessage';
+import profImage from '../../../data/assests/profImage.jpg';
 
 const ChallengeCard = (props) => {
     const { ratingData } = props
@@ -73,7 +74,7 @@ const ChallengeCard = (props) => {
             <Col lg="10">
                 <div className="business-logo-container">
 
-                    <img src={item.patient_avatar} alt=' logo' />
+                    <img src={item.patient_avatar ? item.patient_avatar : profImage} className="profile-image" alt=' logo' />
                     <h4 className="m-1 ms-2">{item.patient_name}</h4>
                 </div>
                 <div className="mt-3">

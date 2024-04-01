@@ -115,34 +115,12 @@ const AccountInfo = () => {
   const validateForm = () => {
     const errors = {};
 
-    if (!getUserData.full_name) {
-      errors.full_name = "Full Name is required";
+    if (phone.length !== 10) {
+      errors.phone = "Phone number must be 10 digits";
     }
 
-    if (!getUserData.birthday) {
-      errors.birthday = "Date of Birth is required";
-    }
-    if (!getUserData.city) {
-      errors.city = "City is required";
-    }
-
-    if (!getUserData.phone) {
-      errors.phone = "Mobile Number is required";
-    }
-    if (!getUserData.state) {
-      errors.state = "State is required";
-    }
-    if (!getUserData.zip_code) {
-      errors.zip_code = "ZipCode is required";
-    }
-    if (!getUserData.country) {
-      errors.country = "Country is required";
-    }
-    if (!getUserData.birthday) {
-      errors.birthday = "BirthDay is required";
-    }
-    if (!getUserData.gender) {
-      errors.gender = "Gender is required";
+    if (zip.length !== 5) {
+      errors.zip = "Zip must be 5 digits";
     }
 
     return errors;
@@ -160,46 +138,7 @@ const AccountInfo = () => {
     return `${year}-${month}-${day}`;
   };
 
-  // remove Img Handler
-  const handleRemoveImage = async () => {
-    // setIsLoading(true)
-    try {
-      const patientId = JSON.parse(sessionStorage.getItem("patientId"));
-      const token = JSON.parse(sessionStorage.getItem("token"));
 
-      // Check if there is an uploaded image
-      if (isEditMode && image) {
-        // Remove the uploaded image during editing
-        setImage(null);
-      } else {
-        // Remove the image fetched from the API
-        const response = await fetch(
-          `/patients/patients_details/${patientId}/`,
-          {
-            method: "PUT",
-            headers: {
-              Authorization: `Token ${token}`,
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ avatar: null }),
-          }
-        );
-
-        if (response.ok) {
-          setUserImg(null);
-          setShowToast(true);
-          setSucessToast("Your image has been removed successfully.");
-          // setIsLoading(false);
-          window.location.reload();
-        } else {
-          // Handle error
-          console.error("Failed to remove image");
-        }
-      }
-    } catch (error) {
-      console.error("An error occurred:", error.message);
-    }
-  };
 
   // save Button Function
   // const profileSubmitHandler = async () => {
@@ -321,6 +260,13 @@ const AccountInfo = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length > 0) {
+      // There are validation errors, display them to the user
+      setFieldErrors(validationErrors);
+      return;
+    }
+    setFieldErrors({});
     let formData = new FormData();
     formData.append("owner_full_name", name);
     formData.append("business_location", city);
@@ -361,6 +307,7 @@ const AccountInfo = () => {
   };
 
   // console.log(gender,"gender")
+  console.log(fieldErrors,"error")
 
   return (
     <div>
@@ -412,7 +359,9 @@ const AccountInfo = () => {
                 type="number"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
+                required
               />
+              {fieldErrors.phone && <span style={{color:"red"}}>{fieldErrors.phone}</span>}
               <label>Gender</label>
               {/* <input
                 type="text"
@@ -436,12 +385,15 @@ const AccountInfo = () => {
                 type="number"
                 value={zip}
                 onChange={(e) => setZip(e.target.value)}
+                required
               />
+              {fieldErrors.zip && <span style={{color:"red"}}>{fieldErrors.zip}</span>}
               <label>Country</label>
               <input
                 type="text"
-                value={country}
+                value={country == "null" ? "" : country}
                 onChange={(e) => setCountry(e.target.value)}
+                required
               />
             </div>
             <div className="ms-5 input-section">
@@ -456,23 +408,26 @@ const AccountInfo = () => {
                 type="date"
                 value={dob}
                 onChange={(e) => setDob(e.target.value)}
+                required
               />
               <label>City</label>
               <input
                 type="text"
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
+                required
               />
               <label>State</label>
               <input
                 type="text"
-                value={state}
+                value={state === "null" ? "": state}
                 onChange={(e) => setState(e.target.value)}
+                required
               />
             </div>
           </div>
           <div style={{ textAlign: "end", width: "70vw" }} className="mt-5">
-            <button className="cancel-btn">Cancel</button>
+            <button className="cancel-btn" onClick={()=>window.location.reload()}>Cancel</button>
             <button className="save-btn ms-4" type="submit">
               Save
             </button>

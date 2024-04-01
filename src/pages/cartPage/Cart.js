@@ -144,11 +144,12 @@ useEffect(()=>{
                       Sub-Total: <span>${calculateTotalPrice()}.00</span>
                     </h6>
                     <h6 className="d-flex align-items-center justify-content-between mb-3 amount__conatiner">
-                      Tax: <span>$ {tax}</span>
+                      {/* Tax & Application Fee: <span>$ {tax}</span> */}
+                      Tax & Application Fee: <span>$ {tax+applicationFee}</span>
                     </h6>
-                    <h6 className="d-flex align-items-center justify-content-between mb-3 amount__conatiner">
+                    {/* <h6 className="d-flex align-items-center justify-content-between mb-3 amount__conatiner">
                       Application Fee: <span>${applicationFee}</span>
-                    </h6>
+                    </h6> */}
                     <hr />
                     <div className="checkout__total">
                       <h5 className="d-flex align-items-center justify-content-between amount__conatiner">
