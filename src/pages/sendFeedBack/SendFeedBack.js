@@ -98,10 +98,10 @@ const SendFeedBack = () => {
                     </Col>
                 </FormGroup>
                 <div style={{ display: "flex", justifyContent: "space-around" }}>
-                    <button className='feedBack__btn ' onClick={() => { navaigate("/homepage") }}>
+                    <button className='feedBack__btn ' style={{color:"#7AC24F", border:"1px solid #7AC24F"}} onClick={() => { navaigate("/homepage") }}>
                         Back
                     </button>
-                    <button className='feedBack__submitBtn' onClick={reportHandler}>
+                    <button className='feedBack__submitBtn' style={{backgroundColor:"#7AC24F"}} onClick={reportHandler}>
                         Submit
                     </button>
                 </div>

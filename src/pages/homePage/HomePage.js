@@ -199,7 +199,7 @@ export const HomePage = () => {
                         <Container>
                             <Row>
                                 {seacrhProducts.length > 0 ? (
-                                    seacrhProducts.map((item) => (
+                                    seacrhProducts?.map((item) => (
                                         <Col lg="3" md="4" sm="4" xs="6" key={item.id} className="mt-5">
                                             <div className="products__item" onClick={() => routeHandler(item)}>
                                                 <div className="products__img">
@@ -218,7 +218,7 @@ export const HomePage = () => {
 
                                     ))
                                 ) : (
-                                    products.map((item) => (
+                                    products?.map((item) => (
                                         <Col lg="3" md="4" sm="4" xs="6" key={item.id} className="mt-5">
                                             <div className="products__item" onClick={() => routeHandler(item)}>
                                                 <div className="products__img" >

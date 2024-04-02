@@ -523,7 +523,7 @@ const SignUp = () => {
                     )}{" "}
                   </span>
                   <div className="mb-3 input-group">
-                    <button type="submit" className="signUpBtn">
+                    <button type="submit" className="signUpBtn" style={{backgroundColor:"#7AC24F"}}>
                       Sign Up
                     </button>
                   </div>

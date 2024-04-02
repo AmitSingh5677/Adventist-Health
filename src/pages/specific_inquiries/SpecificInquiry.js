@@ -286,7 +286,7 @@ const SpecificInquiry = () => {
                         <hr />
                     </Row>
                     <div style={{ display: "flex", justifyContent: "end" }}>
-                        <button className='specific__btn' onClick={handleSendMessage}>Send</button>
+                        <button className='specific__btn' style={{backgroundColor:"#7AC24F"}} onClick={handleSendMessage}>Send</button>
                     </div>
                 </div>
 

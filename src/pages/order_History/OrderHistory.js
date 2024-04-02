@@ -146,7 +146,7 @@ const OrderHistory = () => {
                                                                 <td className='body__elemnts' style={{ color: getStatusColor(item.payment_status), fontWeight: 700 }}>
                                                                     {item.payment_status == "succeeded" ? "Success" : "Failed"}
                                                                 </td>
-                                                                <td><button className='re-order_btn' onClick={() => reOrderHandler(item.id)}>Re-Order</button></td>
+                                                                <td><button className='re-order_btn' style={{backgroundColor:"#7AC24F"}} onClick={() => reOrderHandler(item.id)}>Re-Order</button></td>
                                                                 <td><button className='deatils__btn' onClick={() => orderDeatilsHandler(item.id)}>Details <span><FaChevronRight /></span></button></td>
                                                             </tr>
                                                         ))}

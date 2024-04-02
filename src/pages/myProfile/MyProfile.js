@@ -551,7 +551,7 @@ const MyProfile = () => {
                         </div>
                     </div>
 
-                    <div className='profile_btn'><button className='upload_btn' onClick={() => nagviate("/homepage")}>Cancel</button>
+                    <div className='profile_btn'><button className='upload_btn' style={{color:"#7AC24F", border:"1px solid #7AC24F"}} onClick={() => nagviate("/homepage")}>Cancel</button>
                         <button className='profile_save_btn' onClick={profileSubmitHandler}>Save</button>
                     </div>
                 </Container>

@@ -257,7 +257,7 @@ const OrderDeatils = () => {
                     </section>
                     <Container>
                         <Row>
-                            <button className='order__btn' style={{ marginBottom: "2%", marginRight: "10%" }} onClick={reorederHandler}>Re-order</button>
+                            <button className='order__btn' style={{backgroundColor:"#7AC24F", marginBottom: "2%", marginRight: "10%"}} onClick={reorederHandler}>Re-order</button>
                         </Row>
                     </Container>
 

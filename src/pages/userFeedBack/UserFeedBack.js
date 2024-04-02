@@ -128,7 +128,7 @@ const UserFeedback = ({ imgSrc, productTitle, userViews, rating }) => {
                 </div>
                 <div className='btn-container'>
 
-                        <button className='nxt__btn' style={{ marginBottom: "7%" }} onClick={saveRating}>Save</button>
+                        <button className='nxt__btn' style={{ marginBottom: "7%", backgroundColor:"#7AC24F" }} onClick={saveRating}>Save</button>
                 </div>
                         {/* <button className='all_Reviews' style={{ marginBottom: "7%" }} onClick={userRatingHandler}>Back</button> */}
                     </div>}

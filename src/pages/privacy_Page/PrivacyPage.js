@@ -13,7 +13,7 @@ const PrivacyPage = () => {
         <Row className="justify-content-center align-items-center h-100">
           <Col lg="12" md="6">
             <div className='sticky-header'>
-              <div style={{ background: '#007D8A', padding: '20px', marginBottom: '0', width: '100%' }}>
+              <div style={{ background: '#ECECEC', padding: '20px', marginBottom: '0', width: '100%' }}>
                 <img src={mainLogo} alt='mainLogo' className='logo-terms' />
               </div>
               <div style={{ background: '#062F2D', padding: '10px', marginBottom: '20px', width: '100%' }}>

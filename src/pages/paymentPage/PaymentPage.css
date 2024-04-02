@@ -5,9 +5,10 @@
 
 .header_row {
     padding: 10px;
-    background: #007D8A;
+    background: #ECECEC;
     font-family: 'Poppins';
-    color: #ffff;
+    color:black;
+    font-weight: 600;
     margin-bottom: 18px;
     margin-left: 0;
     /* Remove default margin */

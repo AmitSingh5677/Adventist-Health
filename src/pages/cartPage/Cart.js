@@ -42,8 +42,8 @@ const Cart = () => {
         }),
       })
     const resData = await response.json()
-    setTax(resData.tax)
-    setApplicationFee(resData.application_fee)
+    setTax(resData.tax.toFixed(2))
+    setApplicationFee(resData.application_fee.toFixed(2))
     setTotalPayable(resData.final_amount)
 }
 console.log(tax,applicationFee,totalPayable, "result123")
@@ -145,7 +145,7 @@ useEffect(()=>{
                     </h6>
                     <h6 className="d-flex align-items-center justify-content-between mb-3 amount__conatiner">
                       {/* Tax & Application Fee: <span>$ {tax}</span> */}
-                      Tax & Application Fee: <span>$ {tax+applicationFee}</span>
+                      Tax & Application Fee: <span>$ {(parseFloat(tax) + parseFloat(applicationFee)).toFixed(2)}</span>
                     </h6>
                     {/* <h6 className="d-flex align-items-center justify-content-between mb-3 amount__conatiner">
                       Application Fee: <span>${applicationFee}</span>
@@ -171,7 +171,7 @@ useEffect(()=>{
           <button className="addTOCart__button" onClick={() => navigate("/homepage")}>
             Back
           </button>
-          {cartItems.length === 0 ? null : <button className="buy__btn" onClick={() => navigate("/delivery-Address")}>
+          {cartItems.length === 0 ? null : <button className="buy__btn" style={{backgroundColor:"#7AC24F", border:"1px solid #7AC24F"}} onClick={() => navigate("/delivery-Address")}>
             Buy
           </button>}
 

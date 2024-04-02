@@ -147,7 +147,7 @@ const Notification = () => {
                                     <p className='noti__subtxt'>{item.message}</p>
                                 </Col>
                                 <Col>
-                                    <button className='noti__btn' onClick={()=> markasRead(item.id)}>Mark as read</button>
+                                    <button className='noti__btn' style={{backgroundColor:"#7AC24F"}} onClick={()=> markasRead(item.id)}>Mark as read</button>
                                 </Col>
                             </Row>
                         </Col>

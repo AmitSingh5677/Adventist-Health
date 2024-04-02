@@ -249,8 +249,8 @@ const LocationPage = () => {
 
             {isLoading ? <SpinLoader /> : <div style={{ marginBottom: "10%" }}>
                 <section>
-                    <Container xs="12" sm="12" lg="12">
-                        <PageHelmet pageTitle="Delivery Location Address" />
+                    <Container xs="12" sm="12" lg="12" >
+                        <PageHelmet pageTitle="Delivery Location Address"  />
                     </Container>
                     {apiData.length === 0 ? null : <Container>
                         <Row>
@@ -657,8 +657,8 @@ const LocationPage = () => {
                 </Container>
                 <Container>
                     <Row>
-                        <button className='save_Address' onClick={saveAddress}>Save Address</button>
-                        {apiData.length === 0 ? null : <button className='nxt__btn' onClick={stripeHandler} >Next</button>}
+                        <button className='save_Address' style={{color:"#7AC24F", border:"1px solid #7AC24F"}} onClick={saveAddress}>Save Address</button>
+                        {apiData.length === 0 ? null : <button className='nxt__btn' style={{backgroundColor:"#7AC24F"}} onClick={stripeHandler} >Next</button>}
                     </Row>
                 </Container>
             </div>}
