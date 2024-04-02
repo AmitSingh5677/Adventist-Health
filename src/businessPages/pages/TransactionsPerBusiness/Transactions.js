@@ -3,7 +3,7 @@ import "./Transactions.css";
 import { Table } from "reactstrap";
 import AppHeader from "../../components/AppHeader/AppHeader";
 import AppFooter from "../../components/AppFooter/AppFooter";
-import DatePicker from "react-datepicker";
+// import DatePicker from "react-datepicker";
 
 const TransactionsBusiness = () => {
   // const [startDate, setStartDate] = useState(new Date());

@@ -2,14 +2,17 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import './index.css'
 import logo from '../../../data/assests/download_img/Inquries_logo(4).svg'
 import { StarRating } from "../../../pages/ratingsScreen/RatingScreen";
-import { useState } from "react";
+import React,{ useState } from "react";
 import {  Row,Col } from 'reactstrap'
 import SucessMessage from '../../components/sucessToast/SucessToast';
 import ToastMessage from './../../../components/toast/ToastMessage';
 import profImage from '../../../data/assests/profImage.jpg';
 
+
 const ChallengeCard = (props) => {
     const { ratingData } = props
+    const[challangeRating,setchallangeRating]=useState([])
+   
     const [Rating, setRating] = useState('');
     const [message, setMessage] = useState(null);
     const [isError, setIsError] = useState("");
@@ -17,8 +20,11 @@ const ChallengeCard = (props) => {
     const [showErrorToast, setShowErrorToast] = useState(false);
     const [sucessToast, setSucessToast] = useState(false)
     const [showSuccessTost, setshowSuccessTost] = useState(false);
+    const [messageData, setmessageData] = useState([]);
 
-    
+    // https://dmecart-38297.botics.co/business/challenge_rating/183/
+
+   
     const sendMessage = (id) => {
 
         const token = JSON.parse(sessionStorage.getItem("token"));
@@ -65,6 +71,34 @@ const ChallengeCard = (props) => {
 
     }
 
+    const loadMore = async () => {
+        const token = JSON.parse(sessionStorage.getItem("token"));
+        const userid =  parseInt(sessionStorage.getItem("userid"));
+       
+        const fetchData = async () => {
+            try {
+              
+                const response = await fetch(`https://dmecart-38297.botics.co/business/challenge_rating/${userid}/`, {
+                    method: 'GET',
+                    headers: {
+                      'Content-Type': 'Application/json',
+                      'Authorization': `Token ${token}`
+                    },
+                });
+      
+                const data = await response.json();
+                if (data) {
+                 setchallangeRating(data)
+      
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+      
+        fetchData();
+      
+    };
     return <> 
     {ratingData.map((item) => (
         
@@ -82,10 +116,15 @@ const ChallengeCard = (props) => {
                 </div>
                 <div className="w-100 mt-2 ms-2">
                     <p>{item.message}</p>
+                   <p onClick={() => loadMore()} className="loadMore cursor">Load more</p>
+                    {challangeRating?.map((msg)=>(
+                        msg.business_rating === item.id &&
+                        <p>{msg.message}</p>
+                    ))} 
                     <div className="d-flex flex-column mt-3">
                         <label htmlfor='message-input' style={{ fontWeight: 'bold' }}>Add new Message</label>
                         <textarea className="bg-dark-subtle text_area p-1" rows={2} placeholder="Write your message here..." onChange={(e) => setRating(e.target.value)}></textarea>
-                        {/* {message && <div>{message}</div>} */}
+                       
                         <button type="button" className="btn btn-success mt-3 align-self-end m-1 p-5 pt-1 pb-1" onClick={() => sendMessage(item.id)}>Send</button>
                     </div>
                 </div>

@@ -9,6 +9,12 @@
 .cursor{
   cursor: pointer;
 }
+
+.btn-success{
+  background-color: rgba(122, 194, 79, 1) !important;
+  border-color: rgba(122, 194, 79, 1) !important;
+
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
