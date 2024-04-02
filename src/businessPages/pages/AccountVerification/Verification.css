@@ -98,10 +98,11 @@
     width: 95%;
     border-radius: 5px;
 }
-.ver-mid-form-input-desc input{
+.ver-mid-form-input-desc textarea{
     border: none;
     width: 94%;
     border-radius: 5px;
+    text-wrap: wrap;
 }
 .btn-section{
     margin-top: 70px;
@@ -129,7 +130,7 @@ width: 100%;
 height: 14px;
 cursor: pointer;
 }
-.image-avatar{
+.image-avatar-1{
     height: 100px;
     width: 100px;
     position: relative;

@@ -76,7 +76,9 @@ const formData = new FormData();
             console.log(resData)
             setShowErrorToast(true)
             setIsSuccess("Deatils have been updated successfully")
-            // navigate("/login")
+            setTimeout(()=>{
+              navigate("/login")
+            },3000)
   
 }
   
@@ -156,7 +158,7 @@ const formData = new FormData();
             <img
               src={updatedImage ? URL.createObjectURL(updatedImage) : image}
               alt="image"
-              className="image-avatar"
+              className="image-avatar-1"
               // onClick={() => setShowOverlay(true)}
             />
            <input
@@ -174,7 +176,7 @@ const formData = new FormData();
         </div>
         <div className="ver-mid-form-section">
           <div className=" mt-3 ver-mid-form-input-desc">
-            <input
+            <textarea
               type="text"
               className="ps-2"
               value={desc}
