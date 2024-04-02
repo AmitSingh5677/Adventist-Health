@@ -234,7 +234,7 @@ const Login = () => {
                     <p onClick={routeHandler}>Forgot Password?</p>
                   </div>
 
-                  <button type="submit" className="loginBtn">
+                  <button type="submit" className="loginBtn" style={{backgroundColor:"#7AC24F"}}>
                     LOGIN
                   </button>
                 </form>

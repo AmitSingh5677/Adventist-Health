@@ -10,7 +10,7 @@ const LeftSection = () => {
             <div  className='main_conatiner'>
                 <img src={loginDoodles} alt='login doodles' className='img-fluid mr-2' />
             </div>
-            <div  className='logo_conatiner'>
+            <div  className='logo_conatiner' style={{backgroundColor:"#ECECEC"}}>
                 <img src={DmeCartLogo} alt='DmeCart logo' className='logoImg' />   
             </div>
         </Col>

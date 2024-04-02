@@ -182,7 +182,7 @@ const ForgotPassword = ({ show, handleClose }) => {
                     </span>
                     {/* <p className='error-mess'>Entered email address is not associated with any existing user account, please enter the correct email address</p> */}
                   </div>
-                  <button type="submit" className="loginBtn">
+                  <button type="submit" className="loginBtn" style={{backgroundColor:"#7AC24F"}}>
                     Reset password
                   </button>
                 </form>
@@ -233,7 +233,7 @@ const ForgotPassword = ({ show, handleClose }) => {
             />
             {otpError && <p style={{color:"red"}} className="mt-2">{otpError}</p>}
           </h6>
-          <button onClick={handleClickOk} className="close_ok_btn">
+          <button onClick={handleClickOk} style={{backgroundColor:"#7AC24F"}} className="close_ok_btn">
             Ok
           </button>
         </Modal.Body>

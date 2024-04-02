@@ -302,7 +302,7 @@ console.log(rating,"rating")
                     </Container>
                 </div>
                 <div className='navigate-rate-btn'>
-                    <button className='nxt__btn' style={{ marginBottom: "7%" }} onClick={() => naviagte("/feedBack")}>Rate Business</button>
+                    <button className='nxt__btn' style={{ marginBottom: "7%", backgroundColor:"#7AC24F" }} onClick={() => naviagte("/feedBack")}>Rate Business</button>
 
                 </div>
 

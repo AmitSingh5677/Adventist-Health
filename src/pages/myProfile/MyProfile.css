@@ -34,7 +34,7 @@
     border: none;
     padding: 5px;
     width: 15%;
-    background: #026937;
+    background: #7AC24F;
     border-radius: 10px;
     font-family: 'Poppins';
 }
@@ -60,7 +60,7 @@
     border: none;
     padding: 5px;
     width: 15%;
-    background: #026937;
+    background: #7AC24F;
     border-radius: 10px;
     font-family: 'Poppins';
 }
@@ -79,7 +79,7 @@
 }
 
 .upload__btn_profile {
-    background-color: #026937;
+    background-color: #7AC24F;
     color: #ffff;
     width: 85%;
     padding: 4px;

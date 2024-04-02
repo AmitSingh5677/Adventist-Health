@@ -81,7 +81,7 @@ const Inquiries = () => {
             {isLoading ? (
                 <SpinLoader />
             ) : (
-                <div style={{ marginTop: "10%" }}>
+                <div style={{ marginTop: "10%", marginBottom:"10%" ,height:"150vh", overflowY:"auto" }}>
                     <section>
                         <Container>
                             {isInquiry.length > 0 && (

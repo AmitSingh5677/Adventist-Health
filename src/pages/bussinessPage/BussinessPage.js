@@ -314,7 +314,7 @@ const BussinessPage = () => {
                                                         <hr></hr>
                                                         <div className=" d-flex align-items-center justify-content-evenly mt-1" >
                                                             <span className="product__price">${item.price}</span>
-                                                            <button className="addToBuy__btn" onClick={() => paymentRoute(item.price, item.id)} >
+                                                            <button className="addToBuy__btn" style={{backgroundColor:"#7AC24F"}} onClick={() => paymentRoute(item.price, item.id)} >
                                                                 <span style={{ fontSize: "20px" }}><RiArrowRightDoubleFill /></span >   Buy Now
                                                             </button>
                                                         </div>
@@ -363,7 +363,7 @@ const BussinessPage = () => {
                                                             <hr></hr>
                                                             <div className=" d-flex align-items-center justify-content-evenly mt-1" >
                                                                 <span className="product__price">${item.price}</span>
-                                                                <button className="addToBuy__btn" onClick={() => { paymentRoute(item?.price, item.id) }}>
+                                                                <button className="addToBuy__btn" style={{backgroundColor:"#7AC24F"}} onClick={() => { paymentRoute(item?.price, item.id) }}>
                                                                     <span style={{ fontSize: "20px" }}><RiArrowRightDoubleFill /></span> Buy Now
                                                                 </button>
                                                             </div>
@@ -396,11 +396,11 @@ const BussinessPage = () => {
                                     <StarRating rating={averageRating} />
                                 </div>
                             </Col>
-                            <Col xs="2" lg="2" className='bottom_txt rating_text' onClick={ratingHandler} style={{ cursor: "pointer" }}>
+                            <Col xs="2" lg="2" className='bottom_txt rating_text'  onClick={ratingHandler} style={{ cursor: "pointer" }}>
                                 View rating
                             </Col>
                             <Col xs="1" lg="1">
-                                <button className='bottom_btn' onClick={modleHandler}>
+                                <button className='bottom_btn' style={{backgroundColor:"#7AC24F"}} onClick={modleHandler}>
                                     Report
                                 </button>
                             </Col>
@@ -408,7 +408,7 @@ const BussinessPage = () => {
 
                         <div className='bussiness__btn'>
                             {/* <button className='send__inquiry ' onClick={routeFeedback}>Send Inquiry</button> */}
-                            <button className='rate__bussiness' onClick={routeToRate}>Rate Business</button>
+                            <button className='rate__bussiness' style={{backgroundColor:"#7AC24F", border:"1px solid #7AC24F"}} onClick={routeToRate}>Rate Business</button>
                         </div>
                     </Container>
                 </section>

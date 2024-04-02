@@ -182,7 +182,7 @@ const PaymentPage = () => {
                                     </Col>
                                     <Col xs="3" sm="4" lg="4">
                                         <h6 className='payment_deatils'>Tax & Application Fee</h6>
-                                        <h6 className='payment_deatils'>${tax+applicationFee}</h6>
+                                        <h6 className='payment_deatils'>${(parseFloat(tax) + parseFloat(applicationFee)).toFixed(2)}</h6>
                                     </Col>
                                     {/* <Col xs="3" sm="4" lg="3">
                                         <h6 className='payment_deatils'>Application Fee</h6>
@@ -199,10 +199,10 @@ const PaymentPage = () => {
                     </section>
 
                     <div className='payment_conatiner_div'>
-                        <button className='add_more_Items' onClick={routeBussiness}>
+                        <button className='add_more_Items' style={{color:"#7AC24F", border:"1px solid #7AC24F"}} onClick={routeBussiness}>
                             Add More Items
                         </button>
-                        <button className='payment__btn' onClick={paymentHandler}>
+                        <button className='payment__btn' style={{backgroundColor:"#7AC24F"}} onClick={paymentHandler}>
                             PAY NOW
                         </button>
                     </div>
