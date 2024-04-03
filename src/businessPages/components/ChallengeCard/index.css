@@ -9,10 +9,10 @@
     border-radius: 10px;
 }
 .delete-btn{
-    width: 150px;
+    width: 45px;
     margin-right: 50px;
-    font-weight: 500;
-    border: 1px solid #B1ADAD;
+    height: 30px;
+    font-weight: 400;
 }
 .profile-image{
     height: 50px;
