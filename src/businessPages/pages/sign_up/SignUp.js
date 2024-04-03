@@ -513,12 +513,13 @@ const SignUpBusiness = () => {
                     type="submit"
                     className="signUpBtn"
                     // onClick={signUpHandler}
+                    style={{backgroundColor:"#7AC24F"}}
                   >
                     Sign Up
                   </button>
                 </div>
                 <div className="mb-3 input-group">
-                  <p style={{textAlign:"center"}} className="cancelBtn" onClick={handleCancel}>
+                  <p style={{textAlign:"center", color:"#7AC24F", border:"1px solid #7AC24F"}} className="cancelBtn" onClick={handleCancel}>
                     Cancel
                   </p>
                 </div>

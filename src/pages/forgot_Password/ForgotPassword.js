@@ -37,7 +37,7 @@ const ForgotPassword = ({ show, handleClose }) => {
     const isValidEmail = emailRegex.test(userEmail);
 
     if (!userEmail || !isValidEmail) {
-      setError("Kindly Enter the valid Email Address");
+      setError("Kindly enter the valid email address");
       console.log("error is there");
     } else {
       setError("");
@@ -79,6 +79,9 @@ const ForgotPassword = ({ show, handleClose }) => {
   const handleClickOk = async () => {
     if( otp && otp.length !== 6){
         setOtpError("Please provide 6 digit OTP")
+    }
+    if( !otp){
+        setOtpError("Please provide an otp")
     }
     else if( otp && otp.length == 6){
         try{

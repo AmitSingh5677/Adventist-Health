@@ -76,7 +76,9 @@ const formData = new FormData();
             console.log(resData)
             setShowErrorToast(true)
             setIsSuccess("Deatils have been updated successfully")
-            // navigate("/login")
+            setTimeout(()=>{
+              navigate("/login")
+            },3000)
   
 }
   
@@ -156,7 +158,7 @@ const formData = new FormData();
             <img
               src={updatedImage ? URL.createObjectURL(updatedImage) : image}
               alt="image"
-              className="image-avatar"
+              className="image-avatar-1"
               // onClick={() => setShowOverlay(true)}
             />
            <input
@@ -168,13 +170,19 @@ const formData = new FormData();
               // disabled
               onChange={(e) => setUpdatedImage(e.target.files[0])}
             />
+            <label for="avatar">
+                            <span style={{ position: "relative", bottom:"25px", fontWeight:'800'}}>
+                              
+                              Change Photo
+                            </span>
+                            </label>
            
             {/* <p>Change Photo</p> */}
           </div>
         </div>
         <div className="ver-mid-form-section">
           <div className=" mt-3 ver-mid-form-input-desc">
-            <input
+            <textarea
               type="text"
               className="ps-2"
               value={desc}
@@ -193,7 +201,7 @@ const formData = new FormData();
                     desc: !item.desc,
                   }))
                 }
-                className="img-icon"
+                className="img-icon ms-2"
               />
             </span>
           </div>

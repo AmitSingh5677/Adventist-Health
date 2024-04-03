@@ -35,7 +35,10 @@ const InventoryItemCard = (props) => {
 
         if (response) {
             setShowSucessToast(true);
-            setSucessMessage("Data deleted successfully")
+            setSucessMessage("Product deleted successfully")
+            setTimeout(()=>{
+                window.location.reload()
+            },2000)
 
         }
 

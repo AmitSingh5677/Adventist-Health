@@ -100,7 +100,7 @@ const PaymentConfirmation = ({ equipmentName, currentdate }) => {
                     <p className="equpiment_txt ms-3">Paid on</p>
                     <p className='equpiment_subtxt' style={{ position: "relative", left: "60px" }}>{formattedDateTime}</p>
                 </div>
-                <button className="done_btn" onClick={homepageHandler}>DONE</button>
+                <button className="done_btn" style={{backgroundColor:"7AC24F"}} onClick={homepageHandler}>DONE</button>
             </div>
         </div >
     )

@@ -41,7 +41,7 @@ const MyInventory = () => {
       
         fetchData();
       
-      }, [productData]);
+      }, []);
 
     return <div>
         <AppHeader />

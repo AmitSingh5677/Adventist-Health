@@ -124,7 +124,7 @@ const ChangePassword = () => {
                                 <span className='errorTxt'> {confrimError && <div style={{ color: '#FF0000', position: "relative", bottom: "10px" }}>{confrimError}</div>} </span>
 
 
-                                <button type="submit" className="loginBtn">Change Password</button>
+                                <button type="submit" style={{backgroundColor:"#7AC24F"}} className="loginBtn">Change Password</button>
                             </form>
                         </div>
                     </Col>
