@@ -99,6 +99,12 @@ const ChallengeCard = (props) => {
         fetchData();
       
     };
+
+    const [id,setId]=useState('')
+    const ontextChange =(id,value)=>{
+      setId(id)
+      setRating(value)
+    }
     return <> 
     {ratingData.map((item) => (
         
@@ -123,9 +129,12 @@ const ChallengeCard = (props) => {
                     ))} 
                     <div className="d-flex flex-column mt-3">
                         <label htmlfor='message-input' style={{ fontWeight: 'bold' }}>Add new Message</label>
-                        <textarea className="bg-dark-subtle text_area p-1" rows={2} placeholder="Write your message here..." onChange={(e) => setRating(e.target.value)}></textarea>
+                        <textarea className="bg-dark-subtle text_area p-1" rows={2} placeholder="Write your message here..." 
+                        onChange={(e) => ontextChange(item.id,e.target.value)}></textarea>
                        
-                        <button type="button" className="btn btn-success mt-3 align-self-end m-1 p-5 pt-1 pb-1" onClick={() => sendMessage(item.id)}>Send</button>
+                        <button type="button" className="btn btn-success mt-3 align-self-end m-1 p-5 pt-1 pb-1"
+                         disabled={item.id != id}
+                         onClick={() => sendMessage(item.id)}>Send</button>
                     </div>
                 </div>
 

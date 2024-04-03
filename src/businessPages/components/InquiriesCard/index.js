@@ -6,7 +6,9 @@ import profileImage from '../../../data/assests/profImage.jpg'
 
 import SucessToast from './../../components/sucessToast/SucessToast';
 import { useNavigate } from "react-router-dom";
-
+import {  Col,Row, ModalHeader,Modal,
+    ModalBody,
+    ModalFooter, Button} from 'reactstrap';
 const InquiriesCard = (props) => {
     const [showSucessToast, setShowSucessToast] = useState(false);
     const [sucessMessage, setSucessMessage] = useState("");
@@ -59,6 +61,8 @@ const InquiriesCard = (props) => {
 
         fetchData();
     }
+    const [isDelete, setIsDelete] = useState(false);
+    const [inquiryid, setinquiryid] = useState(false);
 
     const deletInquiry = () => {
         const token = JSON.parse(sessionStorage.getItem("token"));
@@ -66,7 +70,7 @@ const InquiriesCard = (props) => {
         const fetchData = async () => {
             try {
 
-                const response = await fetch(`https://dmecart-38297.botics.co/business/inquiries/${userid}/${userdata.inquiry_id}`, {
+                const response = await fetch(`https://dmecart-38297.botics.co/business/inquiries/${userid}/${inquiryid}/`, {
                     method: 'DELETE',
                     headers: {
                         'Authorization': `Token ${token}`
@@ -75,8 +79,33 @@ const InquiriesCard = (props) => {
 
                 const data = await response.json();
                 if (data) {
-
-
+                    setinquiryid('');
+                    setShowSucessToast(true);
+                    setIsDelete(false)
+                    setSucessMessage("Inquiry deleted successfully.") 
+                   
+                    const fetchData1 = async () => {
+                        try {
+                          
+                            const response = await fetch(`https://dmecart-38297.botics.co/business/inquiries/${userid}/`, {
+                                method: 'GET',
+                                headers: {
+                                  'Content-Type': 'Application/json',
+                                  'Authorization': `Token ${token}`
+                                },
+                            });
+                  
+                            const data = await response.json();
+                            if (data) {
+                             setData(data)
+                  
+                            }
+                        } catch (error) {
+                            console.error('Error fetching data:', error);
+                        }
+                    };
+                  
+                    fetchData1();
                 }
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -86,6 +115,10 @@ const InquiriesCard = (props) => {
         fetchData();
     }
 
+    const deletInquiryPopup=(inquiry_id)=>{
+        setinquiryid(inquiry_id)
+        setIsDelete(true)
+    }
     const loadMore = async (inquiryid) => {
         console.log(inquiryid, "id")
         try {
@@ -149,6 +182,11 @@ const InquiriesCard = (props) => {
         fetchData();
       
       }, []);
+     const [id,setId]=useState('')
+      const ontextChange =(id,value)=>{
+        setId(id)
+        setMessage(value)
+      }
     // http://localhost:3000/business/inventory/183/
     return <div className="m-2">
         {showSucessToast ? (
@@ -161,8 +199,9 @@ const InquiriesCard = (props) => {
 
 
 
-        {userdata.map((item) => (<div className="d-flex flex-row justify-content-between" >
-           
+        {userdata.map((item) => (<div  >
+           <Row>
+            <Col md={10}>
             <div>
                 <div className="d-flex comp-name-sec">
 
@@ -195,18 +234,44 @@ const InquiriesCard = (props) => {
                     ))}
                     <div className="d-flex flex-column mt-3 mb-4">
                         <label htmlfor='message-input' style={{ fontWeight: "bold" }}>Add new message</label>
-                        <textarea className="bg-dark-subtle p-1" rows={2} placeholder="Write your message here..." onChange={(e) => setMessage(e.target.value)} ></textarea>
-                        <button type="button" className="btn btn-success align-self-end m-1 p-5 pt-1 pb-1 mt-3" onClick={() => sendMessage(item.patient, item.product, item.inquiry_id)}>Send</button>
+                        <textarea className="bg-dark-subtle p-1" rows={2} placeholder="Write your message here..."
+                         onChange={(e) => ontextChange(item.id,e.target.value)} ></textarea>
+                        <button type="button" className="btn btn-success align-self-end m-1 p-5 pt-1 pb-1 mt-3"
+                        disabled={item.id != id}
+                        onClick={() => sendMessage(item.patient, item.product, item.inquiry_id)}>Send</button>
                     </div>
                 </div>
 
             </div>
-
-            <RiDeleteBin6Line color="red" size={40} className="delete-btn" onClick={deletInquiry} />
+            </Col>
+            <Col md={2}>
+            <RiDeleteBin6Line color="red" size={40} className="delete-btn" onClick={()=>deletInquiryPopup(item.inquiry_id)} /></Col>
+            </Row>
         </div>))}
 
 
         <hr />
+
+        <Modal
+        isOpen={isDelete}
+        centered
+        keyboard={false}
+        backdrop="static"
+        backdropClassName="modal-backdrop-dark"
+      >
+        <ModalHeader toggle={() => setIsDelete(false)} className="model_header">
+          <span style={{ fontSize: "16px" }}>Delete Account</span>
+        </ModalHeader>
+        <ModalBody className="modal__txt">
+          Are you sure you want to delete your inquiry?
+        </ModalBody>
+        <ModalFooter style={{ borderTop: "none" }} className="modal__footer">
+          <button className="cancel__btn" onClick={() => setIsDelete(false)}>
+            No
+          </button>
+          <Button className="yes__btn" onClick={deletInquiry}>Yes</Button>
+        </ModalFooter>
+      </Modal>
     </div>
 }
 
