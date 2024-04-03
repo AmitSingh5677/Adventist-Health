@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import "./LoacationPage.css"
 import Helmet from '../../components/helmet/Helmet';
-import { Button, Col, Container, Form, FormGroup, Input, Label, Row } from 'reactstrap';
+import {
+    Button, Col, Container, Form, FormGroup, Input, Label, Row, Modal,
+    ModalHeader,
+    ModalBody,
+    ModalFooter,
+} from 'reactstrap';
 import { FaPencilAlt } from 'react-icons/fa';
 import PageHelmet from '../../components/page_Helmet/PageHelmet';
 import AppHeader from '../../components/header/AppHeader';
@@ -21,6 +26,9 @@ const LocationPage = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [defaultAddress, setDefaultAddress] = useState({});
     const [editMode, setEditMode] = useState(false);
+    const [savededitMode, setsavededitMode] = useState(false);
+
+
     const [editableAddress, setEditableAddress] = useState({ ...defaultAddress });
     const [fullName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
@@ -37,21 +45,124 @@ const LocationPage = () => {
     const [showErrorToast, setShowErrorToast] = useState(false);
     const [isError, setError] = useState("");
     const [isSuccess, setIsSuccess] = useState("")
+    const [defaultRadio, setdefaultRadio] = useState(false)
+    const [savedRadio, setsavedRadio] = useState(false)
+    const [selectedValue, setSelectedValue] = useState('');
+    const [isDelete, setIsDelete] = useState(false);
+
 
     console.log("saved Address " + JSON.stringify(isSaved));
     const handleEdit = () => {
+        setEditableAddress({ ...defaultAddress });
         setEditMode(true);
     };
 
+    const [savedAddress, setsavedAddress] = useState([])
+
+    const handleSavedEdit = (id) => {
+
+        setsavededitMode(true);
+
+        const fetchUserData = async () => {
+            try {
+                const patientId = JSON.parse(sessionStorage.getItem("patientId"));
+                const token = JSON.parse(sessionStorage.getItem("token"));
+                const response = await fetch(`https://dmecart-38297.botics.co/patients/delivery_address/${patientId}/${id}/`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Token ${token}`
+                    },
+                });
+
+                const data = await response.json();
+                console.log(data, "data")
+                setsavedAddress(data)
+
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchUserData();
+    };
+
+    //edit saved
+
+    const handleEditSaved = async (id) => {
+
+      
+        setsavededitMode(false);
+        const token = JSON.parse(sessionStorage.getItem("token"));
+        const patientId = JSON.parse(sessionStorage.getItem("patientId"));
+
+        try {
+            const response = await fetch(`/patients/delivery_address/${patientId}/${id}/`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${token}`
+                },
+                body: JSON.stringify({
+                    "recipient_name": savedAddress.recipient_name,
+                    "phone": savedAddress.phone,
+                    "street_address": savedAddress.street_address,
+                    "city": savedAddress.city,
+                    "state": savedAddress.state,
+                    "country": savedAddress.country,
+                    "zip_code": savedAddress.zip_code,
+                    "is_default": false
+                }),
+            });
+
+
+            const data = await response.json();
+            console.log(data,"data")
+            if (response.ok) {
+                const fetchUserData1= async () => {
+                    try {
+                        const patientId = JSON.parse(sessionStorage.getItem("patientId"));
+                        const token = JSON.parse(sessionStorage.getItem("token"));
+                        const response = await fetch(`/patients/delivery_address/${patientId}/`, {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Token ${token}`
+                            },
+                        });
+        
+                        const data = await response.json();
+                        setApiData(data)
+                        setSaved(data.filter((item) => !item.is_default));
+        
+                    } catch (error) {
+                        console.error('Error fetching data:', error);
+                    }
+                };
+        
+                fetchUserData1();
+                setIsSuccess("Your Address Has Been Updated.")
+            } else {
+                // setShowErrorToast(true);
+                console.error('Login failed. Please check your credentials.');
+                // setToastError("Unable to log in with provided credentials.")
+            }
+        } catch (error) {
+            console.error('An error occurred during login:', error.message);
+        }
+
+    };
+
     // This Function run when save the Defualt Address
-    const handleSave = async (e) => {
-        e.preventDefault();
+    const handleSave = async (id) => {
+
         setDefaultAddress({ ...editableAddress });
         setEditMode(false);
         const token = JSON.parse(sessionStorage.getItem("token"));
+        const patientId = JSON.parse(sessionStorage.getItem("patientId"));
 
         try {
-            const response = await fetch('/patients/delivery_address/58/18/', {
+            const response = await fetch(`/patients/delivery_address/${patientId}/${id}/`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -69,14 +180,19 @@ const LocationPage = () => {
                 }),
             });
 
+
+            const data = await response.json();
+            console.log(data, "response")
             if (response.ok) {
                 setDefaultAddress({
-                    name: defaultAddress.recipient_name,
-                    street_address: defaultAddress.street_address,
-                    city: defaultAddress.city,
-                    country: defaultAddress.country,
-                    zipCode: defaultAddress.zip_code,
-                    phoneNumber: defaultAddress.phone,
+                    id: data.id,
+                    name: data.recipient_name,
+                    street_address: data.street_address,
+                    city: data.city,
+                    country: data.country,
+                    zipCode: data.zip_code,
+                    phoneNumber: data.phone,
+                    state: data.state
                 });
                 // window.location.reload();
                 setIsSuccess("Your Default Address Has Been Saved.")
@@ -102,6 +218,13 @@ const LocationPage = () => {
         });
     };
 
+
+    const handleChange1 = (e) => {
+        setsavedAddress({
+            ...savedAddress,
+            [e.target.name]: e.target.value,
+        });
+    };
     // this useEffect run to find the defualt Address
 
     React.useEffect(() => {
@@ -120,16 +243,18 @@ const LocationPage = () => {
                 const data = await response.json();
                 // console.log("userData " + data);
                 setApiData(data)
-                setSaved(data.filter((item)=>!item.is_default));
+                setSaved(data.filter((item) => !item.is_default));
 
                 const defaultAddress = data.find(item => item.is_default);
                 if (defaultAddress) {
                     const defaultAddressId = defaultAddress.id;
                     console.log("Default Address ID:", defaultAddress);
+                    setdefaultRadio(true)
                     sessionStorage.setItem("defaultAddressId", defaultAddressId)
                     setDefaultAddress({
+                        id: defaultAddress.id,
                         name: defaultAddress.recipient_name,
-                        street: defaultAddress.street_address,
+                        street_address: defaultAddress.street_address,
                         state: defaultAddress.state,
                         city: defaultAddress.city,
                         country: defaultAddress.country,
@@ -155,7 +280,7 @@ const LocationPage = () => {
         fetchUserData();
     }, [isLoaded]);
 
-    console.log(defaultAddress,"123")
+    console.log(defaultAddress, "123")
     // send Delivery Address to Backend
     const saveAddress = async () => {
 
@@ -181,7 +306,7 @@ const LocationPage = () => {
 
                 }),
             }
-            
+
             );
 
             if (!response.ok) {
@@ -201,15 +326,22 @@ const LocationPage = () => {
     }
 
     const stripeHandler = async () => {
+
         navigate("/PaymentPage")
     };
 
     // Delete Address Handler
-    const deleteHandler = async (id) => {
+    const [deleteid, setdeleteid] = useState('');
+
+    const deleteAccount = (id) => {
+        setdeleteid(id)
+        setIsDelete(true)
+    }
+    const deleteHandler = async () => {
         // alert(id);
 
         try {
-            const address_id = id
+            const address_id = deleteid
             const token = JSON.parse(sessionStorage.getItem("token"));
             const patientId = JSON.parse(sessionStorage.getItem("patientId"))
             const response = await fetch(`/patients/delivery_address/${patientId}/${address_id}/`, {
@@ -222,6 +354,7 @@ const LocationPage = () => {
 
 
             if (response.ok) {
+                setdeleteid('')
                 setShowErrorToast(true)
                 setIsSuccess("Address is sucessfully deleted.Thank You")
                 window.location.reload()
@@ -241,6 +374,13 @@ const LocationPage = () => {
         }
     };
 
+    const radioHandle = (id) => {
+        setdefaultRadio(false)
+        setSelectedValue(id);
+        sessionStorage.setItem("defaultAddressId", id)
+    }
+
+
 
     return (
         <Helmet title="Delivery Location Address">
@@ -250,136 +390,136 @@ const LocationPage = () => {
             {isLoading ? <SpinLoader /> : <div style={{ marginBottom: "10%" }}>
                 <section>
                     <Container xs="12" sm="12" lg="12" >
-                        <PageHelmet pageTitle="Delivery Location Address"  />
+                        <PageHelmet pageTitle="Delivery Location Address" />
                     </Container>
                     {apiData.length === 0 ? null : <Container>
                         <Row>
                             <Col xs="12" sm="12" lg="12">
                                 <h6 className='defualt__txt'>Default Addresses</h6>
                                 {defaultAddress &&
-                                <div className='address__conatiner'>
-                                    <Row>
-                                        <Col xs="11" sm="1" lg="1">
-                                            <input
-                                                type="radio"
-                                                name="selectAddress"
-                                                checked={true}
-                                                className='radio__btn'
-                                            // onChange={handleSelectAddress}
-                                            />
+                                    <div className='address__conatiner'>
+                                        <Row>
+                                            <Col xs="11" sm="1" lg="1">
+                                                <input
+                                                    type="radio"
+                                                    name="selectAddress"
+                                                    checked={defaultRadio}
+                                                    className='radio__btn'
+                                                // onChange={handleSelectAddress}
+                                                />
+                                            </Col>
+                                            <Col xs="10" sm="10" lg="10">
+
+                                                {editMode ? (
+
+                                                    <Row>
+                                                        <FormGroup>
+                                                            <Col md={12}>
+                                                                <input
+                                                                    style={{ marginTop: "10px" }}
+                                                                    className="form-control shadow-none mt-10"
+                                                                    type="text"
+                                                                    name="name"
+                                                                    value={editableAddress.name}
+                                                                    onChange={handleChange}
+                                                                    placeholder="First Name"
+                                                                />
+                                                            </Col>
+                                                            <Col md={12}>
+                                                                <input
+                                                                    style={{ marginTop: "10px" }}
+                                                                    className="form-control shadow-none"
+                                                                    type="text"
+                                                                    name="street_address"
+                                                                    value={editableAddress.street_address}
+                                                                    onChange={handleChange}
+                                                                    placeholder="Address"
+                                                                />
+                                                            </Col>
+                                                            <Col md={12}>
+                                                                <input
+                                                                    style={{ marginTop: "10px" }}
+                                                                    className="form-control shadow-none"
+                                                                    type="text"
+                                                                    name="city"
+                                                                    value={editableAddress.city}
+                                                                    onChange={handleChange}
+                                                                    placeholder="City"
+                                                                />
+                                                            </Col>
+                                                            <Col md={12}>
+                                                                <input
+                                                                    style={{ marginTop: "10px" }}
+                                                                    className="form-control shadow-none"
+                                                                    type="text"
+                                                                    name="state"
+                                                                    value={editableAddress.state}
+                                                                    onChange={handleChange}
+                                                                    placeholder="State"
+                                                                />
+                                                            </Col>
+
+                                                            <Row>
+                                                                <Col md={3}>
+                                                                    <input
+                                                                        style={{ marginTop: "10px" }}
+                                                                        className="form-control shadow-none"
+                                                                        type="text"
+                                                                        name="country"
+                                                                        value={editableAddress.country}
+                                                                        onChange={handleChange}
+                                                                        placeholder="Country"
+                                                                    />
+                                                                </Col>
+                                                                <Col md={3}>
+                                                                    <input
+                                                                        style={{ marginTop: "10px" }}
+                                                                        className="form-control shadow-none"
+                                                                        type="text"
+                                                                        name="zipCode"
+                                                                        value={editableAddress.zipCode}
+                                                                        onChange={handleChange}
+                                                                        placeholder="Zip Code"
+                                                                        maxLength={5}
+                                                                        onKeyPress={handleKeyPress}
+                                                                    />
+                                                                </Col>
+                                                                <Col md={6}>
+                                                                    <input
+                                                                        style={{ marginTop: "10px" }}
+                                                                        className="form-control shadow-none"
+                                                                        type="text"
+                                                                        name="phoneNumber"
+                                                                        value={editableAddress.phoneNumber}
+                                                                        onChange={handleChange}
+                                                                        placeholder="Mobile Number"
+                                                                        onKeyPress={handleKeyPress}
+                                                                    />
+                                                                </Col>
+                                                            </Row>
+                                                            <div>
+                                                                <button onClick={handleCancel} className='save__btn' >Cancel</button>
+                                                                <button onClick={() => handleSave(editableAddress.id)} className='cancel__btn'>Save</button>
+
+                                                            </div>
+                                                        </FormGroup>
+                                                    </Row>
+                                                ) : (
+                                                    <Row>
+                                                        <p className='userName__txt'>{defaultAddress.name}</p>
+                                                        <p className='street__adress'>{defaultAddress.street_address}</p>
+                                                        <p className='adress_txt' style={{ position: "relative", bottom: "15px" }}>{`${defaultAddress.city},${defaultAddress.state}, ${defaultAddress.country} - ${defaultAddress.zipCode}`}</p>
+                                                        <p className='mobile_num'>{defaultAddress.phoneNumber}</p>
+
+                                                    </Row>
+                                                )}
+                                            </Col>
+                                        </Row>
+                                        <Col xs="1" sm="1" lg="1">
+                                            <FaPencilAlt onClick={handleEdit} style={{ cursor: 'pointer' }} />
                                         </Col>
-                                        <Col xs="10" sm="10" lg="10">
-                                        
-                                            { editMode ? (
 
-                                                <Row>
-                                                    <FormGroup>
-                                                        <Col md={12}>
-                                                            <input
-                                                                style={{ marginTop: "10px" }}
-                                                                className="form-control shadow-none mt-10"
-                                                                type="text"
-                                                                name="name"
-                                                                value={editableAddress.name}
-                                                                onChange={handleChange}
-                                                                placeholder="First Name"
-                                                            />
-                                                        </Col>
-                                                        <Col md={12}>
-                                                            <input
-                                                                style={{ marginTop: "10px" }}
-                                                                className="form-control shadow-none"
-                                                                type="text"
-                                                                name="street_address"
-                                                                value={editableAddress.street_address}
-                                                                onChange={handleChange}
-                                                                placeholder="Address"
-                                                            />
-                                                        </Col>
-                                                        <Col md={12}>
-                                                            <input
-                                                                style={{ marginTop: "10px" }}
-                                                                className="form-control shadow-none"
-                                                                type="text"
-                                                                name="city"
-                                                                value={editableAddress.city}
-                                                                onChange={handleChange}
-                                                                placeholder="City"
-                                                            />
-                                                        </Col>
-                                                        <Col md={12}>
-                                                            <input
-                                                                style={{ marginTop: "10px" }}
-                                                                className="form-control shadow-none"
-                                                                type="text"
-                                                                name="state"
-                                                                value={editableAddress.state}
-                                                                onChange={handleChange}
-                                                                placeholder="State"
-                                                            />
-                                                        </Col>
-
-                                                        <Row>
-                                                            <Col md={3}>
-                                                                <input
-                                                                    style={{ marginTop: "10px" }}
-                                                                    className="form-control shadow-none"
-                                                                    type="text"
-                                                                    name="country"
-                                                                    value={editableAddress.country}
-                                                                    onChange={handleChange}
-                                                                    placeholder="Country"
-                                                                />
-                                                            </Col>
-                                                            <Col md={3}>
-                                                                <input
-                                                                    style={{ marginTop: "10px" }}
-                                                                    className="form-control shadow-none"
-                                                                    type="text"
-                                                                    name="zipCode"
-                                                                    value={editableAddress.zipCode}
-                                                                    onChange={handleChange}
-                                                                    placeholder="Zip Code"
-                                                                    maxLength={5}
-                                                                    onKeyPress={handleKeyPress}
-                                                                />
-                                                            </Col>
-                                                            <Col md={6}>
-                                                                <input
-                                                                    style={{ marginTop: "10px" }}
-                                                                    className="form-control shadow-none"
-                                                                    type="text"
-                                                                    name="phoneNumber"
-                                                                    value={editableAddress.phoneNumber}
-                                                                    onChange={handleChange}
-                                                                    placeholder="Mobile Number"
-                                                                    onKeyPress={handleKeyPress}
-                                                                />
-                                                            </Col>
-                                                        </Row>
-                                                        <div>
-                                                            <button onClick={handleCancel} className='save__btn' >Cancel</button>
-                                                            <button onClick={handleSave} className='cancel__btn'>Save</button>
-
-                                                        </div>
-                                                    </FormGroup>
-                                                </Row>
-                                            ) : (
-                                                <Row>
-                                                    <p className='userName__txt'>{defaultAddress.name}</p>
-                                                    <p className='street__adress'>{defaultAddress.street}</p>
-                                                    <p className='adress_txt' style={{ position: "relative", bottom: "15px" }}>{`${defaultAddress.city},${defaultAddress.state}, ${defaultAddress.country} - ${defaultAddress.zipCode}`}</p>
-                                                    <p className='mobile_num'>{defaultAddress.phoneNumber}</p>
-
-                                                </Row>
-                                            )}
-                                        </Col>
-                                    </Row>
-                                    <Col xs="1" sm="1" lg="1">
-                                        <FaPencilAlt onClick={handleEdit} style={{ cursor: 'pointer' }} />
-                                    </Col>
-
-                                </div>
+                                    </div>
                                 }
                             </Col>
                         </Row>
@@ -391,34 +531,133 @@ const LocationPage = () => {
                 {/* saved Address */}
                 {isSaved ? <Container>
 
-                    <Col xs="12" sm="12" lg="12">
-                        <div className='address__conatiner'>
-                            <Row>
-                                <h6 className='defualt__txt' style={{ marginTop: "25px" }}>Saved Addresses</h6>
-                                {isSaved.map((item) => (
-                                    <div key={item.id} className="d-flex align-items-center">
-                                        <Col xs="11" sm="1" lg="1">
-                                            {/* Radio button */}
-                                            <input type="radio" name="addressRadio" style={{ cursor: "pointer" }} />
-                                        </Col>
-                                        <Col xs="10" sm="10" lg="10">
-                                            {/* Address details */}
-                                            <p className='userName__txt'>{item.recipient_name}</p>
-                                            <p className='street__adress'>{item.street_address}</p>
-                                            <p className='street__adress'>{item.state}</p>
-                                            <p className='adress_txt' style={{ position: "relative", bottom: "7px" }}>{`${item.city}, ${item.country} - ${item.zip_code}`}</p>
-                                            <p className='mobile_num'>{item.phone}</p>
-                                        </Col>
-                                        <Col xs="1" sm="1" lg="10">
-                                            {/* Delete button */}
-                                            <RiDeleteBin5Line onClick={() => deleteHandler(item.id)} style={{ cursor: 'pointer', color: "#F90D0D", fontSize: "22px", }} />
-                                        </Col>
-                                    </div>
-                                ))}
-                            </Row>
+                    {savededitMode ? (
 
-                        </div>
-                    </Col>
+                        <Row>
+                            <FormGroup>
+                                <Col md={12}>
+                                    <input
+                                        style={{ marginTop: "10px" }}
+                                        className="form-control shadow-none mt-10"
+                                        type="text"
+                                        name="recipient_name"
+                                        value={savedAddress.recipient_name}
+                                        onChange={handleChange1}
+                                        placeholder="First Name"
+                                    />
+                                </Col>
+                                <Col md={12}>
+                                    <input
+                                        style={{ marginTop: "10px" }}
+                                        className="form-control shadow-none"
+                                        type="text"
+                                        name="street_address"
+                                        value={savedAddress.street_address}
+                                        onChange={handleChange1}
+                                        placeholder="Address"
+                                    />
+                                </Col>
+                                <Col md={12}>
+                                    <input
+                                        style={{ marginTop: "10px" }}
+                                        className="form-control shadow-none"
+                                        type="text"
+                                        name="city"
+                                        value={savedAddress.city}
+                                        onChange={handleChange1}
+                                        placeholder="City"
+                                    />
+                                </Col>
+                                <Col md={12}>
+                                    <input
+                                        style={{ marginTop: "10px" }}
+                                        className="form-control shadow-none"
+                                        type="text"
+                                        name="state"
+                                        value={savedAddress.state}
+                                        onChange={handleChange1}
+                                        placeholder="State"
+                                    />
+                                </Col>
+
+                                <Row>
+                                    <Col md={3}>
+                                        <input
+                                            style={{ marginTop: "10px" }}
+                                            className="form-control shadow-none"
+                                            type="text"
+                                            name="country"
+                                            value={savedAddress.country}
+                                            onChange={handleChange1}
+                                            placeholder="Country"
+                                        />
+                                    </Col>
+                                    <Col md={3}>
+                                        <input
+                                            style={{ marginTop: "10px" }}
+                                            className="form-control shadow-none"
+                                            type="text"
+                                            name="zip_code"
+                                            value={savedAddress.zip_code}
+                                            onChange={handleChange1}
+                                            placeholder="Zip Code"
+                                            maxLength={5}
+                                            onKeyPress={handleKeyPress}
+                                        />
+                                    </Col>
+                                    <Col md={6}>
+                                        <input
+                                            style={{ marginTop: "10px" }}
+                                            className="form-control shadow-none"
+                                            type="text"
+                                            name="phone"
+                                            value={savedAddress.phone}
+                                            onChange={handleChange1}
+                                            placeholder="Mobile Number"
+                                            onKeyPress={handleKeyPress}
+                                        />
+                                    </Col>
+                                </Row>
+                                <div>
+                                    <button onClick={() => setsavededitMode(false)} className='save__btn' >Cancel</button>
+                                    <button onClick={() => handleEditSaved(savedAddress.id)} className='cancel__btn'>Save</button>
+
+                                </div>
+                            </FormGroup>
+                        </Row>
+                    ) : (
+                        <Col xs="12" sm="12" lg="12">
+                            <div className='address__conatiner'>
+                                <Row>
+                                    <h6 className='defualt__txt' style={{ marginTop: "25px" }}>Saved Addresses</h6>
+                                    {isSaved.map((item) => (
+                                        <div key={item.id} className="d-flex align-items-center">
+                                            <Col xs="11" sm="1" lg="1">
+                                                {/* Radio button */}
+                                                <input type="radio" name="addressRadio" value={item.id}
+                                                    checked={selectedValue === item.id}
+                                                    style={{ cursor: "pointer" }} onClick={() => radioHandle(item.id)} />
+                                            </Col>
+                                            <Col xs="10" sm="10" lg="10">
+                                                {/* Address details */}
+                                                <p className='userName__txt'>{item.recipient_name}</p>
+                                                <p className='street__adress'>{item.street_address}</p>
+                                                <p className='street__adress'>{item.state}</p>
+                                                <p className='adress_txt' style={{ position: "relative", bottom: "7px" }}>{`${item.city}, ${item.country} - ${item.zip_code}`}</p>
+                                                <p className='mobile_num'>{item.phone}</p>
+                                            </Col>
+                                            <Col xs="1" sm="1" lg="10">
+
+                                                {/* Delete button */}
+                                                <FaPencilAlt onClick={() => handleSavedEdit(item.id)} style={{ cursor: 'pointer' }} />
+                                                <RiDeleteBin5Line onClick={() => deleteAccount(item.id)} style={{ cursor: 'pointer', color: "#F90D0D", fontSize: "22px", }} />
+                                            </Col>
+                                        </div>
+                                    ))}
+                                </Row>
+
+                            </div>
+                        </Col>)}
 
                 </Container> : null}
 
@@ -463,13 +702,13 @@ const LocationPage = () => {
                                                 <Input
                                                     className="form-control shadow-none"
                                                     value={lastName}
-                                                    onChange={(e)=>{
+                                                    onChange={(e) => {
                                                         const inputValue = e.target.value;
                                                         const regex = /^[A-Za-z\s]+$/;
 
                                                         if (regex.test(inputValue) || inputValue === '') {
                                                             setLastName(inputValue);
-                                                        } 
+                                                        }
                                                     }}
                                                     placeholder="Last Name"
                                                     type="text"
@@ -657,13 +896,33 @@ const LocationPage = () => {
                 </Container>
                 <Container>
                     <Row>
-                        <button className='save_Address' style={{color:"#7AC24F", border:"1px solid #7AC24F"}} onClick={saveAddress}>Save Address</button>
-                        {apiData.length === 0 ? null : <button className='nxt__btn' style={{backgroundColor:"#7AC24F"}} onClick={stripeHandler} >Next</button>}
+                        <button className='save_Address' style={{ color: "#7AC24F", border: "1px solid #7AC24F" }} onClick={saveAddress}>Save Address</button>
+                        {apiData.length === 0 ? null : <button className='nxt__btn' style={{ backgroundColor: "#7AC24F" }} onClick={stripeHandler} >Next</button>}
                     </Row>
                 </Container>
             </div>}
 
             <AppFooter />
+            <Modal
+                isOpen={isDelete}
+                centered
+                keyboard={false}
+                backdrop="static"
+                backdropClassName="modal-backdrop-dark"
+            >
+                <ModalHeader toggle={() => setIsDelete(false)} className="model_header">
+                    <span style={{ fontSize: "16px" }}>Delete Account</span>
+                </ModalHeader>
+                <ModalBody className="modal__txt">
+                    Are you sure you want to delete your address?
+                </ModalBody>
+                <ModalFooter style={{ borderTop: "none" }} className="modal__footer">
+                    <button className="cancel__btn" onClick={() => setIsDelete(false)}>
+                        No
+                    </button>
+                    <Button className="yes__btn" onClick={deleteHandler}>Yes</Button>
+                </ModalFooter>
+            </Modal>
         </Helmet>
     );
 };
