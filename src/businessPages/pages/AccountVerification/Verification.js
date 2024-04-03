@@ -170,6 +170,12 @@ const formData = new FormData();
               // disabled
               onChange={(e) => setUpdatedImage(e.target.files[0])}
             />
+            <label for="avatar">
+                            <span style={{ position: "relative", bottom:"25px", fontWeight:'800'}}>
+                              
+                              Change Photo
+                            </span>
+                            </label>
            
             {/* <p>Change Photo</p> */}
           </div>
@@ -195,7 +201,7 @@ const formData = new FormData();
                     desc: !item.desc,
                   }))
                 }
-                className="img-icon"
+                className="img-icon ms-2"
               />
             </span>
           </div>

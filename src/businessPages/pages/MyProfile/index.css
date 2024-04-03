@@ -9,16 +9,16 @@
 
 }
 .my-profile-bar{
-    border: 1px solid #007D8A;
+    /* border: 1px solid #007D8A; */
     border-radius: 10px 10px 0 0;
-    background-color: #007D8A ;
+    background-color: #ECECEC ;
     padding: 20px 45px;
     width: 93%;
 }
 .my-profile-bar-text{
-    color: #fff;
+    color: black;
     font-size: 24px;
-    border: 1px solid #007D8A;
+    /* border: 1px solid #007D8A; */
     border-radius: 10px, 10px, 0px, 0px;
 }
 

@@ -113,10 +113,10 @@ const DashBoardReviews = () => {
                   <Table className="table table-hover borderless responsive striped">
                     <thead >
                       <tr >
-                        <th className='table_theader'style={{backgroundColor:"#E3E3E3",color:"#6E6E6E"}}>USER/PATIENT</th>
-                        <th className='table_theader ps-4' style={{backgroundColor:"#E3E3E3",color:"#6E6E6E"}}>STARS</th>
-                        <th className='table_theader ps-2' style={{backgroundColor:"#E3E3E3",color:"#6E6E6E"}}>REVIEW MESSAGE</th>
-                        <th className='table_theader ' style={{backgroundColor:"#E3E3E3",color:"#6E6E6E"}}></th>
+                        <th className='table_theader'>USER/PATIENT</th>
+                        <th className='table_theader ps-4'>STARS</th>
+                        <th className='table_theader ps-2'>REVIEW MESSAGE</th>
+                        <th className='table_theader '></th>
                       </tr>
                     </thead>
                     <tbody className='body__txt'>
