@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
 import "./LoacationPage.css"
 import Helmet from '../../components/helmet/Helmet';
-import {
-    Button, Col, Container, Form, FormGroup, Input, Label, Row, Modal,
-    ModalHeader,
-    ModalBody,
-    ModalFooter,
-} from 'reactstrap';
+import { Button, Col, Container, Form, FormGroup, Input, Label, Row, Modal, ModalHeader,ModalBody,ModalFooter,} from 'reactstrap';
 import { FaPencilAlt } from 'react-icons/fa';
 import PageHelmet from '../../components/page_Helmet/PageHelmet';
 import AppHeader from '../../components/header/AppHeader';
@@ -16,10 +11,6 @@ import SpinLoader from '../../components/spin-loader/SpinLoader';
 import { RiDeleteBin5Line } from "react-icons/ri";
 import ToastMessage from '../../components/toast/ToastMessage';
 import SucessMessage from '../../components/successToast/SuccessToast';
-
-
-
-
 const LocationPage = () => {
     const navigate = useNavigate();
     const [apiData, setApiData] = useState([]);
@@ -27,8 +18,6 @@ const LocationPage = () => {
     const [defaultAddress, setDefaultAddress] = useState({});
     const [editMode, setEditMode] = useState(false);
     const [savededitMode, setsavededitMode] = useState(false);
-
-
     const [editableAddress, setEditableAddress] = useState({ ...defaultAddress });
     const [fullName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
@@ -49,8 +38,12 @@ const LocationPage = () => {
     const [savedRadio, setsavedRadio] = useState(false)
     const [selectedValue, setSelectedValue] = useState('');
     const [isDelete, setIsDelete] = useState(false);
-
-
+    const [userCheckedDefault, setuserCheckedDefault] = useState(false);
+    const [userCheckedsaved, setuserCheckedsaved] = useState(false);
+    const [showErrorToast1, setShowErrorToast1] = useState(false);
+    const [isError1, setError1] = useState("");
+    const [errormsg, seterrormsg] = useState("");
+  
     console.log("saved Address " + JSON.stringify(isSaved));
     const handleEdit = () => {
         setEditableAddress({ ...defaultAddress });
@@ -78,7 +71,7 @@ const LocationPage = () => {
                 const data = await response.json();
                 console.log(data, "data")
                 setsavedAddress(data)
-
+                setuserCheckedsaved(data.is_default)
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -88,10 +81,9 @@ const LocationPage = () => {
     };
 
     //edit saved
-
     const handleEditSaved = async (id) => {
 
-      
+
         setsavededitMode(false);
         const token = JSON.parse(sessionStorage.getItem("token"));
         const patientId = JSON.parse(sessionStorage.getItem("patientId"));
@@ -111,15 +103,15 @@ const LocationPage = () => {
                     "state": savedAddress.state,
                     "country": savedAddress.country,
                     "zip_code": savedAddress.zip_code,
-                    "is_default": false
+                    "is_default": userCheckedsaved
                 }),
             });
 
 
             const data = await response.json();
-            console.log(data,"data")
+            console.log(data, "data")
             if (response.ok) {
-                const fetchUserData1= async () => {
+                const fetchUserData1 = async () => {
                     try {
                         const patientId = JSON.parse(sessionStorage.getItem("patientId"));
                         const token = JSON.parse(sessionStorage.getItem("token"));
@@ -130,16 +122,42 @@ const LocationPage = () => {
                                 'Authorization': `Token ${token}`
                             },
                         });
-        
+
                         const data = await response.json();
                         setApiData(data)
                         setSaved(data.filter((item) => !item.is_default));
+
+                        const defaultAddress = data.find(item => item.is_default);
+                        if (defaultAddress) {
+                            const defaultAddressId = defaultAddress.id;
+                            console.log("Default Address ID:", defaultAddress);
+                            setdefaultRadio(true)
+                            sessionStorage.setItem("defaultAddressId", defaultAddressId)
+                            setuserCheckedDefault(defaultAddress.is_default)
+                            setDefaultAddress({
+                                id: defaultAddress.id,
+                                name: defaultAddress.recipient_name,
+                                street_address: defaultAddress.street_address,
+                                state: defaultAddress.state,
+                                city: defaultAddress.city,
+                                country: defaultAddress.country,
+                                zipCode: defaultAddress.zip_code,
+                                phoneNumber: defaultAddress.phone,
+                                is_default: defaultAddress.is_default
         
+                            });
+        
+                        } else {
+                            console.log("No default address found");
+                            setDefaultAddress("")
+                            // setError("Please Visit After Some Time")
+                        }
+
                     } catch (error) {
                         console.error('Error fetching data:', error);
                     }
                 };
-        
+
                 fetchUserData1();
                 setIsSuccess("Your Address Has Been Updated.")
             } else {
@@ -176,7 +194,7 @@ const LocationPage = () => {
                     "state": editableAddress.state,
                     "country": editableAddress.country,
                     "zip_code": editableAddress.zip_code,
-                    "is_default": true
+                    "is_default": userCheckedDefault
                 }),
             });
 
@@ -184,16 +202,65 @@ const LocationPage = () => {
             const data = await response.json();
             console.log(data, "response")
             if (response.ok) {
-                setDefaultAddress({
-                    id: data.id,
-                    name: data.recipient_name,
-                    street_address: data.street_address,
-                    city: data.city,
-                    country: data.country,
-                    zipCode: data.zip_code,
-                    phoneNumber: data.phone,
-                    state: data.state
-                });
+                // setDefaultAddress({
+                //     id: data.id,
+                //     name: data.recipient_name,
+                //     street_address: data.street_address,
+                //     city: data.city,
+                //     country: data.country,
+                //     zipCode: data.zip_code,
+                //     phoneNumber: data.phone,
+                //     state: data.state
+                // });
+
+                const fetchUserData1 = async () => {
+                    try {
+                        const patientId = JSON.parse(sessionStorage.getItem("patientId"));
+                        const token = JSON.parse(sessionStorage.getItem("token"));
+                        const response = await fetch(`/patients/delivery_address/${patientId}/`, {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Token ${token}`
+                            },
+                        });
+
+                        const data = await response.json();
+                        setApiData(data)
+                        setSaved(data.filter((item) => !item.is_default));
+
+                        const defaultAddress = data.find(item => item.is_default);
+                        if (defaultAddress) {
+                            const defaultAddressId = defaultAddress.id;
+                            console.log("Default Address ID:", defaultAddress);
+                            setdefaultRadio(true)
+                            sessionStorage.setItem("defaultAddressId", defaultAddressId)
+                            setuserCheckedDefault(defaultAddress.is_default)
+                            setDefaultAddress({
+                                id: defaultAddress.id,
+                                name: defaultAddress.recipient_name,
+                                street_address: defaultAddress.street_address,
+                                state: defaultAddress.state,
+                                city: defaultAddress.city,
+                                country: defaultAddress.country,
+                                zipCode: defaultAddress.zip_code,
+                                phoneNumber: defaultAddress.phone,
+                                is_default: defaultAddress.is_default
+        
+                            });
+        
+                        } else {
+                            console.log("No default address found");
+                            setDefaultAddress("")
+                            // setError("Please Visit After Some Time")
+                        }
+
+                    } catch (error) {
+                        console.error('Error fetching data:', error);
+                    }
+                };
+
+                fetchUserData1();
                 // window.location.reload();
                 setIsSuccess("Your Default Address Has Been Saved.")
             } else {
@@ -212,6 +279,7 @@ const LocationPage = () => {
     };
 
     const handleChange = (e) => {
+        console.log(e.target.value, " e.target.value")
         setEditableAddress({
             ...editableAddress,
             [e.target.name]: e.target.value,
@@ -225,8 +293,8 @@ const LocationPage = () => {
             [e.target.name]: e.target.value,
         });
     };
-    // this useEffect run to find the defualt Address
 
+    // this useEffect run to find the defualt Address
     React.useEffect(() => {
         const fetchUserData = async () => {
             try {
@@ -251,6 +319,7 @@ const LocationPage = () => {
                     console.log("Default Address ID:", defaultAddress);
                     setdefaultRadio(true)
                     sessionStorage.setItem("defaultAddressId", defaultAddressId)
+                    setuserCheckedDefault(defaultAddress.is_default)
                     setDefaultAddress({
                         id: defaultAddress.id,
                         name: defaultAddress.recipient_name,
@@ -260,6 +329,7 @@ const LocationPage = () => {
                         country: defaultAddress.country,
                         zipCode: defaultAddress.zip_code,
                         phoneNumber: defaultAddress.phone,
+                        is_default: defaultAddress.is_default
 
                     });
 
@@ -280,7 +350,7 @@ const LocationPage = () => {
         fetchUserData();
     }, [isLoaded]);
 
-    console.log(defaultAddress, "123")
+  
     // send Delivery Address to Backend
     const saveAddress = async () => {
 
@@ -326,8 +396,18 @@ const LocationPage = () => {
     }
 
     const stripeHandler = async () => {
+        if(defaultRadio){
+            navigate("/PaymentPage")
+        }else if(selectedValue !=''){
+            navigate("/PaymentPage")
+        }else{
+            console.log("errorrr")
+            setShowErrorToast1(true)
+              setError1("please select one addrees")
+             seterrormsg("please select one addrees")
+        }
 
-        navigate("/PaymentPage")
+        
     };
 
     // Delete Address Handler
@@ -386,6 +466,7 @@ const LocationPage = () => {
         <Helmet title="Delivery Location Address">
             <AppHeader />
             {isError ? <ToastMessage show={showErrorToast} message={isError} onClose={() => setShowErrorToast(false)} /> : <SucessMessage show={showErrorToast} message={isSuccess} onClose={() => setShowErrorToast(false)} />}
+            {isError1 ? <ToastMessage show={showErrorToast1} message={errormsg} onClose={() => setShowErrorToast1(false)} /> : ""}
 
             {isLoading ? <SpinLoader /> : <div style={{ marginBottom: "10%" }}>
                 <section>
@@ -495,6 +576,15 @@ const LocationPage = () => {
                                                                         placeholder="Mobile Number"
                                                                         onKeyPress={handleKeyPress}
                                                                     />
+                                                                </Col>
+                                                                <Col md={12} className='mt-2'>
+                                                                    <FormGroup>
+
+                                                                        <Input type="checkbox" name='is_default' checked={userCheckedDefault} onChange={() => setuserCheckedDefault(!userCheckedDefault)} />
+                                                                        <Label for="examplePassword" className='address__label' style={{ marginLeft: "5px" }}>
+                                                                            Set as the default address.
+                                                                        </Label>
+                                                                    </FormGroup>
                                                                 </Col>
                                                             </Row>
                                                             <div>
@@ -617,6 +707,15 @@ const LocationPage = () => {
                                             onKeyPress={handleKeyPress}
                                         />
                                     </Col>
+                                    <Col md={12} className='mt-2'>
+                                        <FormGroup>
+
+                                            <Input type="checkbox" name='is_default' checked={userCheckedsaved} onChange={() => setuserCheckedsaved(!userCheckedsaved)} />
+                                            <Label for="examplePassword" className='address__label' style={{ marginLeft: "5px" }}>
+                                                Set as the default address.
+                                            </Label>
+                                        </FormGroup>
+                                    </Col>
                                 </Row>
                                 <div>
                                     <button onClick={() => setsavededitMode(false)} className='save__btn' >Cancel</button>
@@ -626,38 +725,42 @@ const LocationPage = () => {
                             </FormGroup>
                         </Row>
                     ) : (
-                        <Col xs="12" sm="12" lg="12">
-                            <div className='address__conatiner'>
-                                <Row>
-                                    <h6 className='defualt__txt' style={{ marginTop: "25px" }}>Saved Addresses</h6>
-                                    {isSaved.map((item) => (
-                                        <div key={item.id} className="d-flex align-items-center">
-                                            <Col xs="11" sm="1" lg="1">
-                                                {/* Radio button */}
-                                                <input type="radio" name="addressRadio" value={item.id}
-                                                    checked={selectedValue === item.id}
-                                                    style={{ cursor: "pointer" }} onClick={() => radioHandle(item.id)} />
-                                            </Col>
-                                            <Col xs="10" sm="10" lg="10">
-                                                {/* Address details */}
+
+                        // <div className='address__conatiner'>
+                        <Row>
+                            <Col xs="12" sm="12" lg="12">
+                                <h6 className='defualt__txt' style={{ marginTop: "25px" }}>Saved Addresses</h6>
+                                {isSaved.map((item) => (
+                                    <div key={item.id} className="d-flex align-items-center">
+
+                                        <Col md={11} className='d-flex align-items-center'>
+                                            {/* Radio button */}
+                                            <div className='ms-5'><input type="radio" name="addressRadio" value={item.id}
+                                                checked={selectedValue === item.id}
+                                                style={{ cursor: "pointer" }} onClick={() => radioHandle(item.id)} />
+                                            </div>
+                                            {/* Address details */}
+                                            <div className='ms-3'>
                                                 <p className='userName__txt'>{item.recipient_name}</p>
                                                 <p className='street__adress'>{item.street_address}</p>
                                                 <p className='street__adress'>{item.state}</p>
                                                 <p className='adress_txt' style={{ position: "relative", bottom: "7px" }}>{`${item.city}, ${item.country} - ${item.zip_code}`}</p>
-                                                <p className='mobile_num'>{item.phone}</p>
-                                            </Col>
-                                            <Col xs="1" sm="1" lg="10">
+                                                <p className='mobile_num'>{item.phone}</p></div>
+                                        </Col>
+                                        <Col md={1}>
 
-                                                {/* Delete button */}
-                                                <FaPencilAlt onClick={() => handleSavedEdit(item.id)} style={{ cursor: 'pointer' }} />
-                                                <RiDeleteBin5Line onClick={() => deleteAccount(item.id)} style={{ cursor: 'pointer', color: "#F90D0D", fontSize: "22px", }} />
-                                            </Col>
-                                        </div>
-                                    ))}
-                                </Row>
+                                            {/* Delete button */}
+                                            <FaPencilAlt onClick={() => handleSavedEdit(item.id)} style={{ cursor: 'pointer' }} />
+                                            <RiDeleteBin5Line onClick={() => deleteAccount(item.id)} className='ms-2' style={{ cursor: 'pointer', color: "#F90D0D", fontSize: "22px", }} />
+                                        </Col>
 
-                            </div>
-                        </Col>)}
+                                    </div>
+                                ))}
+                            </Col>
+                        </Row>
+
+                        // </div>
+                    )}
 
                 </Container> : null}
 

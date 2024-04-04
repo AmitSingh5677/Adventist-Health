@@ -24,8 +24,9 @@ const InquiriesCard = (props) => {
     React.useEffect(() => {
         setData(inquiryData)
     }, [inquiryData])
-
+    const [id,setId]=useState('')
     const sendMessage = (patient, product, inquiry_id) => {
+        setId('')
         const token = JSON.parse(sessionStorage.getItem("token"));
         const userid = parseInt(sessionStorage.getItem("userid"));
         console.log(userid, "userid")
@@ -182,7 +183,7 @@ const InquiriesCard = (props) => {
         fetchData();
       
       }, []);
-     const [id,setId]=useState('')
+     
       const ontextChange =(id,value)=>{
         setId(id)
         setMessage(value)

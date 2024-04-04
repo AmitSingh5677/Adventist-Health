@@ -7,7 +7,6 @@ import AppFooter from '../../components/footer/AppFooter'
 import { Col, Container, Row } from 'reactstrap';
 import notif_img from "../../data/assests/download_img/Avatar image.svg"
 import { BsThreeDotsVertical } from 'react-icons/bs';
-import OneSignal from 'react-onesignal';
 
 const Notification = () => {
 

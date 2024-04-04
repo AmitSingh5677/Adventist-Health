@@ -11,7 +11,6 @@ import SpinLoader from '../../components/spin-loader/SpinLoader';
 import SucessMessage from '../../components/successToast/SuccessToast';
 import { useParams } from 'react-router-dom';
 import mixpanel from "../../mixpanel";
-// import runOneSignal from '../../runOneSignal';
 import OneSignal from 'react-onesignal';
 
 const SpecificInquiry = () => {
@@ -142,35 +141,12 @@ const SpecificInquiry = () => {
 
             if (data) {
                 mixpanel.track("Messages Sent from consumer/patient to vendor")
-                // runOneSignal();
-                // OneSignal.on('notificationDisplay', (event) => {
-                //     // Handle notification display event here
-                //     console.log('Notification displayed:', event);
-                //     // Update UI or trigger actions based on the notification
-                //   });
-                // OneSignal.Notifications("Enquiry added successfully.", {
-                //     headings: {
-                //         en: "Enquiry added successfully."
-                //     },
-                //     contents: {
-                //         en: "Enquiry added successfully."
-                //     }
-                // });
+                
                 OneSignal.Notifications.addEventListener('notificationDisplay', (event) => {
                     console.log("The notification was clicked!", event);
                   });
                
 
-                //   OneSignal.push(() => {
-                //     OneSignal.on('notification', (notification) => {
-                //       console.log('Received notification:', notification);
-                //     //   setNotification(notification); // Update state to display notification
-                //     });
-                //   });
-                //   if (data.triggerNotification) {
-                    // Send notification using OneSignal
-                    // OneSignal.Notifications('Data saved successfully!');
-                //   }
                 setSucessToast(true)
                 setShowToast(true);
                 setIsSucess("Enquiry added successfully.")

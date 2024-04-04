@@ -23,10 +23,10 @@ const ChallengeCard = (props) => {
     const [messageData, setmessageData] = useState([]);
 
     // https://dmecart-38297.botics.co/business/challenge_rating/183/
-
-   
+    const[itemid,setItemid]=useState('')
+    const [id,setId]=useState('')
     const sendMessage = (id) => {
-
+        setId('')
         const token = JSON.parse(sessionStorage.getItem("token"));
         const userid = parseInt(sessionStorage.getItem("userid"));
 
@@ -70,8 +70,9 @@ const ChallengeCard = (props) => {
         fetchData();
 
     }
-
-    const loadMore = async () => {
+   
+    const loadMore = async (itemid) => {
+        setItemid(itemid)
         const token = JSON.parse(sessionStorage.getItem("token"));
         const userid =  parseInt(sessionStorage.getItem("userid"));
        
@@ -100,11 +101,13 @@ const ChallengeCard = (props) => {
       
     };
 
-    const [id,setId]=useState('')
+   
     const ontextChange =(id,value)=>{
       setId(id)
       setRating(value)
     }
+    console.log(ratingData,"ratingData")
+    console.log(challangeRating,"challangeRating")
     return <> 
     {ratingData.map((item) => (
         
@@ -122,9 +125,9 @@ const ChallengeCard = (props) => {
                 </div>
                 <div className="w-100 mt-2 ms-2">
                     <p>{item.message}</p>
-                   <p onClick={() => loadMore()} className="loadMore cursor">Load more</p>
+                   <p onClick={() => loadMore(item.id)} className="loadMore cursor">Load more</p>
                     {challangeRating?.map((msg)=>(
-                        msg.business_rating === item.id &&
+                        msg.business_rating === item.id && itemid === item.id &&
                         <p>{msg.message}</p>
                     ))} 
                     <div className="d-flex flex-column mt-3">
