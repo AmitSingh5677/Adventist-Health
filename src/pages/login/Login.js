@@ -82,7 +82,7 @@ const Login = () => {
       });
 
       if (response.ok) {
-        OneSignal.login(username?.toString()||"")
+        OneSignal.login(username||"")
 
         Mixpanel.track("Login");
         Mixpanel.identify(username);

@@ -7,7 +7,6 @@ import "bootstrap";
 import { Col, Container, Row, Table ,Modal, ModalHeader, ModalBody, ModalFooter, Button} from "reactstrap";
 import Helmet from "../../components/helmet/Helmet";
 import { useNavigate } from "react-router-dom";
-import OneSignal from 'react-onesignal';
 
 const DashboardOrderRequests = () => {
   const [userData,setUserData] = useState([])
@@ -21,8 +20,7 @@ const DashboardOrderRequests = () => {
   const token = JSON.parse(sessionStorage.getItem("token"));
 
   React.useEffect(() => {
-    // OneSignal.init({ appId: "340aa81e-84fe-41a1-a6aa-ba4f3b21b1dc" });
-
+    
     console.log(token,userid,"token")
     const fetchData = async () => {
         try {
@@ -50,7 +48,7 @@ const DashboardOrderRequests = () => {
   }, []);
 
   const handleAccept1 =(orderid)=>{ 
-    // OneSignal.sendSelfNotification('Payment Successful!');
+   
     setorderId('')
     setorderId(orderid)
     setIsOpen(true)

@@ -50,6 +50,7 @@ const SendFeedBack = () => {
             });
 
             if (response.ok) {
+                setUserReason('')
                 Mixpanel.track("Feedback Submitted");
                 console.log("Feedback")
                 setSucessTaost(true)
@@ -59,6 +60,7 @@ const SendFeedBack = () => {
                 setShowTost(true)
                 setError("Please Try After SomeTime")
                 setUserDes("")
+                setUserReason('')
 
             }
         } catch (error) {
@@ -84,6 +86,7 @@ const SendFeedBack = () => {
                             name="address2"
                             placeholder="Enter subject"
                             style={{ height: "45px" }}
+                            value={userReason}
                             onChange={(e) => setUserReason(e.target.value)}
                         />
                     </FormGroup>
@@ -94,7 +97,7 @@ const SendFeedBack = () => {
                             Message
                         </Label>
                         <Input className="form-control shadow-none" id="exampleText" placeholder='Add your message...'
-                            name="textarea" style={{ height: "95px", marginBottom: "15px" }} onChange={(e) => setUserDes(e.target.value)} />
+                           value={userDes} name="textarea" style={{ height: "95px", marginBottom: "15px" }} onChange={(e) => setUserDes(e.target.value)} />
                     </Col>
                 </FormGroup>
                 <div style={{ display: "flex", justifyContent: "space-around" }}>

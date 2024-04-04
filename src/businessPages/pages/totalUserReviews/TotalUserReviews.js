@@ -122,7 +122,7 @@ const DashBoardReviews = () => {
                     <tbody className='body__txt'>
                       {data?.map((item, index) => (
                         <tr key={item.id}>
-                          <td className='body__elemnts' style={{width:"25vw"}}>{item.patient_name}</td>
+                          <td className='body__elemnts cursor' style={{width:"25vw"}} onClick={()=>navigate(`/b/patient-profile-screen/${item.user}`)}>{item.patient_name}</td>
                           <td className='body__elemnts'> <StarRating rating={item?.stars} /></td>
                           <td className='body__elemnts'>{item?.message}</td>
                           <td className='body__elemnts button-view'>

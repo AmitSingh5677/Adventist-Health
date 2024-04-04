@@ -34,7 +34,15 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
   <title>Adventist Health</title>
-  
+  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(function(OneSignal) {
+    OneSignal.init({
+      appId: "340aa81e-84fe-41a1-a6aa-ba4f3b21b1dc",
+    });
+  });
+</script>
 </head>
 
 <body>
