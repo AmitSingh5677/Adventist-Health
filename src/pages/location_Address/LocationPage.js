@@ -476,7 +476,7 @@ const LocationPage = () => {
                     {apiData.length === 0 ? null : <Container>
                         <Row>
                             <Col xs="12" sm="12" lg="12">
-                                <h6 className='defualt__txt'>Default Addresses</h6>
+                                <h6 className='defualt__txt'>Default Address</h6>
                                 {defaultAddress &&
                                     <div className='address__conatiner'>
                                         <Row>

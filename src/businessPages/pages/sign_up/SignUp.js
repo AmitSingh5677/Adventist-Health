@@ -86,6 +86,7 @@ const SignUpBusiness = () => {
   };
   const textRegex = /^[a-zA-Z ]+$/;
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const signUpHandler = async (e) => {
     e.preventDefault();
@@ -99,6 +100,11 @@ const SignUpBusiness = () => {
       setNameError("Provide suitable name");
     } else {
       setNameError("");
+    }
+    if (!emailRegex.test(formData.email)) {
+      setEmailError("Provide suitable email");
+    } else {
+      setEmailError("");
     }
     if (formData.password !== formData.confirm_password) {
       setConfirmError("Confirm password and password must match");
@@ -135,6 +141,7 @@ const SignUpBusiness = () => {
       formData.password == formData.confirm_password &&
       textRegex.test(formData.business_location) &&
       textRegex.test(formData.owner_full_name) &&
+      emailRegex.test(formData.email) &&
       passwordRegex.test(formData.password) &&
       image
     ) {
@@ -463,8 +470,8 @@ const SignUpBusiness = () => {
                     {confirmError}
                   </span>
                 )}
-                <div className="checkBox mt-3 mb-0">
-                  <Input type="checkbox" className="mt-2" onClick={() => setTnc(!tnc)} />{" "}
+                <div className="checkBox1 mt-3 mb-0">
+                  <Input type="checkbox" className="" onClick={() => setTnc(!tnc)} />{" "}
                   <span>
                     I have read the{" "}
                     <a href="/Terms&&Conditions" style={{ color: "#00A0DD", cursor: "pointer",textDecoration:"none" }} target="_blank">
@@ -484,8 +491,8 @@ const SignUpBusiness = () => {
                     {tncError}
                   </span>
                 )}
-                <div className="checkBox mt-3 mb-0">
-                  <Input type="checkbox" className="mt-2" onClick={() => setHipa(!hipa)} />{" "}
+                <div className="checkBox1 mt-3 mb-0">
+                  <Input type="checkbox" className="" onClick={() => setHipa(!hipa)} />{" "}
                   <span>
                     I agree to{" "}
                     <a href="/b/compliance" style={{ color: "#00A0DD", cursor: "pointer",textDecoration:"none" }} target="_blank">

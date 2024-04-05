@@ -139,36 +139,69 @@ const BussinessPage = () => {
     }, []); 
 
     React.useEffect(() => {
-        const fetchData = async () => {
-            try {
-            const businessId = sessionStorage.getItem("businessId")
 
-                const token = JSON.parse(sessionStorage.getItem("token"));
-                const response = await fetch(`/patients/average-rating/${businessId}/`, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Token ${token}`
-                    },
-                });
-
-                const data = await response.json();
-                if (data) {
+        setTimeout(()=>{
+            const fetchData = async () => {
+                try {
+                const businessId = sessionStorage.getItem("businessId")
+    
+                    const token = JSON.parse(sessionStorage.getItem("token"));
+                    const response = await fetch(`/patients/average-rating/${businessId}/`, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Token ${token}`
+                        },
+                    });
+    
+                    const data = await response.json();
+                    if (data) {
+                        setIsLoading(false);
+                        setAverageRating(data.average_rating)
+                    } else {
+                        // alert("No Data Found for Particular Bussiness");
+                        // navigate("/homepage")
+                    }
+                } catch (error) {
+                    // console.error('Error fetching data:', error);
                     setIsLoading(false);
-                    setAverageRating(data.average_rating)
-                } else {
-                    // alert("No Data Found for Particular Bussiness");
-                    // navigate("/homepage")
+                    // setIsError(true);
+                    // setErrorMessage("There is internal server error while fetching average rating of this business.")
                 }
-            } catch (error) {
-                // console.error('Error fetching data:', error);
-                setIsLoading(false);
-                // setIsError(true);
-                // setErrorMessage("There is internal server error while fetching average rating of this business.")
-            }
-        };
+            };
+    
+            setIsLoading(true);
+            fetchData();
+        },2000)
+        // const fetchData = async () => {
+        //     try {
+        //     const businessId = sessionStorage.getItem("businessId")
 
-        setIsLoading(true);
-        fetchData();
+        //         const token = JSON.parse(sessionStorage.getItem("token"));
+        //         const response = await fetch(`/patients/average-rating/${businessId}/`, {
+        //             method: 'GET',
+        //             headers: {
+        //                 'Authorization': `Token ${token}`
+        //             },
+        //         });
+
+        //         const data = await response.json();
+        //         if (data) {
+        //             setIsLoading(false);
+        //             setAverageRating(data.average_rating)
+        //         } else {
+        //             // alert("No Data Found for Particular Bussiness");
+        //             // navigate("/homepage")
+        //         }
+        //     } catch (error) {
+        //         // console.error('Error fetching data:', error);
+        //         setIsLoading(false);
+        //         // setIsError(true);
+        //         // setErrorMessage("There is internal server error while fetching average rating of this business.")
+        //     }
+        // };
+
+        // setIsLoading(true);
+        // fetchData();
     }, []);
 
     useEffect(() => {
