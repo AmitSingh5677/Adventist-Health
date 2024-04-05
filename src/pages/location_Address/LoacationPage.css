@@ -6,7 +6,11 @@
     margin: 0 auto;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
-
+.disabled-icon {
+    color: gray; /* Change the color to visually indicate the icon is disabled */
+    pointer-events: none; /* Disable pointer events to prevent interaction */
+    opacity: 0.5; /* Optionally, reduce the opacity for further indication */
+  }
 .defualt__txt {
     color: #026937;
     font-weight: 700;
