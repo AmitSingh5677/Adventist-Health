@@ -71,7 +71,7 @@ const SignUp = () => {
     const isValidEmail = emailRegex.test(userEmail);
 
     if (!userEmail || !isValidEmail) {
-      setEmailError("Kindly Enter a valid Email Address.");
+      setEmailError("Kindly enter a valid email address.");
       console.log("error is there");
     } else {
       setEmailError("");
@@ -79,13 +79,13 @@ const SignUp = () => {
     }
 
     if (!userName) {
-      setNameError("Enter Your Full Name.");
+      setNameError("Enter your full name.");
     } else {
       setNameError("");
     }
 
     if (!userLoaction) {
-      setLoactionError("Enter Your Current Location.");
+      setLoactionError("Enter your current location.");
     } else {
       setLoactionError("");
     }
@@ -97,7 +97,7 @@ const SignUp = () => {
     }
 
     if (!userPassword.trim()) {
-      setPasswordError("Enter Your Password.");
+      setPasswordError("Enter your password.");
     } else if (userPassword.length < 8) {
       setPasswordError("");
       setIsPassword("Password length should be more than 8 characters");
@@ -107,7 +107,7 @@ const SignUp = () => {
     }
 
     if (!userConfrimPassword.trim()) {
-      setConfrimPasswordError("Enter Your Password.");
+      setConfrimPasswordError("Enter confirm password.");
     } else if (userConfrimPassword.length < 8) {
       setConfrimPasswordError("");
       setIsConPasssowrdLen(
@@ -121,7 +121,7 @@ const SignUp = () => {
     }
 
     if (!userconsent) {
-      setConsentError("Accept The Terms and Conditions");
+      setConsentError("Accept the terms and conditions");
     } else {
       setConsentError("");
     }
