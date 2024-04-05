@@ -80,31 +80,32 @@ const Notification = () => {
 
 
     const markasAllRead = async () => {
-        const filterid=notificationList.map((item)=>item.id)
-       console.log(filterid,"id")
+        const filterid=notificationList.filter((item)=>item.mark_as_read === false).map((item)=>item.id)
+       console.log(filterid,"filterid")
         try {
+         
             const patient_id = JSON.parse(sessionStorage.getItem("patientId"))
-           
+          
             const token = JSON.parse(sessionStorage.getItem("token"));
-            // const response = await fetch(`https://dmecart-38297.botics.co/patients/notification_all_markasread/`, {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //         'Authorization': `Token ${token}`
-            //     },
-            //     body:JSON.stringify({
-            //         "user_id": patient_id,
-            //         "notification_id":id
-            //     })
+            const response = await fetch(`https://dmecart-38297.botics.co/patients/notification_all_markasread/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${token}`
+                },
+                body:JSON.stringify({
+                    "user_id": patient_id,
+                    "notification_ids":filterid
+                })
                 
-            // });
+            });
            
-            // if (response) {
-            //     // setIsSucess(true);
-            //     // setSucessMsg(response.details);
-            // } else {
-            //     console.error('Delete failed. Please check your credentials.');
-            // }
+            if (response) {
+                // setIsSucess(true);
+                // setSucessMsg("Notifications marked as read successfully");
+            } else {
+                console.error('Delete failed. Please check your credentials.');
+            }
         }
         catch (error) {
             console.error('Error deleting inquiry:', error);
