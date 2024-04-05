@@ -192,7 +192,9 @@ const AppHeader = ({
           <NavItem>
             <NavLink onClick={() => handleNavigate("/Notification")}>
               <FaBell className="icon" />{" "}
-              <span className="app-text">Notifications</span>
+              <span className="app-text">Notifications
+             
+              </span>
             </NavLink>
           </NavItem>
 

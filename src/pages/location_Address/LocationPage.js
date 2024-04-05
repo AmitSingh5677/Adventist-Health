@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import "./LoacationPage.css"
 import Helmet from '../../components/helmet/Helmet';
-import { Button, Col, Container, Form, FormGroup, Input, Label, Row, Modal, ModalHeader,ModalBody,ModalFooter,} from 'reactstrap';
+import { Button, Col, Container, Form, FormGroup, Input, Label, Row, Modal, ModalHeader, ModalBody, ModalFooter, } from 'reactstrap';
 import { FaPencilAlt } from 'react-icons/fa';
 import PageHelmet from '../../components/page_Helmet/PageHelmet';
 import AppHeader from '../../components/header/AppHeader';
@@ -43,17 +43,22 @@ const LocationPage = () => {
     const [showErrorToast1, setShowErrorToast1] = useState(false);
     const [isError1, setError1] = useState("");
     const [errormsg, seterrormsg] = useState("");
-  
+    const [disableedit, setdisableedit] = useState(false);
+
+    
+
     console.log("saved Address " + JSON.stringify(isSaved));
     const handleEdit = () => {
+        setdisableedit(true)
         setEditableAddress({ ...defaultAddress });
         setEditMode(true);
     };
 
     const [savedAddress, setsavedAddress] = useState([])
-
+   const[editid,setEditid]=useState("");
     const handleSavedEdit = (id) => {
-
+        setdisableedit(true)
+        setEditid(id)
         setsavededitMode(true);
 
         const fetchUserData = async () => {
@@ -111,6 +116,7 @@ const LocationPage = () => {
             const data = await response.json();
             console.log(data, "data")
             if (response.ok) {
+                setEditid('')
                 const fetchUserData1 = async () => {
                     try {
                         const patientId = JSON.parse(sessionStorage.getItem("patientId"));
@@ -144,9 +150,9 @@ const LocationPage = () => {
                                 zipCode: defaultAddress.zip_code,
                                 phoneNumber: defaultAddress.phone,
                                 is_default: defaultAddress.is_default
-        
+
                             });
-        
+
                         } else {
                             console.log("No default address found");
                             setDefaultAddress("")
@@ -246,9 +252,9 @@ const LocationPage = () => {
                                 zipCode: defaultAddress.zip_code,
                                 phoneNumber: defaultAddress.phone,
                                 is_default: defaultAddress.is_default
-        
+
                             });
-        
+
                         } else {
                             console.log("No default address found");
                             setDefaultAddress("")
@@ -275,8 +281,15 @@ const LocationPage = () => {
     };
 
     const handleCancel = () => {
+        setdisableedit(false)
         setEditMode(false);
     };
+
+    const cancelSaved = () => {
+        setdisableedit(false)
+        setEditid('')
+    };
+   
 
     const handleChange = (e) => {
         console.log(e.target.value, " e.target.value")
@@ -350,7 +363,7 @@ const LocationPage = () => {
         fetchUserData();
     }, [isLoaded]);
 
-  
+
     // send Delivery Address to Backend
     const saveAddress = async () => {
 
@@ -396,18 +409,18 @@ const LocationPage = () => {
     }
 
     const stripeHandler = async () => {
-        if(defaultRadio){
+        if (defaultRadio) {
             navigate("/PaymentPage")
-        }else if(selectedValue !=''){
+        } else if (selectedValue != '') {
             navigate("/PaymentPage")
-        }else{
+        } else {
             console.log("errorrr")
             setShowErrorToast1(true)
-              setError1("please select one addrees")
-             seterrormsg("please select one addrees")
+            setError1("please select one addrees")
+            seterrormsg("please select one addrees")
         }
 
-        
+
     };
 
     // Delete Address Handler
@@ -605,9 +618,9 @@ const LocationPage = () => {
                                                 )}
                                             </Col>
                                         </Row>
-                                        <Col xs="1" sm="1" lg="1">
-                                            <FaPencilAlt onClick={handleEdit} style={{ cursor: 'pointer' }} />
-                                        </Col>
+                                       {!editMode &&<Col xs="1" sm="1" lg="1">
+                                            <FaPencilAlt disabled={disableedit} className={disableedit ? 'disabled-icon':''} onClick={handleEdit} style={{ cursor: 'pointer' }} />
+                                        </Col>}
 
                                     </div>
                                 }
@@ -620,147 +633,145 @@ const LocationPage = () => {
 
                 {/* saved Address */}
                 {isSaved ? <Container>
+                    <Row>
+                        <Col xs="12" sm="12" lg="12">
+                            <h6 className='defualt__txt' style={{ marginTop: "25px" }}>Saved Addresses</h6>
+                            {isSaved.map((item) => (
+                                <div className='address__conatiner'>
+                                    {editid === item.id ? (
 
-                    {savededitMode ? (
+                                        <Row>
+                                            <FormGroup>
+                                                <Col md={12}>
+                                                    <input
+                                                        style={{ marginTop: "10px" }}
+                                                        className="form-control shadow-none mt-10"
+                                                        type="text"
+                                                        name="recipient_name"
+                                                        value={savedAddress.recipient_name}
+                                                        onChange={handleChange1}
+                                                        placeholder="First Name"
+                                                    />
+                                                </Col>
+                                                <Col md={12}>
+                                                    <input
+                                                        style={{ marginTop: "10px" }}
+                                                        className="form-control shadow-none"
+                                                        type="text"
+                                                        name="street_address"
+                                                        value={savedAddress.street_address}
+                                                        onChange={handleChange1}
+                                                        placeholder="Address"
+                                                    />
+                                                </Col>
+                                                <Col md={12}>
+                                                    <input
+                                                        style={{ marginTop: "10px" }}
+                                                        className="form-control shadow-none"
+                                                        type="text"
+                                                        name="city"
+                                                        value={savedAddress.city}
+                                                        onChange={handleChange1}
+                                                        placeholder="City"
+                                                    />
+                                                </Col>
+                                                <Col md={12}>
+                                                    <input
+                                                        style={{ marginTop: "10px" }}
+                                                        className="form-control shadow-none"
+                                                        type="text"
+                                                        name="state"
+                                                        value={savedAddress.state}
+                                                        onChange={handleChange1}
+                                                        placeholder="State"
+                                                    />
+                                                </Col>
 
-                        <Row>
-                            <FormGroup>
-                                <Col md={12}>
-                                    <input
-                                        style={{ marginTop: "10px" }}
-                                        className="form-control shadow-none mt-10"
-                                        type="text"
-                                        name="recipient_name"
-                                        value={savedAddress.recipient_name}
-                                        onChange={handleChange1}
-                                        placeholder="First Name"
-                                    />
-                                </Col>
-                                <Col md={12}>
-                                    <input
-                                        style={{ marginTop: "10px" }}
-                                        className="form-control shadow-none"
-                                        type="text"
-                                        name="street_address"
-                                        value={savedAddress.street_address}
-                                        onChange={handleChange1}
-                                        placeholder="Address"
-                                    />
-                                </Col>
-                                <Col md={12}>
-                                    <input
-                                        style={{ marginTop: "10px" }}
-                                        className="form-control shadow-none"
-                                        type="text"
-                                        name="city"
-                                        value={savedAddress.city}
-                                        onChange={handleChange1}
-                                        placeholder="City"
-                                    />
-                                </Col>
-                                <Col md={12}>
-                                    <input
-                                        style={{ marginTop: "10px" }}
-                                        className="form-control shadow-none"
-                                        type="text"
-                                        name="state"
-                                        value={savedAddress.state}
-                                        onChange={handleChange1}
-                                        placeholder="State"
-                                    />
-                                </Col>
+                                                <Row>
+                                                    <Col md={3}>
+                                                        <input
+                                                            style={{ marginTop: "10px" }}
+                                                            className="form-control shadow-none"
+                                                            type="text"
+                                                            name="country"
+                                                            value={savedAddress.country}
+                                                            onChange={handleChange1}
+                                                            placeholder="Country"
+                                                        />
+                                                    </Col>
+                                                    <Col md={3}>
+                                                        <input
+                                                            style={{ marginTop: "10px" }}
+                                                            className="form-control shadow-none"
+                                                            type="text"
+                                                            name="zip_code"
+                                                            value={savedAddress.zip_code}
+                                                            onChange={handleChange1}
+                                                            placeholder="Zip Code"
+                                                            maxLength={5}
+                                                            onKeyPress={handleKeyPress}
+                                                        />
+                                                    </Col>
+                                                    <Col md={6}>
+                                                        <input
+                                                            style={{ marginTop: "10px" }}
+                                                            className="form-control shadow-none"
+                                                            type="text"
+                                                            name="phone"
+                                                            value={savedAddress.phone}
+                                                            onChange={handleChange1}
+                                                            placeholder="Mobile Number"
+                                                            onKeyPress={handleKeyPress}
+                                                        />
+                                                    </Col>
+                                                    <Col md={12} className='mt-2'>
+                                                        <FormGroup>
 
-                                <Row>
-                                    <Col md={3}>
-                                        <input
-                                            style={{ marginTop: "10px" }}
-                                            className="form-control shadow-none"
-                                            type="text"
-                                            name="country"
-                                            value={savedAddress.country}
-                                            onChange={handleChange1}
-                                            placeholder="Country"
-                                        />
-                                    </Col>
-                                    <Col md={3}>
-                                        <input
-                                            style={{ marginTop: "10px" }}
-                                            className="form-control shadow-none"
-                                            type="text"
-                                            name="zip_code"
-                                            value={savedAddress.zip_code}
-                                            onChange={handleChange1}
-                                            placeholder="Zip Code"
-                                            maxLength={5}
-                                            onKeyPress={handleKeyPress}
-                                        />
-                                    </Col>
-                                    <Col md={6}>
-                                        <input
-                                            style={{ marginTop: "10px" }}
-                                            className="form-control shadow-none"
-                                            type="text"
-                                            name="phone"
-                                            value={savedAddress.phone}
-                                            onChange={handleChange1}
-                                            placeholder="Mobile Number"
-                                            onKeyPress={handleKeyPress}
-                                        />
-                                    </Col>
-                                    <Col md={12} className='mt-2'>
-                                        <FormGroup>
+                                                            <Input type="checkbox" name='is_default' checked={userCheckedsaved} onChange={() => setuserCheckedsaved(!userCheckedsaved)} />
+                                                            <Label for="examplePassword" className='address__label' style={{ marginLeft: "5px" }}>
+                                                                Set as the default address.
+                                                            </Label>
+                                                        </FormGroup>
+                                                    </Col>
+                                                </Row>
+                                                <div>
+                                                    <button onClick={() => cancelSaved()} className='save__btn'  >Cancel</button>
+                                                    <button onClick={() => handleEditSaved(savedAddress.id)} className='cancel__btn'>Save</button>
 
-                                            <Input type="checkbox" name='is_default' checked={userCheckedsaved} onChange={() => setuserCheckedsaved(!userCheckedsaved)} />
-                                            <Label for="examplePassword" className='address__label' style={{ marginLeft: "5px" }}>
-                                                Set as the default address.
-                                            </Label>
-                                        </FormGroup>
-                                    </Col>
-                                </Row>
-                                <div>
-                                    <button onClick={() => setsavededitMode(false)} className='save__btn' >Cancel</button>
-                                    <button onClick={() => handleEditSaved(savedAddress.id)} className='cancel__btn'>Save</button>
+                                                </div>
+                                            </FormGroup>
+                                        </Row>
+                                    ) : (<Row>
 
-                                </div>
-                            </FormGroup>
-                        </Row>
-                    ) : (
-
-                        // <div className='address__conatiner'>
-                        <Row>
-                            <Col xs="12" sm="12" lg="12">
-                                <h6 className='defualt__txt' style={{ marginTop: "25px" }}>Saved Addresses</h6>
-                                {isSaved.map((item) => (
-                                    <div key={item.id} className="d-flex align-items-center">
-
-                                        <Col md={11} className='d-flex align-items-center'>
+                                        <Col xs="11" sm="1" lg="1" >
                                             {/* Radio button */}
-                                            <div className='ms-5'><input type="radio" name="addressRadio" value={item.id}
+                                            <input type="radio" name="addressRadio" value={item.id}
                                                 checked={selectedValue === item.id}
+                                                className='radio__btn'
                                                 style={{ cursor: "pointer" }} onClick={() => radioHandle(item.id)} />
-                                            </div>
-                                            {/* Address details */}
-                                            <div className='ms-3'>
+
+                                        </Col>
+                                        <Col xs="10" sm="10" lg="10">
+                                            <Row>
                                                 <p className='userName__txt'>{item.recipient_name}</p>
                                                 <p className='street__adress'>{item.street_address}</p>
                                                 <p className='street__adress'>{item.state}</p>
                                                 <p className='adress_txt' style={{ position: "relative", bottom: "7px" }}>{`${item.city}, ${item.country} - ${item.zip_code}`}</p>
-                                                <p className='mobile_num'>{item.phone}</p></div>
-                                        </Col>
-                                        <Col md={1}>
-
-                                            {/* Delete button */}
-                                            <FaPencilAlt onClick={() => handleSavedEdit(item.id)} style={{ cursor: 'pointer' }} />
-                                            <RiDeleteBin5Line onClick={() => deleteAccount(item.id)} className='ms-2' style={{ cursor: 'pointer', color: "#F90D0D", fontSize: "22px", }} />
+                                                <p className='mobile_num'>{item.phone}</p>
+                                            </Row>
                                         </Col>
 
-                                    </div>
-                                ))}
-                            </Col>
-                        </Row>
+                                    </Row>)}
+                                    {editid != item.id &&<Col md={1}>
+                                        <FaPencilAlt disabled={disableedit} className={disableedit ? 'disabled-icon':''} onClick={() => handleSavedEdit(item.id)} style={{ cursor: 'pointer' }} />
+                                        <RiDeleteBin5Line onClick={() => deleteAccount(item.id)} className='ms-2' style={{ cursor: 'pointer', color: "#F90D0D", fontSize: "22px", }} />
+                                    </Col>}
+                                </div>
+                            ))}
+                        </Col>
+                    </Row>
 
-                        // </div>
-                    )}
+
 
                 </Container> : null}
 
@@ -782,7 +793,6 @@ const LocationPage = () => {
                                                     className="form-control shadow-none"
                                                     id="exampleEmail"
                                                     name="email"
-                                                    placeholder="First Name"
                                                     type="text"
                                                     value={fullName}
                                                     onChange={(e) => {
@@ -813,7 +823,6 @@ const LocationPage = () => {
                                                             setLastName(inputValue);
                                                         }
                                                     }}
-                                                    placeholder="Last Name"
                                                     type="text"
                                                 />
                                             </FormGroup>
@@ -827,7 +836,6 @@ const LocationPage = () => {
                                                     className="form-control shadow-none"
                                                     id="exampleEmail"
                                                     name="email"
-                                                    placeholder="Address Line 1"
                                                     type="text"
                                                     value={userAddress1}
                                                     // onChange={(e) => setUserAddress1(e.target.value)}
@@ -852,7 +860,6 @@ const LocationPage = () => {
                                                     className="form-control shadow-none"
                                                     id="examplePassword"
                                                     name="password"
-                                                    placeholder="Address Line 2"
                                                     type="text"
                                                     value={userAddress2}
                                                     // onChange={(e) => setUserAddress2(e.target.value)}
@@ -879,7 +886,6 @@ const LocationPage = () => {
                                                     className="form-control shadow-none"
                                                     id="exampleEmail"
                                                     name="email"
-                                                    placeholder="City"
                                                     type="text"
                                                     value={userCity}
                                                     // onChange={(e) => setUserCity(e.target.value)}
@@ -903,7 +909,6 @@ const LocationPage = () => {
                                                     className="form-control shadow-none"
                                                     id="examplePassword"
                                                     name="password"
-                                                    placeholder="Postal Code"
                                                     type="text"
                                                     value={userZipCode}
                                                     onChange={(e) => setUserZipCode(e.target.value)}
@@ -922,7 +927,6 @@ const LocationPage = () => {
                                                     id="exampleEmail"
                                                     className="form-control shadow-none"
                                                     name="email"
-                                                    placeholder="State"
                                                     type="text"
                                                     value={userState}
                                                     // onChange={(e) => setUserState(e.target.value)}
@@ -946,7 +950,6 @@ const LocationPage = () => {
                                                     className="form-control shadow-none"
                                                     id="examplePassword"
                                                     name="password"
-                                                    placeholder="Country"
                                                     type="text"
                                                     value={userCountry}
                                                     // onChange={(e) => setUserCountry(e.target.value)}
@@ -971,7 +974,6 @@ const LocationPage = () => {
                                                     className="form-control shadow-none"
                                                     id="examplePassword"
                                                     name="password"
-                                                    placeholder="Mobile Number"
                                                     type="text"
                                                     value={userNum}
                                                     onChange={(e) => setUserNum(e.target.value)}

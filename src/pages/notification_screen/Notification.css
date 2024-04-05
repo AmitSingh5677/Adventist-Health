@@ -10,7 +10,13 @@
     font-family: 'Poppins';
     margin-left: 10px;
 }
-
+.badge {
+    background-color: rgba(242, 244, 247, 1);
+    color: black;
+    padding: 4px 8px;
+    text-align: center;
+    border-radius: 50%;
+  }
 .notif_all {
     font-family: inter;
     font-weight: 600;
@@ -18,7 +24,7 @@
     font-weight: 600;
     color: #1E293B;
     border-bottom: 5px solid rgba(46, 112, 232, 1);
-    width: 70px;
+    width: 80px;
     margin-bottom: 0px;
 }
 
