@@ -282,11 +282,11 @@ console.log(rating,"rating")
                                                             <p className='user__feedback__p'>{userRating.message}</p>
                                                         </Col>
                                                     </Row>
-                                                    <Row className="justify-content-end">
+                                                    {/* <Row className="justify-content-end">
                                                         <Col xs="auto" className='three__icon'>
                                                             <BsThreeDotsVertical />
                                                         </Col>
-                                                    </Row>
+                                                    </Row> */}
                                                     <hr style={{ marginTop: "-10px" }} />
                                                 </div>
                                             )
