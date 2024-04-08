@@ -252,9 +252,9 @@ const MyProfileBusiness = () => {
           <button
             type="button"
             className="btn btn-success first-container-buttons m-2 p-5 pt-2 pb-2"
-            onClick={()=>navigate("/b/bankDeatils")}
+            onClick={()=>navigate("/b/business-transactions")}
           >
-            My Bank Account
+            My Analytics
           </button>
           <button
             type="button"
@@ -270,24 +270,24 @@ const MyProfileBusiness = () => {
           >
             Privacy-Policy
           </button>
+        </div>
+        <div className="btn-first-container mt-4 mx-2">
           <button
             type="button"
-            className="btn btn-success first-container-buttons m-2 p-5 pt-2 pb-2"
+            className="btn btn-success second-container-buttons py-2"
             onClick={() => setIsOpen(true)}
           >
             Log Out
           </button>
-        </div>
-        <div className="btn-first-container mt-4">
-          <button
+          {/* <button
             type="button"
             className="btn btn-success second-container-buttons pt-2 pb-2"
           >
             Send FeedBack to Admin
-          </button>
+          </button> */}
           <button
             type="button"
-            className="btn btn-success second-container-buttons"
+            className="btn btn-success second-container-buttons py-2"
             onClick={() => setIsDelete(true)}
           >
             Delete Account

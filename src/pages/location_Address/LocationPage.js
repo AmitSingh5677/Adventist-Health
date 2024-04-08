@@ -602,7 +602,7 @@ const LocationPage = () => {
                                                             </Row>
                                                             <div>
                                                                 <button onClick={handleCancel} className='save__btn' >Cancel</button>
-                                                                <button onClick={() => handleSave(editableAddress.id)} className='cancel__btn'>Save</button>
+                                                                <button style={{backgroundColor:"#7AC24F"}} onClick={() => handleSave(editableAddress.id)} className='cancel__btn py-2'>Save</button>
 
                                                             </div>
                                                         </FormGroup>
@@ -736,7 +736,7 @@ const LocationPage = () => {
                                                 </Row>
                                                 <div>
                                                     <button onClick={() => cancelSaved()} className='save__btn'  >Cancel</button>
-                                                    <button onClick={() => handleEditSaved(savedAddress.id)} className='cancel__btn'>Save</button>
+                                                    <button style={{backgroundColor:"#7AC24F"}} onClick={() => handleEditSaved(savedAddress.id)} className='cancel__btn py-2'>Save</button>
 
                                                 </div>
                                             </FormGroup>
