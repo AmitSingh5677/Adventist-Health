@@ -151,7 +151,7 @@ const AppHeader = ({ name, ...props }) => {
                     My Inquiries
                   </p>
                   <hr />
-                  {role === "business" && <p
+                  {/* {role === "business" && <p
                     onClick={() => {
                       navigate("/b/business-transactions");
                     }}
@@ -159,7 +159,7 @@ const AppHeader = ({ name, ...props }) => {
                    Business Analytics
                   </p>}
                   
-                  <hr />
+                  <hr /> */}
                   <p onClick={termsRouteHandler}>Terms and Conditions</p>
                   <hr />
                   <p
