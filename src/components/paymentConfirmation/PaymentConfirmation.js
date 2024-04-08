@@ -77,7 +77,7 @@ const PaymentConfirmation = ({ equipmentName, currentdate }) => {
     return (
         <div className="bg-dark vh-100 d-flex flex-row justify-content-center align-items-center">
             <div id="payment card" className="bg-light  d-flex flex-column align-items-center p-3 rounded">
-                <IoIosCheckmarkCircle color={'green'} size={75} />
+                <IoIosCheckmarkCircle color={'#7AC24F'} size={75} />
                 <p className="Payment_Status">Congratulations</p>
                 <p className='payment_subTxt'>Your payment was successful,Kindly visit <span style={{ color: "#32A9FF" }} > Payment History</span> for more details. </p>
                 <div className="d-flex flex-row justify-content-around align-self-stretch">
@@ -100,7 +100,7 @@ const PaymentConfirmation = ({ equipmentName, currentdate }) => {
                     <p className="equpiment_txt ms-3">Paid on</p>
                     <p className='equpiment_subtxt' style={{ position: "relative", left: "60px" }}>{formattedDateTime}</p>
                 </div>
-                <button className="done_btn" style={{backgroundColor:"7AC24F"}} onClick={homepageHandler}>DONE</button>
+                <button className="done_btn" style={{backgroundColor:"#7AC24F"}} onClick={homepageHandler}>DONE</button>
             </div>
         </div >
     )

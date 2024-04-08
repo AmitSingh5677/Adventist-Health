@@ -41,6 +41,8 @@ const cartSlice = createSlice({
           price: newItem.price,
           quantity: 1,
           totalPrice: newItem.price,
+          businessId: newItem.cartBusinessId,
+          businessName: newItem.cartBusinessName,
         });
       } else {
         existingItem.quantity++;
@@ -57,7 +59,37 @@ const cartSlice = createSlice({
 
       sessionStorage.setItem('totalQuantity', JSON.stringify(state.totalQuantity));
       sessionStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+      // sessionStorage.setItem('cartBusinessId', JSON.stringify(newItem.cartItems));
+      console.log(state,"replaceItem") 
     },
+    replaceItem(state, action) {
+    //   sessionStorage.removeItem("cartItems")
+    //   sessionStorage.removeItem("totalQuantity")
+
+    //   const newItem = action.payload;
+    //   const existingItem = state.cartItems.find(
+    //     (item) => item.id === newItem.id
+    //   );
+    //   state.totalQuantity++;
+    //   console.log(state,"replaceItem",newItem,existingItem)
+    //   if (!existingItem) {
+    //     state.cartItems.push({
+    //       id: newItem.id,
+    //       equipment_name: newItem.equipment_name,
+    //       product_signed_url: newItem.product_signed_url,
+    //       price: newItem.price,
+    //       quantity: 1,
+    //       totalPrice: newItem.price,
+    //       businessId: newItem.cartBusinessId,
+    //       businessName: newItem.cartBusinessName,
+    //     });
+    //   }
+    //   sessionStorage.setItem('totalQuantity', JSON.stringify(state.totalQuantity));
+    //   sessionStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+    // console.log(state?.cartItems,"replce")
+    resetCart(state)
+    },
+
 
     removeItem(state, action) {
       const id = action.payload;
