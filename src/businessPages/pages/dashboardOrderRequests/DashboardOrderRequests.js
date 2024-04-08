@@ -135,10 +135,12 @@ const DashboardOrderRequests = () => {
                             {item.street_address}, {item.city}, {item.state}, {item.country}, {item.zip_code}
                             </td>
                             <td>
+                            
                               <button
                                 className="btn btn-success m-1 pl-4 pr-4"
                                 style={{ fontFamily: "Poppins" }}
                                 onClick={() => handleAccept1(item.id)}
+                                disabled={item.business_order_action === 'accepted' || item.business_order_action === 'rejected'}
                               >
                                 ACCEPT
                               </button>
@@ -149,6 +151,7 @@ const DashboardOrderRequests = () => {
                                 className="btn btn-danger m-1 pl-4 pr-4"
                                 style={{ fontFamily: "Poppins" }}
                                 onClick={() => handleReject1(item.id)}
+                                disabled={item.business_order_action === 'accepted' || item.business_order_action === 'rejected'}
                               >
                                 REJECT
                               </button>

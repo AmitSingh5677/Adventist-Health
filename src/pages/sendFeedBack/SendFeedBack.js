@@ -54,7 +54,7 @@ const SendFeedBack = () => {
                 Mixpanel.track("Feedback Submitted");
                 console.log("Feedback")
                 setSucessTaost(true)
-                setIsSucess("Thanks for sharing FeedBack.")
+                setIsSucess("Thanks for sharing Feedback.")
                 setUserDes("")
             } else {
                 setShowTost(true)
