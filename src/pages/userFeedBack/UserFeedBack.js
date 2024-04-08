@@ -34,14 +34,14 @@ const UserFeedback = ({ imgSrc, productTitle, userViews, rating }) => {
 
             if (!selectedRating) {
                 setShowErrorToast(true);
-                setIsError("Kindly assign a rating prior to submission for your valuable feedback.");
+                setIsError("Please provide star rating before submitting.");
                 return;
             };
 
             const trimmedUserDesc = ratingMessage.trim();
             if (!(trimmedUserDesc.length >= 6)) {
                 setShowErrorToast(true);
-                setIsError("Kindly provide a thorough review with at least 6 meaningful characteristics.");
+                setIsError("Please input a brief message before proceeding.");
                 return;
             }
 
