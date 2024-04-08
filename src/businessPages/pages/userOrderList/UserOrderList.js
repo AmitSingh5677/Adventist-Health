@@ -156,7 +156,9 @@ const DashBoard = () => {
         const data = await response.json();
         if (data) {
           console.log(data, "data");
-          setOrderData(data);
+          const sortedData = data.sort((a, b) => a.id > b.id);
+console.log(sortedData,"sortedData")
+          setOrderData(sortedData);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
