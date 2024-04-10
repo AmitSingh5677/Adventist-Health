@@ -280,7 +280,7 @@ const BusinessTransactions = () => {
             </div>
             <div className="d-flex revenue-detail">
             <h6>Transaction count :</h6>
-            {!updatedData ? <h6>${data?.transaction_count}</h6> : <h6>${updatedData?.filter_by?.transaction_count}</h6> }
+            {!updatedData ? <h6>{data?.transaction_count}</h6> : <h6>{updatedData?.filter_by?.transaction_count}</h6> }
             {/* <h6>{data?.transaction_count}</h6> */}
             </div>
         </div>

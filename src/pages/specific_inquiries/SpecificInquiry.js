@@ -115,9 +115,9 @@ const SpecificInquiry = () => {
 
     const handleSendMessage = async () => {
         try {
-            if (userMessage.length < 6) {
+            if (!userMessage) {
                 // Set error message and return to prevent sending the message
-                setErrorMessage('Message should be at least 6 characters long');
+                setErrorMessage('Please write your review before submitting');
                 return;
             };
 
