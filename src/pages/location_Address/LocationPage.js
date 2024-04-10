@@ -44,9 +44,42 @@ const LocationPage = () => {
     const [isError1, setError1] = useState("");
     const [errormsg, seterrormsg] = useState("");
     const [disableedit, setdisableedit] = useState(false);
+    const [fieldErrors, setFieldErrors] = useState({});
 
-    
 
+    const validateForm = () => {
+        const errors = {};
+
+
+        if (!fullName) {
+            errors.fullName = 'First Name is required';
+        };
+
+        if (!lastName) {
+            errors.lastName = 'Last Name is required';
+        }
+        if (!userCity) {
+            errors.userCity = 'City is required';
+        }
+
+        if (!userNum) {
+            errors.userNum = 'Mobile Number is required';
+        }
+        if (!userState) {
+            errors.userState = 'State is required';
+        };
+        if (!userZipCode) {
+            errors.userZipCode = 'Postal code is required';
+        };
+        if (!userCountry) {
+            errors.userCountry = 'Country is required';
+        }
+
+
+
+
+        return errors;
+    };
     console.log("saved Address " + JSON.stringify(isSaved));
     const handleEdit = () => {
         setdisableedit(true)
@@ -55,7 +88,7 @@ const LocationPage = () => {
     };
 
     const [savedAddress, setsavedAddress] = useState([])
-   const[editid,setEditid]=useState("");
+    const [editid, setEditid] = useState("");
     const handleSavedEdit = (id) => {
         setdisableedit(true)
         setEditid(id)
@@ -88,7 +121,7 @@ const LocationPage = () => {
     //edit saved
     const handleEditSaved = async (id) => {
 
-
+        setdisableedit(false)
         setsavededitMode(false);
         const token = JSON.parse(sessionStorage.getItem("token"));
         const patientId = JSON.parse(sessionStorage.getItem("patientId"));
@@ -179,7 +212,7 @@ const LocationPage = () => {
 
     // This Function run when save the Defualt Address
     const handleSave = async (id) => {
-
+        setdisableedit(false)
         setDefaultAddress({ ...editableAddress });
         setEditMode(false);
         const token = JSON.parse(sessionStorage.getItem("token"));
@@ -289,7 +322,7 @@ const LocationPage = () => {
         setdisableedit(false)
         setEditid('')
     };
-   
+
 
     const handleChange = (e) => {
         console.log(e.target.value, " e.target.value")
@@ -367,6 +400,14 @@ const LocationPage = () => {
     // send Delivery Address to Backend
     const saveAddress = async () => {
 
+        const validationErrors = validateForm();
+        console.log(validationErrors, "validationErrors")
+        if (Object.keys(validationErrors).length > 0) {
+            // There are validation errors, display them to the user
+            setFieldErrors(validationErrors);
+            return;
+        }
+        setFieldErrors({});
         try {
             const token = JSON.parse(sessionStorage.getItem("token"));
             const patientId = JSON.parse(sessionStorage.getItem("patientId"))
@@ -416,8 +457,8 @@ const LocationPage = () => {
         } else {
             console.log("errorrr")
             setShowErrorToast1(true)
-            setError1("please select one addrees")
-            seterrormsg("please select one addrees")
+            setError1("please select one address")
+            seterrormsg("please select one address")
         }
 
 
@@ -602,7 +643,7 @@ const LocationPage = () => {
                                                             </Row>
                                                             <div>
                                                                 <button onClick={handleCancel} className='save__btn' >Cancel</button>
-                                                                <button style={{backgroundColor:"#7AC24F"}} onClick={() => handleSave(editableAddress.id)} className='cancel__btn py-2'>Save</button>
+                                                                <button style={{ backgroundColor: "#7AC24F" }} onClick={() => handleSave(editableAddress.id)} className='cancel__btn py-2'>Save</button>
 
                                                             </div>
                                                         </FormGroup>
@@ -618,8 +659,8 @@ const LocationPage = () => {
                                                 )}
                                             </Col>
                                         </Row>
-                                       {!editMode &&<Col xs="1" sm="1" lg="1">
-                                            <FaPencilAlt disabled={disableedit} className={disableedit ? 'disabled-icon':''} onClick={handleEdit} style={{ cursor: 'pointer' }} />
+                                        {!editMode && <Col xs="1" sm="1" lg="1">
+                                            <FaPencilAlt disabled={disableedit} className={disableedit ? 'disabled-icon' : ''} onClick={handleEdit} style={{ cursor: 'pointer' }} />
                                         </Col>}
 
                                     </div>
@@ -736,7 +777,7 @@ const LocationPage = () => {
                                                 </Row>
                                                 <div>
                                                     <button onClick={() => cancelSaved()} className='save__btn'  >Cancel</button>
-                                                    <button style={{backgroundColor:"#7AC24F"}} onClick={() => handleEditSaved(savedAddress.id)} className='cancel__btn py-2'>Save</button>
+                                                    <button style={{ backgroundColor: "#7AC24F" }} onClick={() => handleEditSaved(savedAddress.id)} className='cancel__btn py-2'>Save</button>
 
                                                 </div>
                                             </FormGroup>
@@ -754,7 +795,7 @@ const LocationPage = () => {
                                         <Col xs="10" sm="10" lg="10">
                                             <Row>
                                                 <p className='userName__txt'>{item.recipient_name}</p>
-                                                <p className='street__adress'>{item.street_address}</p>
+                                                {item.street_address !="," &&<p className='street__adress'>{item.street_address}</p>}
                                                 <p className='street__adress'>{item.state}</p>
                                                 <p className='adress_txt' style={{ position: "relative", bottom: "7px" }}>{`${item.city}, ${item.country} - ${item.zip_code}`}</p>
                                                 <p className='mobile_num'>{item.phone}</p>
@@ -762,8 +803,8 @@ const LocationPage = () => {
                                         </Col>
 
                                     </Row>)}
-                                    {editid != item.id &&<Col md={1}>
-                                        <FaPencilAlt disabled={disableedit} className={disableedit ? 'disabled-icon':''} onClick={() => handleSavedEdit(item.id)} style={{ cursor: 'pointer' }} />
+                                    {editid != item.id && <Col md={1}>
+                                        <FaPencilAlt disabled={disableedit} className={disableedit ? 'disabled-icon' : ''} onClick={() => handleSavedEdit(item.id)} style={{ cursor: 'pointer' }} />
                                         <RiDeleteBin5Line onClick={() => deleteAccount(item.id)} className='ms-2' style={{ cursor: 'pointer', color: "#F90D0D", fontSize: "22px", }} />
                                     </Col>}
                                 </div>
@@ -798,13 +839,16 @@ const LocationPage = () => {
                                                     onChange={(e) => {
                                                         const inputValue = e.target.value;
                                                         const regex = /^[A-Za-z\s]+$/;
-
+                                                        setFieldErrors({ ...fieldErrors, fullName: '' });
                                                         if (regex.test(inputValue) || inputValue === '') {
                                                             setFirstName(inputValue);
                                                         }
                                                     }}
 
                                                 />
+                                                {fieldErrors.fullName && (
+                                                    <div className="error_messages">{fieldErrors.fullName}</div>
+                                                )}
                                             </FormGroup>
                                         </Col>
                                         <Col md={5}>
@@ -818,6 +862,7 @@ const LocationPage = () => {
                                                     onChange={(e) => {
                                                         const inputValue = e.target.value;
                                                         const regex = /^[A-Za-z\s]+$/;
+                                                        setFieldErrors({ ...fieldErrors, lastName: '' });
 
                                                         if (regex.test(inputValue) || inputValue === '') {
                                                             setLastName(inputValue);
@@ -825,6 +870,9 @@ const LocationPage = () => {
                                                     }}
                                                     type="text"
                                                 />
+                                                {fieldErrors.lastName && (
+                                                    <div className="error_messages">{fieldErrors.lastName}</div>
+                                                )}
                                             </FormGroup>
                                         </Col>
                                         <Col md={5}>
@@ -892,12 +940,16 @@ const LocationPage = () => {
                                                     onChange={(e) => {
                                                         const inputValue = e.target.value;
                                                         const regex = /^[A-Za-z\s]+$/;
+                                                        setFieldErrors({ ...fieldErrors, userCity: '' });
 
                                                         if (regex.test(inputValue) || inputValue === '') {
                                                             setUserCity(inputValue);
                                                         }
                                                     }}
                                                 />
+                                                {fieldErrors.userCity && (
+                                                    <div className="error_messages">{fieldErrors.userCity}</div>
+                                                )}
                                             </FormGroup>
                                         </Col>
                                         <Col md={5}>
@@ -911,10 +963,17 @@ const LocationPage = () => {
                                                     name="password"
                                                     type="text"
                                                     value={userZipCode}
-                                                    onChange={(e) => setUserZipCode(e.target.value)}
+                                                    onChange={(e) => {
+                                                        setUserZipCode(e.target.value)
+                                                        setFieldErrors({ ...fieldErrors, userZipCode: '' });
+
+                                                    }}
                                                     onKeyPress={handleKeyPress}
                                                     maxLength={5}
                                                 />
+                                                {fieldErrors.userZipCode && (
+                                                    <div className="error_messages">{fieldErrors.userZipCode}</div>
+                                                )}
                                             </FormGroup>
                                         </Col>
 
@@ -933,12 +992,16 @@ const LocationPage = () => {
                                                     onChange={(e) => {
                                                         const inputValue = e.target.value;
                                                         const regex = /^[A-Za-z\s]+$/;
+                                                        setFieldErrors({ ...fieldErrors, userState: '' });
 
                                                         if (regex.test(inputValue) || inputValue === '') {
                                                             setUserState(inputValue);
                                                         }
                                                     }}
                                                 />
+                                                {fieldErrors.userState && (
+                                                    <div className="error_messages">{fieldErrors.userState}</div>
+                                                )}
                                             </FormGroup>
                                         </Col>
                                         <Col md={5}>
@@ -956,13 +1019,16 @@ const LocationPage = () => {
                                                     onChange={(e) => {
                                                         const inputValue = e.target.value;
                                                         const regex = /^[A-Za-z\s]+$/;
+                                                        setFieldErrors({ ...fieldErrors, userCountry: '' });
 
                                                         if (regex.test(inputValue) || inputValue === '') {
                                                             setUserCountry(inputValue);
                                                         }
                                                     }}
                                                 />
-
+                                                {fieldErrors.userCountry && (
+                                                    <div className="error_messages">{fieldErrors.userCountry}</div>
+                                                )}
                                             </FormGroup>
                                         </Col>
                                         <Col md={5}>
@@ -976,11 +1042,16 @@ const LocationPage = () => {
                                                     name="password"
                                                     type="text"
                                                     value={userNum}
-                                                    onChange={(e) => setUserNum(e.target.value)}
+                                                    onChange={(e) => {setUserNum(e.target.value)
+                                                        setFieldErrors({ ...fieldErrors, userNum: '' });
+                                                    
+                                                    }}
                                                     onKeyPress={handleKeyPress}
                                                     maxLength={10}
                                                 />
-
+                                                {fieldErrors.userNum && (
+                                                    <div className="error_messages">{fieldErrors.userNum}</div>
+                                                )}
                                             </FormGroup>
                                         </Col>
                                         <Col md={12}>

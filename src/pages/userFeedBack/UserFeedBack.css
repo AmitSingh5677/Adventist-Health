@@ -15,7 +15,7 @@
 
 .rating__btn {
     border: none;
-    background-color: #219653;
+    background-color: rgba(122, 194, 79, 1);
     color: #fff;
     padding: 5px 15px 5px 15px;
     outline: none;
@@ -29,9 +29,9 @@
     margin-top: 50px;
     padding: 10px;
     background: none;
-    color: #026937;
+    color: rgba(122, 194, 79, 1);
     font-family: 'Poppins';
-    border: 1px solid #026937;
+    border: 1px solid rgba(122, 194, 79, 1);
     outline: none;
     border-radius: 5px;
     font-size: 15px;

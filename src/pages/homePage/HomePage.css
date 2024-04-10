@@ -3,6 +3,12 @@
     margin-top: 7%;
 }
 
+.activeHeader {
+    /* border: 1px solid #6FBF49;
+    background-color: #6FBF49; */
+    color: #fff;
+}
+
 @media only screen and (max-width: 992px) {
     .homePage__container {
         margin-bottom: 30%;
