@@ -108,12 +108,14 @@ const SignUp = () => {
 
     if (!userConfrimPassword.trim()) {
       setConfrimPasswordError("Enter confirm password.");
-    } else if (userConfrimPassword.length < 8) {
-      setConfrimPasswordError("");
-      setIsConPasssowrdLen(
-        "Confrim password length should be more than 8 characters"
-      );
-    } else if (userPassword !== userConfrimPassword) {
+    } 
+    // else if (userConfrimPassword.length < 8) {
+    //   setConfrimPasswordError("");
+    //   setIsConPasssowrdLen(
+    //     "Confrim password length should be more than 8 characters"
+    //   );
+    // } 
+    else if (userPassword !== userConfrimPassword) {
       setConfrimPasswordError("Password and confirm password must match");
     } else {
       setConfrimPasswordError("");
@@ -183,6 +185,9 @@ const SignUp = () => {
         setIsucess(
           "Your details have been successfully saved. Please proceed to login to access your account."
         );
+        setTimeout(()=>{
+          navigate("/login")
+        },2500)
       } else if (response.status === 400) {
         const errorResponse = await response.json();
         if (

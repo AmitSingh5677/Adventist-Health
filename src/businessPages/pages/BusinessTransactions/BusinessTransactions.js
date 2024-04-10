@@ -138,18 +138,18 @@ const BusinessTransactions = () => {
       <div className="analytics-section">
         <div className="d-flex tile-section">
           <div className="analytics-tile">
-            <p>Total Revenue</p>
+            <p><b>Total Revenue</b></p>
             <h3>${data?.total_transaction_amount}</h3>
           </div>
           <div className="analytics-tile">
-            <p>Total Transaction Count</p>
+            <p><b>Total Transaction Count</b></p>
             <h3>{data?.transaction_count}</h3>
           </div>
         </div>
         <div className="d-flex box-tile-section mt-5">
           <div className="box-tile-1">
             <div className="d-flex" style={{ justifyContent: "space-between" }}>
-              <h5>Recent Transactions</h5>
+              <h5><b>Recent Transactions</b></h5>
               <span>
                 Filter by:{" "}
                 <select onChange={(e) => setTime(e.target.value)}>

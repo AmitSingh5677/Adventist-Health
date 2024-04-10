@@ -107,30 +107,30 @@ const MyProfile = () => {
 
 
         if (!getUserData.full_name) {
-            errors.full_name = 'Full Name is required';
+            errors.full_name = 'Full name is required';
         };
 
         if (!getUserData.birthday) {
-            errors.birthday = 'Date of Birth is required';
+            errors.birthday = 'Date of birth is required';
         }
         if (!getUserData.city) {
             errors.city = 'City is required';
         }
 
         if (!getUserData.phone) {
-            errors.phone = 'Mobile Number is required';
+            errors.phone = 'Mobile number is required';
         }
         if (!getUserData.state) {
             errors.state = 'State is required';
         };
         if (!getUserData.zip_code) {
-            errors.zip_code = 'ZipCode is required';
+            errors.zip_code = 'Zipcode is required';
         };
         if (!getUserData.country) {
             errors.country = 'Country is required';
         }
         if (!getUserData.birthday) {
-            errors.birthday = 'BirthDay is required';
+            errors.birthday = 'Birthday is required';
         }
         if (!getUserData.gender) {
             errors.gender = 'Gender is required';
@@ -178,7 +178,7 @@ const MyProfile = () => {
                 if (response.ok) {
                     setUserImg(null);
                     setShowToast(true);
-                    setSucessToast("Your image has been removed successfully.");
+                    setSucessToast("Your profile picture has been removed successfully.");
                     // setIsLoading(false);
                     setTimeout(()=>{
                         window.location.reload()
