@@ -51,17 +51,17 @@
 }
 
 .noTxt {
-    border: 2px solid #026937;
+    border: 2px solid #7AC24F;
     background: none;
     padding: 4px 36px 6px 37px;
     font-family: 'Inter';
     font-weight: 700;
     border-radius: 5px;
-    color: #026937;
+    color: #7AC24F;
 }
 
 .yesTxt {
-    background: #026937;
+    background: #7AC24F;
     padding: 4px 36px 6px 37px;
     font-family: 'Inter';
     font-weight: 700;

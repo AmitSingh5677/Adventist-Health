@@ -1,5 +1,5 @@
 .my-profile-bsuiness-page{
-    height: 110vh;
+    height: 140vh;
     scroll-behavior: auto;
 }
 .profile-section{
@@ -64,19 +64,19 @@
 .edit-btn1{
   /* width: 10vw; */
   padding: 5px 60px;
-  border: 2px solid #198754;  
+  border: 2px solid #7AC24F;  
   background-color: transparent;
   border-radius: 5px;
   cursor: pointer;
-  color: #198754;
+  color: #7AC24F;
 }
 .edit-btn:hover{
 color: #002413;
 }
 .submit-btn{
     width: 10vw;
-    border: 2px solid #198754;  
-background-color: #198754;  
+    border: 2px solid #7AC24F;  
+background-color: #7AC24F;  
 color: #fff;
 border-radius: 5px;
 cursor: pointer;

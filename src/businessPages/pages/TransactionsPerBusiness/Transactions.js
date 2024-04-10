@@ -113,11 +113,11 @@ const TransactionsBusiness = () => {
       <div className="analytics-section">
         <div className="d-flex tile-section">
           <div className="analytics-tile">
-            <p>Total Users Signup</p>
+            <p><b>Total Users Signup</b></p>
             <h3>{data?.total_patient_count}</h3>
           </div>
           <div className="analytics-tile">
-            <p>Total Businesses Onboarded</p>
+            <p><b>Total Businesses Onboarded</b></p>
             <h3>{data?.total_business_count}</h3>
             <p className="mt-1" style={{ fontSize: "14px" }}>
               Active: <b>{data?.active_business_count}</b>{" "}
@@ -127,20 +127,20 @@ const TransactionsBusiness = () => {
             </p>
           </div>
           <div className="analytics-tile">
-            <p>Total Transaction Count</p>
+            <p><b>Total Transaction Count</b></p>
             <h3>{data?.number_of_transaction}</h3>
             {/* <p className='mt-5' style={{fontSize:"14px"}}>Active:       <span className='ms-5'>Inactive: </span></p> */}
           </div>
-          <div className="analytics-tile">
+          {/* <div className="analytics-tile">
             <p>Total Revenue</p>
             <h3>${data?.revenue_generated}</h3>
-            {/* <p className='mt-5' style={{fontSize:"14px"}}>Active:       <span className='ms-5'>Inactive: </span></p> */}
-          </div>
+            <p className='mt-5' style={{fontSize:"14px"}}>Active:       <span className='ms-5'>Inactive: </span></p>
+          </div> */}
         </div>
         <div className="d-flex box-tile-section mt-5">
           <div className="box-tile-1">
             <div className="d-flex" style={{ justifyContent: "space-between" }}>
-              <h5>Recent Businesses</h5>
+              <h5><b>Recent Businesses</b></h5>
               <span>
                 Sort by:{" "}
                 <select onChange={(e) => setTime(e.target.value)}>
@@ -242,21 +242,21 @@ const TransactionsBusiness = () => {
                 <button className="mt-1 submit-btn-date" onClick={fetchTransactions}>Submit</button>
               </span>
             </div>
-                {error?.startDate && <span style={{color:"red"}}>{error.startDate}</span>} <br/>
-                {error?.endDate && <span style={{color:"red"}} >{error.endDate}</span>}
+                {error?.startDate && <span style={{color:"red"}}>{error.startDate}</span>}
+                {error?.endDate && <span className="" style={{color:"red",marginLeft:"80px"}} >{error.endDate}</span>}
             <div className="mt-2">
               <Table className="table table-hover borderless responsive striped">
-                <thead
+                { orderData && <thead
                   className="table-header-analytics"
                   style={{ backgroundColor: "#E3E3E3" }}
                 >
                   <tr>
                     <th className=" py-2">Businesses</th>
                     <th className="table_theader">Transaction Amount</th>
-                    {/* <th className="table_theader">Product Amount</th> */}
                     <th className="table_theader">Location</th>
                   </tr>
-                </thead>
+                </thead>}
+                
                 <tbody className="body__txt">
                   {orderData && orderData?.map((item, index) => (
                               <tr key={index}>
@@ -280,6 +280,18 @@ const TransactionsBusiness = () => {
               </Table>
             </div>
           </div>
+        </div>
+        <div className="ms-4 mt-3">
+            <div className="d-flex revenue-detail">
+            <h6>Total revenue :</h6>
+            {/* {!updatedData ? <h6>${data?.total_transaction_amount}</h6> : <h6>${updatedData?.filter_by?.transaction_amount}</h6> } */}
+            {/* <h6>${data?.total_transaction_amount}</h6> */}
+            </div>
+            <div className="d-flex revenue-detail">
+            <h6>Transaction count :</h6>
+            {/* {!updatedData ? <h6>{data?.transaction_count}</h6> : <h6>{updatedData?.filter_by?.transaction_count}</h6> } */}
+            {/* <h6>{data?.transaction_count}</h6> */}
+            </div>
         </div>
       </div>
 

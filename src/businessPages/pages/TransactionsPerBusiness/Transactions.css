@@ -54,4 +54,7 @@
 .submit-btn-date{
     border-radius: 8px;
     padding: 3px 4px;
+    background-color: transparent;
+    border: 1px solid #7AC24F;
+    color: #7AC24F;
 }
