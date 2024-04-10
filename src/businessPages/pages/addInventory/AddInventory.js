@@ -98,6 +98,11 @@ const AddInventory = () => {
            console.log(response,"response")
           
             if (response) {
+                setEquipmentName("");
+                setDescription("")
+                setPrice("")
+                setOtherDetails("")
+                setUploadedImage(null)
                 setShowSucessToast(true);
                 setSucessMessage("Data saved successfully")
             } else {

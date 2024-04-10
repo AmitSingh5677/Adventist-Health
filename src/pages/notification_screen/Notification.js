@@ -249,7 +249,10 @@ const Notification = () => {
                                                     toggle={() => togglePopover(index)}
                                                 >
                                                     <PopoverBody>
-                                                        <li className="list-group-item cursor" onClick={() => markasRead(item.id)}>Menu Item 1</li>
+                                                        <li className="list-group-item cursor" onClick={() => markasRead(item.id)}>Mark as read</li>
+                                                        <li className="list-group-item cursor" >Archive</li>
+                                                        <li className="list-group-item cursor">Turn off notifications</li>
+                                                        
                                                     </PopoverBody>
 
                                                 </Popover>
