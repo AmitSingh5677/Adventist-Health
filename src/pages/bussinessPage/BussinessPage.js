@@ -46,10 +46,10 @@ const BussinessPage = () => {
   const toggleTooltip = () => {
     setTooltipVisible(!tooltipVisible);
   };
-  const onChangeHandler = async (e) => {
-    const inputValue = e.target.value;
-    setSearchInput(inputValue);
-  };
+  // const onChangeHandler = async (e) => {
+  //   const inputValue = e.target.value;
+  //   setSearchInput(inputValue);
+  // };
 
   const handleTooltipClick = (id, productDetails) => {
     // alert("id" + id);
@@ -120,12 +120,12 @@ const BussinessPage = () => {
   const modleHandler = () => {
     setModalOpen(true);
   };
-  const onKeyPressHandler = (e) => {
-    if (e.key === "Enter") {
-      // Call the search function when Enter key is pressed
-      searchIconHandler();
-    }
-  };
+  // const onKeyPressHandler = (e) => {
+  //   if (e.key === "Enter") {
+  //     // Call the search function when Enter key is pressed
+  //     searchIconHandler();
+  //   }
+  // };
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -239,15 +239,24 @@ const BussinessPage = () => {
       : "";
 
   console.log(allProducts, cartItemBusinessName, "cart");
-
-  const searchIconHandler = async (e) => {
+  
+  
+  const onChangeHandler = async (e) => {
     const inputValue = e.target.value;
     setSearchInput(inputValue);
+};
+
+
+ useEffect(()=>{
+  const searchIconHandler = async () => {
+    // const inputValue = e.target.value;
+    // setSearchInput(inputValue);
+    const b_id = sessionStorage.getItem("businessId")
     setIsLoading(true);
     const token = JSON.parse(sessionStorage.getItem("token"));
     try {
       const response = await fetch(
-        `/patients/productsearch/${id}/?search=${searchInput}`,
+        `/patients/productsearch/${b_id}/?search=${searchInput}`,
         {
           method: "GET",
           headers: {
@@ -284,6 +293,53 @@ const BussinessPage = () => {
       setErrorMessage("There is Internal Server.Please Visit After SomeTime.");
     }
   };
+  searchIconHandler()
+ },[searchInput])
+  
+  // const searchIconHandler = async (e) => {
+  //   const inputValue = e.target.value;
+  //   setSearchInput(inputValue);
+  //   setIsLoading(true);
+  //   const token = JSON.parse(sessionStorage.getItem("token"));
+  //   try {
+  //     const response = await fetch(
+  //       `/patients/productsearch/${id}/?search=${searchInput}`,
+  //       {
+  //         method: "GET",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Token ${token}`,
+  //         },
+  //       }
+  //     );
+  //     const data = await response.json();
+  //     console.log(data, "11");
+  //     if (data) {
+  //       if (searchInput) {
+  //         setSearchProducts(data);
+  //         // console.log("userData" + JSON.stringify(data));
+  //         setIsLoading(false);
+  //       }
+  //       if (!searchInput) {
+  //         setSearchProducts(allProducts);
+  //       }
+  //     } else {
+  //       setErrorMessage("No Data Found ");
+  //     }
+
+  //     if (data.length < 1) {
+  //       setIsError(true);
+  //       setErrorMessage(
+  //         "Sorry, no results found. Please check your search and try again."
+  //       );
+  //       setSearchInput("");
+  //     }
+  //   } catch (error) {
+  //     setIsLoading(false);
+  //     setIsError(true);
+  //     setErrorMessage("There is Internal Server.Please Visit After SomeTime.");
+  //   }
+  // };
 
   const onImageClick = (name) => {
     mixpanel.track("Product Views", {
@@ -324,7 +380,7 @@ const BussinessPage = () => {
           <FaSearch
             className="search-icon"
             style={{ position: "relative", top: "5px" }}
-            onClick={searchIconHandler}
+            // onClick={searchIconHandler}
           />
           <input
             type="text"
@@ -336,8 +392,8 @@ const BussinessPage = () => {
             className="search-bar"
             onClick={() => setShowSearchBar(true)}
             value={searchInput}
-            onChange={searchIconHandler}
-            onKeyDown={onKeyPressHandler}
+            onChange={onChangeHandler}
+            // onKeyDown={onKeyPressHandler}
           />
         </div>
       </AppHeader>

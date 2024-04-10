@@ -87,7 +87,7 @@ const Notification = () => {
 
             if (response) {
                 setIsSucess(true);
-                setSucessMsg("Notification marked as read successfully");
+                setSucessMsg("Notification marked as read");
 
                 const fetchData1 = async () => {
                     try {

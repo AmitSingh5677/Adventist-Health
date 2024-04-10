@@ -180,7 +180,9 @@ const MyProfile = () => {
                     setShowToast(true);
                     setSucessToast("Your image has been removed successfully.");
                     // setIsLoading(false);
-                    window.location.reload()
+                    setTimeout(()=>{
+                        window.location.reload()
+                    },2500)
                 } else {
                     // Handle error
                     console.error('Failed to remove image');
@@ -233,7 +235,7 @@ const MyProfile = () => {
                 setIsLoading(true)
                 setIsEditMode(false)
                 setShowToast(true)
-                setSucessToast("Your Deatils are Saved Sucessfully.");
+                setSucessToast("Your details are saved successfully.");
                 // setTimeout(() => {
                 //     nagviate("/MyProfile")
                 // }, 1000)
