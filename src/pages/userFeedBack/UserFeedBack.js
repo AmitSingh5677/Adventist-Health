@@ -80,7 +80,7 @@ const UserFeedback = ({ imgSrc, productTitle, userViews, rating }) => {
     const stars = Array.from({ length: 5 }, (_, index) => (
         <FaStar
             key={index}
-            color={index < selectedRating ? '#219653' : 'grey'}
+            color={index < selectedRating ? 'gold' : 'grey'}
             onClick={() => handleRatingClick(index + 1)}
             style={{ cursor: 'pointer' }}
         />

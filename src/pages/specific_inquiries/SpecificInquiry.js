@@ -111,7 +111,7 @@ const SpecificInquiry = () => {
 
     const handleSendMessage = async () => {
         try {
-            if (userMessage.length < 6) {
+            if (!userMessage) {
                 // Set error message and return to prevent sending the message
                 setErrorMessage('Please input a brief message before proceeding.');
                 return;

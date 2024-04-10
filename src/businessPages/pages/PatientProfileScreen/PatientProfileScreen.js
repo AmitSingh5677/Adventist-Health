@@ -122,7 +122,7 @@ export default function PatientProfileScreen() {
                 if (data) {
                     setshowToastError(false);
                     setShowToast(true);
-                    setSucessToast("Your Feedback has been successfully recorded.")
+                    setSucessToast("Your feedback has been successfully recorded.")
                 }
 
 
