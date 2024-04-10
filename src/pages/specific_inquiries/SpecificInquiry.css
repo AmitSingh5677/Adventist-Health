@@ -8,6 +8,16 @@
     font-weight: 600;
 }
 
+.image_buisness {
+   
+    max-height: 330px;
+    /* Adjust the maximum height as per your requirement */
+    height: auto;
+    /* Allows the image to maintain its aspect ratio */
+    object-fit: contain;
+    padding: 10px;
+}
+
 .specific__subtxt {
     font-family: "Poppins";
     font-size: 14px;

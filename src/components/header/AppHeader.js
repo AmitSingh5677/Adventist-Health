@@ -123,6 +123,41 @@ const AppHeader = ({
       });
   };
 
+  const [count, setcount] = useState(0)
+
+  React.useEffect(() => {
+   
+    const token = JSON.parse(sessionStorage.getItem("token"));
+    const patient_id = JSON.parse(sessionStorage.getItem("patientId"))
+
+    const fetchData2 = async () => {
+        try {
+
+            const response = await fetch(`https://dmecart-38297.botics.co/patients/notification_list/${patient_id}/`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'Application/json',
+                    'Authorization': `Token ${token}`
+                },
+            });
+
+            const data = await response.json();
+            if (data) {
+             
+                const countdata = data.filter((item) => item.mark_as_read === false).map((item) => item.mark_as_read)
+              
+                setcount(countdata.length)
+
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+    fetchData2();
+
+}, []);
+
   return (
     <div>
       <Navbar
@@ -193,7 +228,9 @@ const AppHeader = ({
             <NavLink onClick={() => handleNavigate("/Notification")}>
               <FaBell className="icon" />{" "}
               <span className="app-text">Notifications
-             
+              <span className="cart__badge1">
+                  {count >= 0 ? count : 0}
+                </span>
               </span>
             </NavLink>
           </NavItem>
