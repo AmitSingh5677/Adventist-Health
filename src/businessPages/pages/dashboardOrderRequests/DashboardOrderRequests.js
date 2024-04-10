@@ -77,7 +77,35 @@ const DashboardOrderRequests = () => {
           business_order_action: "accepted",
         }),
       }
+
+      
     );
+
+    const data = await response.json();
+    if (data) {
+      const fetchData = async () => {
+        try {
+          
+            const response = await fetch(`https://dmecart-38297.botics.co/business/dashboard/${userid}/`, {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'Application/json',
+                  'Authorization': `Token ${token}`
+                },
+            });
+  
+            const data = await response.json();
+            if (data) {
+              console.log(data,"data")
+              setUserData(data)
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+  
+    fetchData();
+    }
   };
 
   const handleReject = async () => {
@@ -98,6 +126,32 @@ const DashboardOrderRequests = () => {
         }),
       }
     );
+
+    const data = await response.json();
+    if (data) {
+      const fetchData = async () => {
+        try {
+          
+            const response = await fetch(`https://dmecart-38297.botics.co/business/dashboard/${userid}/`, {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'Application/json',
+                  'Authorization': `Token ${token}`
+                },
+            });
+  
+            const data = await response.json();
+            if (data) {
+              console.log(data,"data")
+              setUserData(data)
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+  
+    fetchData();
+    }
   };
 
   return (
