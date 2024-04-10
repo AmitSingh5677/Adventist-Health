@@ -40,10 +40,6 @@ const SpecificInquiry = () => {
                         'Authorization': `Token ${token}`
                     },
                 });
-              
-
-                 
-                  
                 const data = await response.json();
                 if (data && data.length > 0) {
                     
@@ -117,7 +113,7 @@ const SpecificInquiry = () => {
         try {
             if (userMessage.length < 6) {
                 // Set error message and return to prevent sending the message
-                setErrorMessage('Message should be at least 6 characters long');
+                setErrorMessage('Please input a brief message before proceeding.');
                 return;
             };
 
@@ -141,15 +137,40 @@ const SpecificInquiry = () => {
 
             if (data) {
                 mixpanel.track("Messages Sent from consumer/patient to vendor")
-                
-                OneSignal.Notifications.addEventListener('notificationDisplay', (event) => {
-                    console.log("The notification was clicked!", event);
-                  });
-               
-
                 setSucessToast(true)
                 setShowToast(true);
                 setIsSucess("Enquiry added successfully.")
+                OneSignal.Notifications.addEventListener('notificationDisplay', (event) => {
+                    console.log("The notification was clicked!", event);
+                  });
+
+                  const fetchData1 = async () => {
+                    try {
+                        const patient_id = JSON.parse(sessionStorage.getItem("patientId"))
+                        console.log(patient_id,"patient_id")
+                        const token = JSON.parse(sessionStorage.getItem("token"));
+                        const response = await fetch(`https://dmecart-38297.botics.co/patients/inquiries/${patient_id}/${id}/`, {
+                            method: 'GET',
+                            headers: {
+                                'Authorization': `Token ${token}`
+                            },
+                        });
+                        const data = await response.json();
+                        if (data && data.length > 0) {
+                            setUserMessage('')
+                            setIsLoading(false)
+                            setInquiryData(data);
+                            console.log("inquiry Data" + JSON.stringify(data));
+                        } else {
+                        }
+                    } catch (error) {
+                        // showToast(true)
+                        // setIsError("There is Internal Server.Please Visit After SomeTime.")
+                    }
+                };
+                fetchData1();
+
+               
                 // console.log("userData" + JSON.stringify(data));
             } else {
                 // Handle error if needed
@@ -253,7 +274,7 @@ const SpecificInquiry = () => {
                     <Row>
                         <h4 style={{ fontFamily: 'Poppins', fontSize: "13px", fontWeight: "600" }}>Write a Review</h4>
                         <Col md={6} lg={12}>
-                            <Input onChange={handleInputChange} className="form-control shadow-none" id="exampleText" placeholder='How is the product? What do you like? What do you hate?'
+                            <Input onChange={handleInputChange} className="form-control shadow-none" value={userMessage} id="exampleText" placeholder='How is the product? What do you like? What do you hate?'
                                 name="text" style={{ height: "75px", marginBottom: "15px" }} />
                         </Col>
                         {errorMessage && (

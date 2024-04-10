@@ -16,7 +16,7 @@ const BussinessCard = ({ rating }) => {
     const stars = Array.from({ length: 5 }, (_, index) => (
         <FaStar
             key={index}
-            color={index < selectedRating ? '#219653' : 'grey'}
+            color={index < selectedRating ? 'rgba(122, 194, 79, 1)' : 'grey'}
             // onClick={() => handleRatingClick(index + 1)}
             style={{ cursor: 'pointer' }}
         />
@@ -79,7 +79,8 @@ const BussinessCard = ({ rating }) => {
                             <button className='rating__btn'>{averageRating} <FaStar color='#ffff' /></button>
                         </CardText>
                         <div className='rating__txt'>
-                            {stars} <span style={{
+                            {stars} 
+                            <span style={{
                                 fontSize: "20px", position: "relative", left: "13px", top: "-3px", color: "#687D94", fontWeight: 600
                             }}>{averageRating}/5</span>
                         </div>

@@ -179,7 +179,7 @@ export const HomePage = () => {
     return (
         <Helmet title="HomePage">
             <AppHeader >
-                <div className={`search-container ${showSearchBar ? 'active' : ''}`}>
+                <div className={`search-container ${showSearchBar ? 'activeHeader' : ''}`}>
                     <FaSearch className="search-icon" onClick={searchIconHandler} />
                     <input
                         type="text"

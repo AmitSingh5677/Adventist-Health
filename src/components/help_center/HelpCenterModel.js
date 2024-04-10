@@ -72,7 +72,7 @@ const HelpCenterModel = ({ isOpen, toggle }) => {
                 const data = await response.json();
                 if (data) {
                     setSucessToast(true);
-                    setIsSuccess("Your Feedback has been successfully recorded.");
+                    setIsSuccess("Your feedback has been successfully recorded.");
                     toggle(true)
                 } else {
                     // Handle other cases
