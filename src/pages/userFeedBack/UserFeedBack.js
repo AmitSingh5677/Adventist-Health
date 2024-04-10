@@ -101,7 +101,7 @@ const UserFeedback = ({ imgSrc, productTitle, userViews, rating }) => {
                 <BussinessCard />
             </div>
 
-                <div style={{ maxWidth: "95%", margin: "0 auto" }}>
+                <div style={{ maxWidth: "95%", margin: "0 auto",margin:"20px 80px" }}>
                     <h5>Rate this Business</h5>
                     <div style={{ fontSize: "50px", marginBottom: "20px", marginTop: "-20px" }}>
                         {stars}

@@ -44,8 +44,8 @@ const Notification = () => {
                     console.log(typeof (data), "notification")
                     // setOrderData(data)
                     setNotificationList(data)
-                    const countdata=data.filter((item)=> item.mark_as_read === false).map((item)=>item.mark_as_read)
-                    console.log(countdata.length,"countdata")
+                    const countdata = data.filter((item) => item.mark_as_read === false).map((item) => item.mark_as_read)
+                    console.log(countdata.length, "countdata")
                     setcount(countdata.length)
 
                 }
@@ -59,7 +59,7 @@ const Notification = () => {
     }, []);
 
 
-   
+
     const togglePopover = (index) => {
         setPopoverOpen(prevState => ({
             ...prevState,
@@ -206,9 +206,13 @@ const Notification = () => {
                         </Row>
                     </Container>
                     {notificationList.length > 0 ? <>
-                        {notificationList?.map((item,index) => {
-                            const date = new Date(item.created_at);
-                            const hours = date.getHours();
+                        {notificationList?.map((item, index) => {
+                             const date = new Date(item.created_at);
+                            // const hours = date.getHours();
+
+                            const currentTime = new Date();
+                            const timeDifference = currentTime - date;
+                            const hours = Math.floor(timeDifference / (1000 * 60 * 60));
                             return (
                                 <Container style={{ position: "relative", top: "30px" }}>
 
@@ -236,19 +240,19 @@ const Notification = () => {
                                         <Col xs="auto" className='three__icon'>
                                             <small className='noti__time'>{hours}{"h"}</small>
                                             <span key={index}>
-                                            <BsThreeDotsVertical id={`popover-${index}`} onClick={() => togglePopover(index)}/>
+                                                <BsThreeDotsVertical id={`popover-${index}`} onClick={() => togglePopover(index)} />
 
-                                            <Popover
-                                                placement="bottom"
-                                                isOpen={popoverOpen[index] || false}
-                                                target={`popover-${index}`}
-                                                toggle={() => togglePopover(index)}
-                                            >
-                                                <PopoverBody>
-                                                <li className="list-group-item cursor" onClick={() => markasRead(item.id)}>Menu Item 1</li>
-                                                </PopoverBody>
+                                                <Popover
+                                                    placement="bottom"
+                                                    isOpen={popoverOpen[index] || false}
+                                                    target={`popover-${index}`}
+                                                    toggle={() => togglePopover(index)}
+                                                >
+                                                    <PopoverBody>
+                                                        <li className="list-group-item cursor" onClick={() => markasRead(item.id)}>Menu Item 1</li>
+                                                    </PopoverBody>
 
-                                            </Popover>
+                                                </Popover>
                                             </span>
                                         </Col>
                                     </Row>

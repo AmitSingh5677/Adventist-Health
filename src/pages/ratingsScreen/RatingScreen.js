@@ -240,11 +240,10 @@ console.log(rating,"rating")
         <Helmet title="Ratings Screen">
             <AppHeader />
             <div style={{ marginBottom: "3%" }}>
-                <Container>
-                    <Row xs="12" sm="12" lg="12" >
+            <div style={{ marginTop: "10%", marginBottom: "2%" }} className='ms-5'>
                         <BussinessCard />
-                    </Row>
-                </Container>
+                   
+                </div>
                 <div style={{ marginTop: "2%", maxWidth: "80%", margin: "0 auto" }}>
                     {isLoading ? <SpinLoader /> : (<>
                         <Container>

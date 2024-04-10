@@ -25,6 +25,7 @@ const SpecificInquiry = () => {
     const [sucessToast, setSucessToast] = useState(false)
     const [errorMessage, setErrorMessage] = useState('');
     const [filteredData, setFilteredData] = React.useState();
+    const [businessimg, setBusinessimg] = React.useState();
 
     const bussness_name = sessionStorage.getItem("business_name")
 
@@ -104,6 +105,37 @@ const SpecificInquiry = () => {
     }, []);
 
 
+    React.useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const bussiness_id = JSON.parse(sessionStorage.getItem("bussiness_id"))
+                const token = JSON.parse(sessionStorage.getItem("token"));
+                const response = await fetch(`https://dmecart-38297.botics.co/business/business_profile/${bussiness_id}/`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Token ${token}`
+                    },
+                });
+
+                const data = await response.json();
+                console.log(data,"image")
+                if (data) {
+                     setBusinessimg(data.avatar_signed_url)
+                } else {
+                  //  alert("No Data Found for Particular Bussiness");
+                    // Handle the case where no data is returned
+                }
+            } catch (error) {
+                // console.error('Error fetching data:', error);
+               
+                // setErrorMessage("There is Internal Server.Please Visit After SomeTime.")
+            }
+        };
+
+        setIsLoading(true);
+        fetchData();
+
+    }, []);
     const handleInputChange = (e) => {
         setUserMessage(e.target.value);
         setErrorMessage('');
@@ -225,15 +257,18 @@ const SpecificInquiry = () => {
             <AppHeader />
             {showToast ? <SucessMessage show={sucessToast} message={isSucess} onClose={() => setSucessToast(false)} /> : null}
             {isLoading ? <SpinLoader /> : (<div style={{ marginTop: "10%", marginBottom: "9%" }}>
-                <Container>
-                    <div style={{ marginTop: "10%", marginBottom: "2%" }}>
-                        <Card style={{ display: 'flex', flexDirection: 'row', margin: '20px', margin: "0 auto", maxWidth: "95%" }}>
-                            <CardImg top width="50%" src={dummyImg} alt="Product Image" style={{ width: '70%', objectFit: 'cover' }} />
-                            <CardBody style={{ width: '50%', textAlign: "center" }}>
+                <Container  style={{ display: 'flex', flexDirection: 'row',justifyContent:'center',  maxWidth: "90%",margin:"20px 70px" }}>
+                      <Card  style={{ width: '54%' }}>
+                            {/* <CardImg  src={dummyImg} alt="Product Image" style={{ width: '70%', objectFit: 'cover' }} /> */}
+                            <CardBody className='d-flex justify-content-center'>
+                           <img  src={businessimg} alt="Product Image" className='image_buisness' />
+                           </CardBody>
+                        </Card>
+                        <Card   style={{ width: '35%', textAlign: "center" }} className='ms-3'>
+                            <CardBody>
                                 <CardTitle tag="h5" className='cardTxt'>{bussness_name}</CardTitle>
                             </CardBody>
                         </Card>
-                    </div>
                 </Container>
                 <div className='specific__content'>
                    {filteredData && <Row>
