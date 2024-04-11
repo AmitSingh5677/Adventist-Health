@@ -135,7 +135,7 @@ const UpdateInventory = () => {
 
             if (response) {
                 setShowSucessToast(true);
-                setSucessMessage("Data updated successfully")
+                setSucessMessage("Product updated successfully")
 
             } else {
 
@@ -196,7 +196,7 @@ const UpdateInventory = () => {
                     message={sucessMessage}
                 />
             ) : null}
-            <div style={{ marginTop: "10%", overflow: 'scroll' }}>
+            <div style={{ marginTop: "10%" }}>
                 <form className="d-flex flex-row justify-content-around" onSubmit={submitHandler}>
                     <div className="d-flex flex-column justify-content-start">
                         <div className="d-flex flex-column m-3">

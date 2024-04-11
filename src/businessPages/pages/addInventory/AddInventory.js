@@ -105,7 +105,7 @@ const AddInventory = () => {
                 setOtherDetails("")
                 setUploadedImage(null)
                 setShowSucessToast(true);
-                setSucessMessage("Data saved successfully")
+                setSucessMessage("Product added successfully")
             } else {
 
             }
@@ -166,7 +166,7 @@ const AddInventory = () => {
               message={sucessMessage}
             />
           ) : null}
-            <div style={{ marginTop: "10%", overflow: 'scroll' }}>
+            <div style={{ marginTop: "10%" }}>
                 <form className="d-flex flex-row justify-content-around" onSubmit={submitHandler}>
                     <div className="d-flex flex-column justify-content-start">
                         <div className="d-flex flex-column m-3">

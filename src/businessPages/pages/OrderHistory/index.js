@@ -67,12 +67,12 @@ const OrderHistoryBusiness = () => {
 
       <div className="order-history-section">
         <div className="title-order-history">
-          <h6 className="ps-3 pt-3 pb-1">ORDER HISTORY</h6>
+          <h6 className="ps-3 pt-3 pb-1 my-profile-bar-text">ORDER HISTORY</h6>
         </div>
         <table className=" table-margin mb-5">
-          <thead className="table-header">
+          <thead >
             <tr>
-              <th className="w-2 py-3 ps-2">EQUIPMENT NAME</th>
+              <th className="w-2 py-3 ps-2 table_theader">EQUIPMENT NAME</th>
               <th className="w-5">DATE</th>
               <th className="w-5">PAYMENT DETAILS</th>
               <th className="w-5">ORDER DETAILS</th>
