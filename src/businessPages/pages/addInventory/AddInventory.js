@@ -68,7 +68,7 @@ const AddInventory = () => {
         const month = String(today.getMonth() + 1).padStart(2, '0');
         const day = String(today.getDate()).padStart(2, '0');
         const formattedDate = `${year}-${month}-${day}`;
-
+        if (equipment_name !='' && image && price!='' && description!='' && other_details!='') {
         const userId = parseInt(sessionStorage.getItem("userid"));
         console.log(typeof (userId), "userId")
         formData.append('equipment_name', equipment_name);
@@ -77,10 +77,7 @@ const AddInventory = () => {
         formData.append('description', description);
         formData.append('price', price);
         formData.append('other_details', other_details);
-        mixpanel.track("Listing Creation", {
-            equipmentName: equipment_name,
-            price: price,
-        })
+       
 
         if (image) {
             formData.append('images', image);
@@ -98,6 +95,10 @@ const AddInventory = () => {
            console.log(response,"response")
           
             if (response) {
+                mixpanel.track("Listing Creation", {
+                    equipmentName: equipment_name,
+                    price: price,
+                })
                 setEquipmentName("");
                 setDescription("")
                 setPrice("")
@@ -111,6 +112,7 @@ const AddInventory = () => {
         } catch (error) {
             console.error('An error occurred during add inventory:', error.message);
         }
+    }
     }
 
     const handleChange = (e) => {

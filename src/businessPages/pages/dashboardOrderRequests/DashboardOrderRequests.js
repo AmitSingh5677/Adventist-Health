@@ -36,7 +36,10 @@ const DashboardOrderRequests = () => {
             const data = await response.json();
             if (data) {
               console.log(data,"data")
-              setUserData(data)
+
+              const sortedData = [...data].sort((a, b) =>  b.id - a.id);
+            
+              setUserData(sortedData)
             }
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -97,7 +100,9 @@ const DashboardOrderRequests = () => {
             const data = await response.json();
             if (data) {
               console.log(data,"data")
-              setUserData(data)
+              const sortedData = [...data].sort((a, b) =>  b.id - a.id);
+            
+              setUserData(sortedData)
             }
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -142,8 +147,8 @@ const DashboardOrderRequests = () => {
   
             const data = await response.json();
             if (data) {
-              console.log(data,"data")
-              setUserData(data)
+              const sortedData = [...data].sort((a, b) =>  b.id - a.id);
+              setUserData(sortedData)
             }
         } catch (error) {
             console.error('Error fetching data:', error);

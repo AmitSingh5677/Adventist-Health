@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Helmet from '../../../components/helmet/Helmet';
-import AppHeader from '../../../components/header/AppHeader';
+// import AppHeader from '../../../components/header/AppHeader';
+import AppHeader from "../../components/AppHeader/AppHeader";
 import AppFooter from '../../../components/footer/AppFooter';
 import { Col, Container, Form, FormGroup, Input, Label, Row } from 'reactstrap';
 import PageHelmet from '../../../components/page_Helmet/PageHelmet';
@@ -121,6 +122,7 @@ export default function PatientProfileScreen() {
                 const data = await response.json();
                 if (data) {
                     setshowToastError(false);
+                    setIsOpen(false);
                     setShowToast(true);
                     setSucessToast("Your feedback has been successfully recorded.")
                 }
@@ -348,7 +350,7 @@ export default function PatientProfileScreen() {
 
                     <div className='d-flex justify-content-around'>
 
-                        <button className='profile_report_btn' onClick={profileSubmitHandler}>Report user</button>
+                        <button className='profile_report_btn' onClick={profileSubmitHandler}>Report User</button>
                     </div>
                 </Container>
             </div>}

@@ -6,6 +6,7 @@ import DashboardFooter from "../../components/DashboardFooter/DashboardFooter";
 import AppFooter from "../../components/AppFooter/AppFooter";
 import { Col, Container, Row, Table } from "reactstrap";
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 // const orderData = [
 //   {
@@ -134,7 +135,7 @@ import { useState } from "react";
 const DashBoard = () => {
   const [selectedOrderStatus, setSelectedOrderStatus] = useState("");
   const token = JSON.parse(sessionStorage.getItem("token"));
-
+  const navigate=useNavigate()
   const [orderData, setOrderData] = useState([]);
   React.useEffect(() => {
     const token = JSON.parse(sessionStorage.getItem("token"));
@@ -156,7 +157,7 @@ const DashBoard = () => {
         const data = await response.json();
         if (data) {
           console.log(data, "data");
-          const sortedData = data.sort((a, b) => a.id > b.id);
+          const sortedData = [...data].sort((a, b) =>  b.id - a.id);
 console.log(sortedData,"sortedData")
           setOrderData(sortedData);
         }
@@ -252,7 +253,7 @@ console.log(sortedData,"sortedData")
                           <tbody className="body__txt">
                             {orderData?.map((item, index) => (
                               <tr key={item.id}>
-                                <td className="body__elemnts">
+                                <td className="body__elemnts cursor" onClick={()=>navigate(`/b/patient-profile-screen/${item.patient_user}`)}>
                                   {item.patient_name}
                                 </td>
                                 <td className="body__elemnts">

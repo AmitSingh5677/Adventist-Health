@@ -88,7 +88,7 @@ const Notification = () => {
             if (response) {
                 setIsSucess(true);
                 setSucessMsg("Notification marked as read");
-
+                 
                 const fetchData1 = async () => {
                     try {
 
@@ -105,6 +105,10 @@ const Notification = () => {
                             console.log(typeof (data), "notification")
                             // setOrderData(data)
                             setNotificationList(data)
+                            window.location.reload();
+                            const countdata = data.filter((item) => item.mark_as_read === false).map((item) => item.mark_as_read)
+                            console.log(countdata.length, "countdata")
+                            setcount(countdata.length)
 
                         }
                     } catch (error) {
@@ -164,6 +168,10 @@ const Notification = () => {
                             console.log(typeof (data), "notification")
                             // setOrderData(data)
                             setNotificationList(data)
+                            window.location.reload();
+                            const countdata = data.filter((item) => item.mark_as_read === false).map((item) => item.mark_as_read)
+                            console.log(countdata.length, "countdata")
+                            setcount(countdata.length)
 
                         }
                     } catch (error) {
@@ -194,7 +202,8 @@ const Notification = () => {
                     <Container>
                         <div style={{ display: "flex", justifyContent: 'space-between' }}>
                             <h5>Notifications</h5>
-                            <p className='read_txt cursor' onClick={markasAllRead}>Mark all as read <span className='close_icon'>X</span></p>
+                           {count != 0 ? <p className='read_txt cursor' onClick={markasAllRead}>Mark all as read <span className='close_icon'>X</span></p>
+                           : <p className='read_txt' style={{ opacity: 0.5,cursor: "default"}}>Mark all as read <span className='close_icon'>X</span></p>}
                         </div>
                     </Container>
 
@@ -249,10 +258,11 @@ const Notification = () => {
                                                     toggle={() => togglePopover(index)}
                                                 >
                                                     <PopoverBody>
-                                                        <li className="list-group-item cursor" onClick={() => markasRead(item.id)}>Mark as read</li>
-                                                        <li className="list-group-item cursor" >Archive</li>
+                                                        {!item.mark_as_read ?<li className="list-group-item cursor"  onClick={() => markasRead(item.id)}>Mark as read</li>:
+                                                        <li className="list-group-item " style={{ opacity: 0.5,cursor: "default"}}>Mark as read</li>}
+                                                        {/* <li className="list-group-item cursor" >Archive</li>
                                                         <li className="list-group-item cursor">Turn off notifications</li>
-                                                        
+                                                         */}
                                                     </PopoverBody>
 
                                                 </Popover>
