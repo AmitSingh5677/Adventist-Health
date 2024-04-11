@@ -101,6 +101,7 @@ const Login = () => {
             navigate("/homePage");
           }, 3000);
           sessionStorage.setItem("token", JSON.stringify(responseData.token));
+          sessionStorage.setItem("patientId", JSON.stringify(responseData.user.id));
         }
         if (role === "business") {
           const res = await fetch(

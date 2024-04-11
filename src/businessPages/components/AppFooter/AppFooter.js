@@ -25,7 +25,7 @@ const AppFooter = () => {
 
     return (
         <div>
-             <footer style={{ backgroundColor: '#062F2D', color: 'white', padding: '10px', position: 'fixed', bottom: 0, width: '100%', textAlign: 'center', marginBottom: "0px" }}>
+             <footer style={{ backgroundColor: 'rgba(236, 236, 236, 1)', color: 'black', padding: '10px', position: 'fixed', bottom: 0, width: '100%', textAlign: 'center', marginBottom: "0px" }}>
                 <Container>
                     <div style={{ fontFamily: 'Inter', fontWeight: "400", padding: "5px", cursor: "pointer" }}>
                         <span style={{ float: 'left' }}>@Copyright 2023 All Rights Reserved.</span>
