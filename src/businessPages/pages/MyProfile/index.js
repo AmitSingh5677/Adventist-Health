@@ -179,6 +179,7 @@ const MyProfileBusiness = () => {
                 alt="no-img"
                 className="image-profile-section"
               />
+             {!editable && <p style={{cursor:"pointer"}}><b>Change photo</b></p>} 
               </label>
             
 

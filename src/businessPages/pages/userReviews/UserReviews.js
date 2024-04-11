@@ -6,7 +6,8 @@ import "./UserReview.css";
 import user1 from "../../../data/assests/download_img/user(1).png";
 import { StarRating } from "../../../pages/ratingsScreen/RatingScreen";
 import SucessToast from "../../components/sucessToast/SucessToast";
-import profileImage from '../../../data/assests/profImage.jpg'
+import profileImage from "../../../data/assests/profImage.jpg";
+import ToastMessage from "./../../../components/toast/ToastMessage";
 
 const UserReviews = () => {
   const [data, setData] = useState(null);
@@ -15,7 +16,8 @@ const UserReviews = () => {
   const [sortedData, setSortedData] = useState([]);
   const [showSucessToast, setShowSucessToast] = useState(false);
   const [sucessMessage, setSucessMessage] = useState("");
-
+  const [showErrorToast, setShowErrorToast] = useState(false);
+  const [isError, setIsError] = useState("");
   const id = sessionStorage.getItem("userid");
   const token = JSON.parse(sessionStorage.getItem("token"));
 
@@ -59,18 +61,20 @@ const UserReviews = () => {
   //   }
   // };
 
- 
-
   const handleSort = (e) => {
     const selectedSortOption = e.target.value;
     setSortBy(selectedSortOption);
-  
+
     if (selectedSortOption === "new_to_old") {
-      const newData = [...data].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+      const newData = [...data].sort(
+        (a, b) => new Date(b.created_at) - new Date(a.created_at)
+      );
       setSortedData(newData);
     }
     if (selectedSortOption === "old_to_new") {
-      const newData = [...data].sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+      const newData = [...data].sort(
+        (a, b) => new Date(a.created_at) - new Date(b.created_at)
+      );
       setSortedData(newData);
     }
     if (selectedSortOption === "stars") {
@@ -101,38 +105,50 @@ const UserReviews = () => {
           }
         );
         const resData = await response.json();
-        
+
         if (resData) {
           setShowSucessToast(true);
           setSucessMessage("Your message has been successfully sent to admin");
-          setMsg("")
-          setTimeout(()=>{
-            window.location.reload()
-          },3000)
+          setMsg("");
+          setTimeout(() => {
+            window.location.reload();
+          }, 3000);
         }
       } catch (error) {
         console.error("Error submitting form:", error.message);
-        setMsg("")
+        setMsg("");
       }
+    } else {
+      setShowErrorToast(true);
+      setIsError("Please enter message.");
     }
   };
 
   return (
     <div>
       <AppHeader />
+      {showErrorToast ? (
+        <ToastMessage
+          show={showErrorToast}
+          message={isError}
+          onClose={() => setShowErrorToast(false)}
+        />
+      ) : null}
       <div
         className="my-review-section"
         style={{ overflowY: "auto", maxHeight: "100vh", marginBottom: "100px" }}
-        >
+      >
         {showSucessToast ? (
-              <SucessToast
-                show={showSucessToast}
-                onClose={() => setShowSucessToast(false)}
-                message={sucessMessage}
-              />
-            ) : null}
+          <SucessToast
+            show={showSucessToast}
+            onClose={() => setShowSucessToast(false)}
+            message={sucessMessage}
+          />
+        ) : null}
         <div className="d-flex flex-row justify-content-end p-3">
-          <label htmlFor="sort-filter">Sort by:</label>
+          <label htmlFor="sort-filter">
+            <b>Sort by:</b>
+          </label>
           <select id="sort-filter" onChange={(e) => handleSort(e)}>
             <option value="new_to_old">New to old</option>
             <option value="old_to_new">Old to New</option>
@@ -146,7 +162,7 @@ const UserReviews = () => {
           >
             <thead className="reviews-header-section">
               <tr>
-                <th className="w-2 t-head-reviews" >USER/PATIENT</th>
+                <th className="w-2 t-head-reviews">USER/PATIENT</th>
                 <th className="w-2 ps-3">STARS</th>
                 <th className="w-2 ps-5">RATING MESSAGE</th>
                 <th className="w-2">CHALLENGE RATING/REACH ADMIN</th>
@@ -160,7 +176,15 @@ const UserReviews = () => {
                 return (
                   <tr className="border-bottom border-body-secondary">
                     <td className="profile-container">
-                      <img src={item.patient_avatar? item?.patient_avatar : profileImage} alt="user profile" className="profImage" />
+                      <img
+                        src={
+                          item.patient_avatar
+                            ? item?.patient_avatar
+                            : profileImage
+                        }
+                        alt="user profile"
+                        className="profImage"
+                      />
                       <p className="mb-0 ms-2"> {item.patient_name}</p>
                     </td>
                     <td className="pt-3">

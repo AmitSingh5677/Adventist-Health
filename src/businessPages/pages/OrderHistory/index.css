@@ -8,9 +8,9 @@
 scroll-behavior: smooth;
 }
 .title-order-history{
-    border: 1px solid #007D8A;
-    background-color: #007D8A;
-    color: #fff;
+    border: 1px solid #ECECEC;
+    background-color: #ECECEC;
+    color: #000;
     margin-inline: 70px;
     border-radius: 10px 10px 0 0;
 }
