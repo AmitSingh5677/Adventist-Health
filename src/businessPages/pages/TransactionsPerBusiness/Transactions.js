@@ -226,8 +226,8 @@ const TransactionsBusiness = () => {
                 className="d-flex filter-bar"
                 style={{ justifyContent: "space-between" }}
               >
-                <span>Start date: </span>
-                <div>
+                <span>Start date </span>
+                <div className="ms-2">
                   <input type="date" value={startDate} onChange={(e)=>setStartDate(e.target.value)} style={{ width: "110px" }} required />
                 </div>
               </div>
@@ -235,8 +235,8 @@ const TransactionsBusiness = () => {
                 className="d-flex filter-bar"
                 style={{ justifyContent: "space-between" }}
                 >
-                <span>End date: </span>
-                <div>
+                <span>End date </span>
+                <div className="ms-2">
                   <input type="date" value={endDate} onChange={(e)=>setEndDate(e.target.value)} style={{ width: "110px" }} required />
                 </div>
               </div>
@@ -285,13 +285,13 @@ const TransactionsBusiness = () => {
         </div>
         <div className="ms-4 mt-3">
             <div className="d-flex revenue-detail">
-            <h6>Total revenue :</h6>
-            {!updatedData ? <h6>${businessData?.revenue_generated}</h6> : <h6>${updatedData?.amount}</h6> }
+            <h6><b>Total revenue :</b></h6>
+            {!updatedData ? <h6><b>${businessData?.revenue_generated}</b></h6> : <h6><b>${updatedData?.amount}</b></h6> }
             {/* <h6>${data?.total_transaction_amount}</h6> */}
             </div>
             <div className="d-flex revenue-detail">
-            <h6>Transaction count :</h6>
-            {!updatedData ? <h6>{businessData?.number_of_transaction}</h6> : <h6>{updatedData?.count}</h6> }
+            <h6><b>Transaction count :</b></h6>
+            {!updatedData ? <h6><b>{businessData?.number_of_transaction}</b></h6> : <h6><b>{updatedData?.count}</b></h6> }
             {/* <h6>{data?.transaction_count}</h6> */}
             </div>
         </div>

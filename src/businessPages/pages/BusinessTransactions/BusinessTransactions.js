@@ -220,8 +220,8 @@ const BusinessTransactions = () => {
                 className="d-flex filter-bar"
                 style={{ justifyContent: "space-between" }}
               >
-                <span>Start date: </span>
-                <div>
+                <span>Start date </span>
+                <div className="ms-2">
                   <input type="date" value={startDate} onChange={(e)=>setStartDate(e.target.value)} style={{ width: "110px" }} required />
                 </div>
               </div>
@@ -229,8 +229,8 @@ const BusinessTransactions = () => {
                 className="d-flex filter-bar"
                 style={{ justifyContent: "space-between" }}
                 >
-                <span>End date: </span>
-                <div>
+                <span>End date </span>
+                <div className="ms-2">
                   <input type="date" value={endDate} onChange={(e)=>setEndDate(e.target.value)} style={{ width: "110px" }} required />
                 </div>
               </div>
@@ -277,13 +277,13 @@ const BusinessTransactions = () => {
         </div>
         <div className="ms-4 mt-3">
             <div className="d-flex revenue-detail">
-            <h6>Total revenue :</h6>
-            {!updatedData ? <h6>${data?.total_transaction_amount}</h6> : <h6>${updatedData?.filter_by?.transaction_amount}</h6> }
+            <h6><b>Total revenue :</b></h6>
+            {!updatedData ? <h6><b>${data?.total_transaction_amount}</b></h6> : <h6><b>${updatedData?.filter_by?.transaction_amount}</b></h6> }
             {/* <h6>${data?.total_transaction_amount}</h6> */}
             </div>
             <div className="d-flex revenue-detail">
-            <h6>Transaction count :</h6>
-            {!updatedData ? <h6>{data?.transaction_count}</h6> : <h6>{updatedData?.filter_by?.transaction_count}</h6> }
+            <h6><b>Transaction count :</b></h6>
+            {!updatedData ? <h6><b>{data?.transaction_count}</b></h6> : <h6><b>{updatedData?.filter_by?.transaction_count}</b></h6> }
             {/* <h6>{data?.transaction_count}</h6> */}
             </div>
         </div>

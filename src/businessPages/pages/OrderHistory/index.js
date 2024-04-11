@@ -71,12 +71,12 @@ const OrderHistoryBusiness = () => {
         </div>
         <table className=" table-margin mb-5">
           <thead >
-            <tr>
-              <th className="w-2 py-3 ps-2 table_theader">EQUIPMENT NAME</th>
-              <th className="w-5">DATE</th>
-              <th className="w-5">PAYMENT DETAILS</th>
-              <th className="w-5">ORDER DETAILS</th>
-              <th className="w-5">STATUS</th>
+            <tr className="table_theader">
+              <th className="w-2 py-3 ps-2"><b>EQUIPMENT NAME</b></th>
+              <th className="w-5"><b>DATE</b></th>
+              <th className="w-5"><b>PAYMENT DETAILS</b></th>
+              <th className="w-5"><b>ORDER DETAILS</b></th>
+              <th className="w-5"><b>STATUS</b></th>
             </tr>
           </thead>
 
