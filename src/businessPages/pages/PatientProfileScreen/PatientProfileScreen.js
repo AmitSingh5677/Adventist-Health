@@ -121,6 +121,8 @@ export default function PatientProfileScreen() {
 
                 const data = await response.json();
                 if (data) {
+                    setSelectedOption(null)
+                    setuserDesc('')
                     setshowToastError(false);
                     setIsOpen(false);
                     setShowToast(true);

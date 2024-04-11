@@ -285,6 +285,8 @@ console.log(sortedData,"sortedData")
                                         e.target.value
                                       )
                                     }
+
+                                    disabled={item.business_order_action === 'rejected'}
                                   >
                                     <option value="">Select Status</option>
                                     <option value="On the Way">
