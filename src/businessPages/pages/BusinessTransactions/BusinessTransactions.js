@@ -14,6 +14,7 @@ const BusinessTransactions = () => {
   const [businessData, setBusinessData] = useState();
   const [orderData, setOrderData] = useState([]);
   const [error, setError] = useState();
+  const [table, setTable] = useState(false);
 
   const id = sessionStorage.getItem("userid")
   const token = JSON.parse(sessionStorage.getItem("token"))
@@ -106,6 +107,7 @@ const BusinessTransactions = () => {
     );
       const resData = await response.json();
       setOrderData(resData);
+      setTable(true)
     }
   };
 
@@ -240,7 +242,7 @@ const BusinessTransactions = () => {
                 {error?.endDate && <span  style={{color:"red",marginLeft:"80px"}} >{error.endDate}</span>}
             <div className="mt-2">
               <Table className="table table-hover borderless responsive striped">
-                <thead
+               {table && <thead
                   className="table-header-analytics"
                   style={{ backgroundColor: "#E3E3E3" }}
                 >
@@ -250,7 +252,8 @@ const BusinessTransactions = () => {
                     <th style={{fontSize:"12px"}} className="table_theader">Order Date & Time</th>
                     <th style={{fontSize:"12px"}} className="table_theader">Transaction Amount</th>
                   </tr>
-                </thead>
+                </thead> }
+                
                 <tbody className="body__txt">
                   {orderData && orderData?.date_filter?.order_details?.map((item, index) => (
                               <tr key={index}>

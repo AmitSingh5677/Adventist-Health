@@ -35,6 +35,12 @@ const BussinessPage = () => {
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [show, setShow] = useState(false);
+  const [replaceItem, setReplaceItem] = useState({
+    id: "",
+        equipment_name: "",
+        product_signed_url: "",
+        price: ""
+  });
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -60,21 +66,45 @@ const BussinessPage = () => {
   };
 
   const addToCart = (id, equipment_name, product_signed_url, price) => {
-    console.log("Payload:", JSON.stringify({ id }));
+    // console.log("Payload:", JSON.stringify({ id }));
     const cart_business_id = JSON.parse(sessionStorage.getItem("cartItems"));
     const business_id_to_check = JSON.parse(
       sessionStorage.getItem("businessId")
     );
-    // console.log(cart_business_id[0]?.businessId,"cart")
+    // console.log(cart_business_id[0]?.businessId,id,equipment_name,"cart")
+    console.log(cart_business_id,"cart")
 
-    if (
-      cart_business_id &&
+    if( cart_business_id?.length === 0){
+      handleClose()
+      mixpanel.track("Add to Cart", {
+        equipmentId: id,
+        equipmentName: equipment_name,
+      });
+      dispatch(
+        cartActions.addItem({
+          id,
+          equipment_name,
+          product_signed_url,
+          price,
+          cartBusinessId,
+          cartBusinessName,
+        })
+      );
+    }
+    else if ( cart_business_id &&
       cart_business_id[0]?.businessId !== business_id_to_check
     ) {
-      console.log("error");
+      console.log("error", id, equipment_name);
+      setReplaceItem({
+        id: id,
+        equipment_name: equipment_name,
+        product_signed_url: product_signed_url,
+        price: price
+      })
       handleShow();
-    } else if (
-      !cart_business_id ||
+    } 
+    else if (
+      !cart_business_id || 
       cart_business_id[0]?.businessId == business_id_to_check
     ) {
       mixpanel.track("Add to Cart", {
@@ -92,15 +122,9 @@ const BussinessPage = () => {
         })
       );
     }
-    // Mixpanel.track('User cartItems', {
-    //     equipment_name,
-    // });
   };
 
-  // useEffect(() => {
-  //     // Track user registration event
 
-  // }, [username]);
 
   const paymentRoute = (price, id) => {
     console.log("product_id" + id);
@@ -153,9 +177,9 @@ const BussinessPage = () => {
         // console.error('Error fetching data:', error);
         setIsLoading(false);
         setIsError(true);
-        setErrorMessage(
-          "There is Internal Server.Please Visit After SomeTime."
-        );
+        // setErrorMessage(
+        //   "There is Internal Server.Please Visit After SomeTime."
+        // );
       }
     };
 
@@ -239,107 +263,60 @@ const BussinessPage = () => {
       : "";
 
   console.log(allProducts, cartItemBusinessName, "cart");
-  
-  
+
   const onChangeHandler = async (e) => {
     const inputValue = e.target.value;
     setSearchInput(inputValue);
-};
-
-
- useEffect(()=>{
-  const searchIconHandler = async () => {
-    // const inputValue = e.target.value;
-    // setSearchInput(inputValue);
-    const b_id = sessionStorage.getItem("businessId")
-    setIsLoading(true);
-    const token = JSON.parse(sessionStorage.getItem("token"));
-    try {
-      const response = await fetch(
-        `/patients/productsearch/${b_id}/?search=${searchInput}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Token ${token}`,
-          },
-        }
-      );
-      const data = await response.json();
-      console.log(data, "11");
-      if (data) {
-        if (searchInput) {
-          setSearchProducts(data);
-          // console.log("userData" + JSON.stringify(data));
-          setIsLoading(false);
-        }
-        if (!searchInput) {
-          setSearchProducts(allProducts);
-        }
-      } else {
-        setErrorMessage("No Data Found ");
-      }
-
-      if (data.length < 1) {
-        setIsError(true);
-        setErrorMessage(
-          "Sorry, no results found. Please check your search and try again."
-        );
-        setSearchInput("");
-      }
-    } catch (error) {
-      setIsLoading(false);
-      setIsError(true);
-      setErrorMessage("There is Internal Server.Please Visit After SomeTime.");
-    }
   };
-  searchIconHandler()
- },[searchInput])
-  
-  // const searchIconHandler = async (e) => {
-  //   const inputValue = e.target.value;
-  //   setSearchInput(inputValue);
-  //   setIsLoading(true);
-  //   const token = JSON.parse(sessionStorage.getItem("token"));
-  //   try {
-  //     const response = await fetch(
-  //       `/patients/productsearch/${id}/?search=${searchInput}`,
-  //       {
-  //         method: "GET",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: `Token ${token}`,
-  //         },
-  //       }
-  //     );
-  //     const data = await response.json();
-  //     console.log(data, "11");
-  //     if (data) {
-  //       if (searchInput) {
-  //         setSearchProducts(data);
-  //         // console.log("userData" + JSON.stringify(data));
-  //         setIsLoading(false);
-  //       }
-  //       if (!searchInput) {
-  //         setSearchProducts(allProducts);
-  //       }
-  //     } else {
-  //       setErrorMessage("No Data Found ");
-  //     }
 
-  //     if (data.length < 1) {
-  //       setIsError(true);
-  //       setErrorMessage(
-  //         "Sorry, no results found. Please check your search and try again."
-  //       );
-  //       setSearchInput("");
-  //     }
-  //   } catch (error) {
-  //     setIsLoading(false);
-  //     setIsError(true);
-  //     setErrorMessage("There is Internal Server.Please Visit After SomeTime.");
-  //   }
-  // };
+  useEffect(() => {
+    const searchIconHandler = async () => {
+      // const inputValue = e.target.value;
+      // setSearchInput(inputValue);
+      const b_id = sessionStorage.getItem("businessId");
+      setIsLoading(true);
+      const token = JSON.parse(sessionStorage.getItem("token"));
+      try {
+        const response = await fetch(
+          `/patients/productsearch/${b_id}/?search=${searchInput}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Token ${token}`,
+            },
+          }
+        );
+        const data = await response.json();
+        console.log(data, "11");
+        if (data) {
+          if (searchInput) {
+            setSearchProducts(data);
+            // console.log("userData" + JSON.stringify(data));
+            setIsLoading(false);
+          }
+          if (!searchInput) {
+            setSearchProducts(allProducts);
+          }
+        } else {
+          setErrorMessage("No Data Found ");
+        }
+
+        if (data.length < 1) {
+          setIsError(true);
+          setErrorMessage(
+            "Sorry, no results found. Please check your search and try again."
+          );
+          setSearchInput("");
+        }
+      } catch (error) {
+        setIsLoading(false);
+        // setIsError(true);
+        // setErrorMessage("There is Internal Server.Please Visit After SomeTime.");
+      }
+    };
+    searchIconHandler();
+  }, [searchInput]);
 
   const onImageClick = (name) => {
     mixpanel.track("Product Views", {
@@ -350,11 +327,17 @@ const BussinessPage = () => {
   const handleNo = () => {
     navigate("/cart");
   };
-  const handleReplace = (id, equipment_name, product_signed_url, price) => {
+  const handleReplace = () => {
+    console.log(replaceItem, "replace")
+    // const replaceItem = {id,equipment_name, product_signed_url, price}
+    const id = replaceItem.id
+    const equipment_name = replaceItem.equipment_name
+    const product_signed_url = replaceItem.product_signed_url
+    const price = replaceItem.price
     dispatch(cartActions.resetCart());
     mixpanel.track("Add to Cart", {
-      equipmentId: id,
-      equipmentName: equipment_name,
+      equipmentId: replaceItem.id,
+      equipmentName: replaceItem.equipment_name,
     });
     dispatch(
       cartActions.addItem({
@@ -367,6 +350,7 @@ const BussinessPage = () => {
       })
     );
     handleClose();
+    setReplaceItem("")
   };
   // const img = "https://dmecart-38297.s3.amazonaws.com/media/images/order/None/th.jfif?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA4KGTUZ6KMU75EMVU%2F20240305%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20240305T050859Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=a2fd03a3370ee4b5b2f52e3f84702f1f8f3e8130e25f25fcc6810ae662b1b3a3"
   return (
@@ -491,23 +475,6 @@ const BussinessPage = () => {
                                   </div>
                                   <hr></hr>
                                   <div>
-                                    {/* <button className="addToCart_Btn" onClick={() => addToCart(item.id, item.equipment_name, item.product_signed_url, item.price)}> */}
-                                    <button
-                                      className="addToCart_Btn"
-                                      onClick={() =>
-                                        addToCart(
-                                          item.id,
-                                          item.equipment_name,
-                                          item.product_signed_url,
-                                          item.price
-                                        )
-                                      }
-                                    >
-                                      <FaCartArrowDown /> Add to Cart
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
                               <Modal show={show} onHide={handleClose}>
                                 <Modal.Header closeButton>
                                   {/* <Modal.Title>Modal heading</Modal.Title> */}
@@ -527,10 +494,10 @@ const BussinessPage = () => {
                                     }}
                                     onClick={() =>
                                       handleReplace(
-                                        item.id,
-                                        item.equipment_name,
-                                        item.product_signed_url,
-                                        item.price
+                                        // item.id,
+                                        // item.equipment_name,
+                                        // item.product_signed_url,
+                                        // item.price
                                       )
                                     }
                                   >
@@ -550,6 +517,23 @@ const BussinessPage = () => {
                                   </Button>
                                 </Modal.Footer>
                               </Modal>
+                                    {/* <button className="addToCart_Btn" onClick={() => addToCart(item.id, item.equipment_name, item.product_signed_url, item.price)}> */}
+                                    <button
+                                      className="addToCart_Btn"
+                                      onClick={() =>
+                                        addToCart(
+                                          item.id,
+                                          item.equipment_name,
+                                          item.product_signed_url,
+                                          item.price
+                                        )
+                                      }
+                                    >
+                                      <FaCartArrowDown /> Add to Cart
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
                             </Col>
                           ))
                         : allProducts.map((item) => (
@@ -663,10 +647,10 @@ const BussinessPage = () => {
                                     }}
                                     onClick={() =>
                                       handleReplace(
-                                        item.id,
-                                        item.equipment_name,
-                                        item.product_signed_url,
-                                        item.price
+                                        // item.id,
+                                        // item.equipment_name,
+                                        // item.product_signed_url,
+                                        // item.price
                                       )
                                     }
                                   >

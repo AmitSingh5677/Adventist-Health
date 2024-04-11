@@ -17,6 +17,7 @@ const TransactionsBusiness = () => {
   const [businessData, setBusinessData] = useState();
   const [orderData, setOrderData] = useState([]);
   const [error, setError] = useState();
+  const [table, setTable] = useState(false);
 
   const fetchData = async () => {
     const response = await fetch(
@@ -103,6 +104,7 @@ const TransactionsBusiness = () => {
       );
       const resData = await response.json();
       setOrderData(resData);
+      setTable(true)
     }
   };
 
@@ -246,7 +248,7 @@ const TransactionsBusiness = () => {
                 {error?.endDate && <span className="" style={{color:"red",marginLeft:"80px"}} >{error.endDate}</span>}
             <div className="mt-2">
               <Table className="table table-hover borderless responsive striped">
-                { orderData && <thead
+                { table && <thead
                   className="table-header-analytics"
                   style={{ backgroundColor: "#E3E3E3" }}
                 >
@@ -284,12 +286,12 @@ const TransactionsBusiness = () => {
         <div className="ms-4 mt-3">
             <div className="d-flex revenue-detail">
             <h6>Total revenue :</h6>
-            {/* {!updatedData ? <h6>${data?.total_transaction_amount}</h6> : <h6>${updatedData?.filter_by?.transaction_amount}</h6> } */}
+            {!updatedData ? <h6>${businessData?.revenue_generated}</h6> : <h6>${updatedData?.amount}</h6> }
             {/* <h6>${data?.total_transaction_amount}</h6> */}
             </div>
             <div className="d-flex revenue-detail">
             <h6>Transaction count :</h6>
-            {/* {!updatedData ? <h6>{data?.transaction_count}</h6> : <h6>{updatedData?.filter_by?.transaction_count}</h6> } */}
+            {!updatedData ? <h6>{businessData?.number_of_transaction}</h6> : <h6>{updatedData?.count}</h6> }
             {/* <h6>{data?.transaction_count}</h6> */}
             </div>
         </div>
