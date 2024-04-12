@@ -27,6 +27,7 @@ const ChallengeCard = (props) => {
     const [id,setId]=useState('')
     const sendMessage = (id) => {
         setId('')
+       
         const token = JSON.parse(sessionStorage.getItem("token"));
         const userid = parseInt(sessionStorage.getItem("userid"));
 
@@ -57,6 +58,7 @@ const ChallengeCard = (props) => {
                 if (data) {
                     setshowSuccessTost(true);
                     setSucessToast(true)
+                    setRating('')
                     setIsSuccess("Your feedback has been successfully recorded.")
                 }
 
@@ -133,6 +135,7 @@ const ChallengeCard = (props) => {
                     <div className="d-flex flex-column mt-3">
                         <label htmlfor='message-input' style={{ fontWeight: 'bold' }}>Add new Message</label>
                         <textarea className="bg-dark-subtle text_area p-1" rows={2} placeholder="Write your message here..." 
+                        value={Rating}
                         onChange={(e) => ontextChange(item.id,e.target.value)}></textarea>
                        
                         <button type="button" className="btn btn-success mt-3 align-self-end m-1 p-5 pt-1 pb-1"

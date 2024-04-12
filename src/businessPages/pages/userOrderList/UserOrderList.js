@@ -208,6 +208,8 @@ console.log(sortedData,"sortedData")
         return "#FA9217";
       case "Delivered":
         return "#026937";
+      case "rejected":
+          return "#D90000";  
       default:
         return ""; // default color or none
     }
@@ -220,6 +222,8 @@ console.log(sortedData,"sortedData")
         return "#FFE7CA";
       case "Delivered":
         return "#CAFFD9";
+      case "rejected":
+        return "#FFCACA";    
       default:
         return ""; // default color or none
     }
@@ -286,14 +290,18 @@ console.log(sortedData,"sortedData")
                                       )
                                     }
 
-                                    disabled={item.business_order_action === 'rejected'}
+                                     disabled={item.business_order_action === 'rejected'}
                                   >
-                                    <option value="">Select Status</option>
+                                   {item.business_order_action != 'rejected'? <><option value="">Select Status</option>
+                                   
                                     <option value="On the Way">
                                       On the Way
                                     </option>
                                     <option value="Accepted">Accepted</option>
                                     <option value="Delivered">Delivered</option>
+                                    </>:
+                                    <option  value="rejected" style={{color:'rgb(217, 0, 0) !important'}}>Rejected</option>
+                                   }
                                   </select>
                                   
                                 </td>

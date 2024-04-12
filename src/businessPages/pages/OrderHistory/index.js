@@ -22,7 +22,9 @@ const OrderHistoryBusiness = () => {
       }
     );
     const resData = await response.json();
-    setOrders(resData);
+    console.log("resData",resData)
+    const sortdata= resData.sort((a,b)=> b.id - a.id)
+    setOrders(sortdata);
   };
   console.log(orders, "hello");
 
@@ -44,15 +46,17 @@ const OrderHistoryBusiness = () => {
   const getOrderStatusColor = (status) => {
     switch (status) {
       case "On the Way":
-        return "#D90000";
+        return "#7AC24F";
       case "Accepted":
-        return "#FB1515";
+        return "#04D23E";
       case "accepted":
-        return "#FB1515";
+        return "#04D23E";
       case "Delivered":
         return "#04D23E";
       case "pending":
         return "#FA9217";
+      case "rejected":
+        return "#FB1515";  
       default:
         return ""; // default color or none
     }

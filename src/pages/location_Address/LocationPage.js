@@ -70,9 +70,11 @@ const LocationPage = () => {
 
         if (!userNum) {
             errors.userNum = 'Mobile Number is required';
-        }else if (!validateMobileNumber(userNum)) {
-            errors.userNum = 'Please enter Valid mobile number';
         }
+        
+        // else if (!validateMobileNumber(userNum)) {
+        //     errors.userNum = 'Please enter Valid mobile number';
+        // }
 
         if (!userState) {
             errors.userState = 'State is required';
@@ -638,6 +640,7 @@ const LocationPage = () => {
                                                                         onChange={handleChange}
                                                                         placeholder="Mobile Number"
                                                                         onKeyPress={handleKeyPress}
+                                                                        maxLength={10}
                                                                     />
                                                                 </Col>
                                                                 <Col md={12} className='mt-2'>
@@ -772,6 +775,7 @@ const LocationPage = () => {
                                                             onChange={handleChange1}
                                                             placeholder="Mobile Number"
                                                             onKeyPress={handleKeyPress}
+                                                            maxLength={10}
                                                         />
                                                     </Col>
                                                     <Col md={12} className='mt-2'>
