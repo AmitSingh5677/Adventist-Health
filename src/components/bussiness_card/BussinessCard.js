@@ -1,10 +1,35 @@
 import React, { useState } from 'react'
-import { FaStar } from 'react-icons/fa';
 import { CardTitle, Card, CardBody, CardImg, CardText,Container } from 'reactstrap';
 import dummyImg from "../../data/assests/download_img/Sample Card - Light.png";
 import { useDispatch } from 'react-redux';
 import { cartActions } from '../../store/shippingCart/cartSlice';
+import { FaStar, FaStarHalfAlt } from 'react-icons/fa';
 
+export const StarRating = ({ rating }) => {
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating - fullStars >= 0.5;
+
+    const stars = [];
+    const maxStars = 5;
+
+    for (let i = 0; i < maxStars; i++) {
+        if (i < fullStars) {
+            stars.push(<FaStar key={i} style={{ color: 'rgba(122, 194, 79, 1)' }} />);
+        } else if (hasHalfStar && i === fullStars) {
+            stars.push(<FaStarHalfAlt key={i} style={{ color: 'rgba(122, 194, 79, 1)' }} />);
+        } else {
+            stars.push(<FaStar key={i} style={{ color: '#DDDDDD' }} />);
+        }
+    }
+
+    return (
+        <div className='userName__feedback ' style={{ top: "-10px", fontSize: "20px" }}>
+            {stars.map((star, index) => (
+                <span key={index}>{star}</span>
+            ))}
+        </div>
+    );
+};
 const BussinessCard = ({ rating }) => {
     const [selectedRating, setSelectedRating] = useState();
     const [bussinessName, setBussinessName] = useState();
@@ -113,7 +138,7 @@ const BussinessCard = ({ rating }) => {
                             <button className='rating__btn'>{averageRating} <FaStar color='#ffff' /></button>
                         </CardText>
                         <div className='rating__txt'>
-                            {stars}
+                        <StarRating  rating={averageRating} />
                             <span style={{
                                 fontSize: "20px", position: "relative", left: "13px", top: "-3px", color: "#687D94", fontWeight: 600
                             }}>{averageRating}/5</span>

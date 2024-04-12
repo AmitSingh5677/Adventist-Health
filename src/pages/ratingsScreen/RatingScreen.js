@@ -256,11 +256,12 @@ console.log(rating,"rating")
                                 </Col>
                             </Row>
                         </Container>
-                        {userData.map((user, index) => (
-                            <Row key={index}>
-                                <Col xs={12} sm={12} lg={12}>
-                                    {rating.length === 0 ? "No Ratings are Found for this Business" : (
+                        {rating.length === 0 ? "No Ratings are Found for this Business" : (
                                         rating.map((userRating, ratingIndex) => (
+                       
+                            <Row >
+                                <Col xs={12} sm={12} lg={12}>
+                                {userData.map((user, index) => (
                                             userRating.user === user.userNumber && (
                                                 <div key={ratingIndex} style={{ marginTop: "20px" }}>
                                                     <Row>
@@ -289,11 +290,13 @@ console.log(rating,"rating")
                                                     <hr style={{ marginTop: "-10px" }} />
                                                 </div>
                                             )
-                                        ))
-                                    )}
+                                            ))}
                                 </Col>
                             </Row>
-                        ))}
+                       
+
+                        ))
+                                    )}
                     </>)}
 
                     <Container>
