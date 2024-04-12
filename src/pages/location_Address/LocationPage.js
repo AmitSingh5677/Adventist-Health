@@ -46,7 +46,13 @@ const LocationPage = () => {
     const [disableedit, setdisableedit] = useState(false);
     const [fieldErrors, setFieldErrors] = useState({});
 
-
+    function validateMobileNumber(number) {
+        // Regular expression to match a mobile number
+        const regex = /^\d{10}$/; // Assuming a 10-digit number
+        
+        // Check if the number matches the regular expression and has exactly 10 digits
+        return regex.test(number) && number.length === 10;
+      }
     const validateForm = () => {
         const errors = {};
 
@@ -64,7 +70,10 @@ const LocationPage = () => {
 
         if (!userNum) {
             errors.userNum = 'Mobile Number is required';
+        }else if (!validateMobileNumber(userNum)) {
+            errors.userNum = 'Please enter Valid mobile number';
         }
+
         if (!userState) {
             errors.userState = 'State is required';
         };

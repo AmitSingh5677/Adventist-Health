@@ -60,7 +60,7 @@ const ForgotPassword = ({ show, handleClose }) => {
           setIsDialog(true);
         } else {
           setShowErrorToast(true);
-          setToastError("You are Not a Registered User.");
+          setToastError("You are not a registered user.");
           console.error("Login failed. Please check your credentials.");
         }
       } catch (error) {
