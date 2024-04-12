@@ -147,9 +147,9 @@ const UserReviews = () => {
         ) : null}
         <div className="d-flex flex-row justify-content-end p-3">
           <label htmlFor="sort-filter">
-            <b>Sort by:</b>
+            <b>Sort by</b>
           </label>
-          <select id="sort-filter" onChange={(e) => handleSort(e)}>
+          <select id="sort-filter" className="ms-2" onChange={(e) => handleSort(e)}>
             <option value="new_to_old">New to old</option>
             <option value="old_to_new">Old to New</option>
             <option value="stars">Sort by stars</option>

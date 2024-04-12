@@ -7,6 +7,12 @@
     font-size: 17px;
     font-weight: 600;
 }
+.image-product-inquiry{
+    border: 1px solid black;
+    object-fit: contain;
+    height: 100px;
+    width: 100px;
+}
 
 .image_buisness {
    
