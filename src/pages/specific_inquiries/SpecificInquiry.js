@@ -24,6 +24,7 @@ const SpecificInquiry = () => {
     const [isError, setIsError] = useState("");
     const [sucessToast, setSucessToast] = useState(false)
     const [errorMessage, setErrorMessage] = useState('');
+    const [data, setData] = useState();
     const [filteredData, setFilteredData] = React.useState();
     const [businessimg, setBusinessimg] = React.useState();
 
@@ -80,13 +81,11 @@ const SpecificInquiry = () => {
                 if (data) {
                     setIsLoading(false);
                     // console.log("bussiness_id" + JSON.stringify(data));
+                    setData(data)
                     const filteredDataById = data.filter(item => item.id === parseInt(id));
                     if (filteredDataById.length > 0) {
                         setFilteredData(filteredDataById);
-                    } else {
-                       // alert("No Data Found for the Specified ID");
-                        // Handle the case where no data matches the ID
-                    }
+                    } 
                 } else {
                   //  alert("No Data Found for Particular Bussiness");
                     // Handle the case where no data is returned
@@ -103,6 +102,8 @@ const SpecificInquiry = () => {
         fetchData();
 
     }, []);
+
+    console.log(filteredData,data,"data")
 
 
     React.useEffect(() => {
@@ -213,6 +214,7 @@ const SpecificInquiry = () => {
             // Handle error if needed
         }
     };
+    
 
     // https://dmecart-38297.botics.co/business/inquiries/4/eKtF1708605971/
 
@@ -271,19 +273,19 @@ const SpecificInquiry = () => {
                         </Card>
                 </Container>
                 <div className='specific__content'>
-                   {filteredData && <Row>
+                   {data && <Row>
                         <h4 style={{ marginBottom: "15px", fontSize: "18px" }}>Inquiry for:</h4>
+                        <Col md={6} lg={1}>
+                            <img src={data.product_signed_url} className='image-product-inquiry' alt="img"/>
+                        </Col>
+                        <Col md={6} lg={2} className='ms-5'>
+                            <h6 className='specific__txt '>{data.equipment_name}</h6>
+                            <p className='specific__subtxt'><span style={{ fontWeight: "600" }}>Product Description: </span>{data.description}</p>
+                        </Col>
                         <Col md={6} lg={2}>
-                            <img src={filteredData[0].product_signed_url} alt="img" width="50%" />
+                            <h6 className='specific__txt '>${data.price}</h6>
                         </Col>
-                        <Col md={6} lg={6}>
-                            <h6 className='specific__txt '>{filteredData[0].equipment_name}</h6>
-                            <p className='specific__subtxt'><span style={{ fontWeight: "500" }}>Product Description: </span>{filteredData[0].description}</p>
-                        </Col>
-                        <Col md={6} lg={2}>
-                            <h6 className='specific__txt '>${filteredData[0].price}</h6>
-                        </Col>
-                        <hr />
+                        <hr className='mt-3' />
                     </Row>}
                     <Row>
 

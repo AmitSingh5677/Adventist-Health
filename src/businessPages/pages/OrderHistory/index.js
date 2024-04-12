@@ -71,12 +71,13 @@ const OrderHistoryBusiness = () => {
         </div>
         <table className=" table-margin mb-5">
           <thead >
-            <tr className="table_theader">
-              <th className="w-2 py-3 ps-2"><b>EQUIPMENT NAME</b></th>
-              <th className="w-5"><b>DATE</b></th>
-              <th className="w-5"><b>PAYMENT DETAILS</b></th>
-              <th className="w-5"><b>ORDER DETAILS</b></th>
-              <th className="w-5"><b>STATUS</b></th>
+            <tr className="table-header">
+              <th className="w-2 py-3 ps-2" style={{backgroundColor:"#F4F4F4"}}><b>EQUIPMENT NAME</b></th>
+              <th className="w-2 py-3 ps-2" style={{backgroundColor:"#F4F4F4"}}><b>USER</b></th>
+              <th className="w-5" style={{backgroundColor:"#F4F4F4"}}><b>DATE</b></th>
+              <th className="w-5" style={{backgroundColor:"#F4F4F4"}}><b>PAYMENT DETAILS</b></th>
+              <th className="w-5" style={{backgroundColor:"#F4F4F4"}}><b>SHIPPING ADDRESS</b></th>
+              <th className="w-5" style={{backgroundColor:"#F4F4F4"}}><b>STATUS</b></th>
             </tr>
           </thead>
 
@@ -85,6 +86,7 @@ const OrderHistoryBusiness = () => {
               return (
                 <tr className="border-bottom border-body-secondary ">
                   <td className="py-2">{item.equipment_name}</td>
+                  <td className="py-2">{item.patient_name}</td>
                   <td>{formatDate(item.order_date)}</td>
                   <td className="text-wrap">
                     {" "}
@@ -94,7 +96,7 @@ const OrderHistoryBusiness = () => {
                     </span>{" "}
                   </td>
                   <td>
-                    {item.street_address}, {item.city}, {item.state},{" "}
+                  {item.street_address}, {item.city}, {item.state},{" "}
                     {item.country}, {item.zip_code}
                   </td>
                   <td
