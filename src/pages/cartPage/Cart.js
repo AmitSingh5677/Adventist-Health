@@ -111,9 +111,9 @@ useEffect(()=>{
             <Container>
               <PageHelmet pageTitle="Shopping Cart" />
             </Container>
-            <Container>
+            <Container className='ps-5'>
               <Row>
-                <Col lg={cartItems.length === 0 ? "12" : "9"} md="9" xs="8">
+                <Col lg={cartItems.length === 0 ? "12" : "8"} md="9" xs="8">
                   {cartItems.length === 0 ? (
                     <h5 className="text-cart">Your cart is empty</h5>
                   ) : (
@@ -122,13 +122,13 @@ useEffect(()=>{
                         <tr>
                           {/* <th>Image</th> */}
                           <th>Product</th>
-                          <th>Price</th>
-                          <th>Quantity</th>
-                          <th style={{ position: "relative", left: "-40px" }}>Total</th>
-                          <th style={{ position: "relative", left: "-15px" }}>Delete</th>
+                          <th style={{ position: "relative", left: "22px" }}>Price</th>
+                          <th style={{ position: "relative", left: "12px" }}>Quantity</th>
+                          <th style={{ position: "relative", left: "-10px" }}>Total</th>
+                          <th style={{ position: "relative", left: "10px" }}>Delete</th>
                         </tr>
                       </thead>
-                      <tbody style={{ fontFamily: "Poppins", position: "relative", left: "-30px" }}>
+                      <tbody style={{ fontFamily: "Poppins", position: "relative", left: "-10px" }}>
                         {cartItems.map((item) => (
                           <Tr item={item} key={item.id} onDelete={deleteItem} onAdd={addToCart} onRemove={removeCart} />
                         ))}
@@ -153,7 +153,7 @@ useEffect(()=>{
                     <hr />
                     <div className="checkout__total">
                       <h5 className="d-flex align-items-center justify-content-between amount__conatiner">
-                        Total Order: <span>${totalPayable}</span>
+                         Order Total: <span>${totalPayable}</span>
                       </h5>
                     </div>
                   </div>

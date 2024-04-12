@@ -277,12 +277,12 @@ const BusinessTransactions = () => {
         </div>
         <div className="ms-4 mt-3">
             <div className="d-flex revenue-detail">
-            <h6><b>Total revenue :</b></h6>
+            <h6><b>Total Revenue :</b></h6>
             {!updatedData ? <h6><b>${data?.total_transaction_amount}</b></h6> : <h6><b>${updatedData?.filter_by?.transaction_amount}</b></h6> }
             {/* <h6>${data?.total_transaction_amount}</h6> */}
             </div>
             <div className="d-flex revenue-detail">
-            <h6><b>Transaction count :</b></h6>
+            <h6><b>Transaction Count :</b></h6>
             {!updatedData ? <h6><b>{data?.transaction_count}</b></h6> : <h6><b>{updatedData?.filter_by?.transaction_count}</b></h6> }
             {/* <h6>{data?.transaction_count}</h6> */}
             </div>
