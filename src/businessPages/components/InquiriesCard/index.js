@@ -51,6 +51,7 @@ const InquiriesCard = (props) => {
 
                 const data = await response.json();
                 if (data) {
+                    setMessage('')
                     setShowSucessToast(true);
                     setSucessMessage("Your feedback has been successfully recorded.")
 
@@ -236,6 +237,7 @@ const InquiriesCard = (props) => {
                     <div className="d-flex flex-column mt-3 mb-4">
                         <label htmlfor='message-input' style={{ fontWeight: "bold" }}>Add new message</label>
                         <textarea className="bg-dark-subtle p-1" rows={2} placeholder="Write your message here..."
+                          value={message}
                          onChange={(e) => ontextChange(item.id,e.target.value)} ></textarea>
                         <button type="button" className="btn btn-success align-self-end m-1 p-5 pt-1 pb-1 mt-3"
                         disabled={item.id != id}
