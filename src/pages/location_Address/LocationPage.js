@@ -45,14 +45,14 @@ const LocationPage = () => {
     const [errormsg, seterrormsg] = useState("");
     const [disableedit, setdisableedit] = useState(false);
     const [fieldErrors, setFieldErrors] = useState({});
-
+    const [savedAddress, setsavedAddress] = useState([])
     function validateMobileNumber(number) {
         // Regular expression to match a mobile number
         const regex = /^\d{10}$/; // Assuming a 10-digit number
-        
+
         // Check if the number matches the regular expression and has exactly 10 digits
         return regex.test(number) && number.length === 10;
-      }
+    }
     const validateForm = () => {
         const errors = {};
 
@@ -70,11 +70,9 @@ const LocationPage = () => {
 
         if (!userNum) {
             errors.userNum = 'Mobile Number is required';
+        } else if (!validateMobileNumber(userNum)) {
+            errors.userNum = 'Please enter Valid mobile number';
         }
-        
-        // else if (!validateMobileNumber(userNum)) {
-        //     errors.userNum = 'Please enter Valid mobile number';
-        // }
 
         if (!userState) {
             errors.userState = 'State is required';
@@ -86,8 +84,32 @@ const LocationPage = () => {
             errors.userCountry = 'Country is required';
         }
 
+   
 
 
+        return errors;
+    };
+
+    const validateForm2 = () => {
+        const errors = {};
+
+        if (!editableAddress.phoneNumber) {
+            errors.userNumer1 = 'Mobile Number is required';
+        } else if (!validateMobileNumber(editableAddress.phoneNumber)) {
+            errors.userNumber1 = 'Please enter Valid mobile number';
+        }
+
+        return errors;
+    };
+
+    const validateForm1 = () => {
+        const errors = {};
+
+        if (!savedAddress.phone) {
+            errors.userNumer = 'Mobile Number is required';
+        } else if (!validateMobileNumber(savedAddress.phone)) {
+            errors.userNumber = 'Please enter Valid mobile number';
+        }
 
         return errors;
     };
@@ -98,12 +120,13 @@ const LocationPage = () => {
         setEditMode(true);
     };
 
-    const [savedAddress, setsavedAddress] = useState([])
+   
     const [editid, setEditid] = useState("");
     const handleSavedEdit = (id) => {
         setdisableedit(true)
         setEditid(id)
         setsavededitMode(true);
+
 
         const fetchUserData = async () => {
             try {
@@ -136,7 +159,16 @@ const LocationPage = () => {
         setsavededitMode(false);
         const token = JSON.parse(sessionStorage.getItem("token"));
         const patientId = JSON.parse(sessionStorage.getItem("patientId"));
-
+        const validationErrors = validateForm1();
+        console.log(validationErrors, "validationErrors")
+        if (Object.keys(validationErrors).length > 0) {
+            // There are validation errors, display them to the user
+            setFieldErrors(validationErrors);
+            return;
+        }
+        setFieldErrors({});
+        const errors = {};
+      
         try {
             const response = await fetch(`/patients/delivery_address/${patientId}/${id}/`, {
                 method: 'PUT',
@@ -224,6 +256,14 @@ const LocationPage = () => {
     // This Function run when save the Defualt Address
     const handleSave = async (id) => {
         setdisableedit(false)
+        const validationErrors = validateForm2();
+        console.log(validationErrors, "validationErrors")
+        if (Object.keys(validationErrors).length > 0) {
+            // There are validation errors, display them to the user
+            setFieldErrors(validationErrors);
+            return;
+        }
+        setFieldErrors({});
         setDefaultAddress({ ...editableAddress });
         setEditMode(false);
         const token = JSON.parse(sessionStorage.getItem("token"));
@@ -238,7 +278,7 @@ const LocationPage = () => {
                 },
                 body: JSON.stringify({
                     "recipient_name": editableAddress.name,
-                    "phone": editableAddress.phone,
+                    "phone": editableAddress.phoneNumber,
                     "street_address": editableAddress.street_address,
                     "city": editableAddress.city,
                     "state": editableAddress.state,
@@ -337,6 +377,7 @@ const LocationPage = () => {
 
     const handleChange = (e) => {
         console.log(e.target.value, " e.target.value")
+        setFieldErrors({ ...fieldErrors, userNumber1: '' })
         setEditableAddress({
             ...editableAddress,
             [e.target.name]: e.target.value,
@@ -345,6 +386,7 @@ const LocationPage = () => {
 
 
     const handleChange1 = (e) => {
+        setFieldErrors({ ...fieldErrors, userNumber: '' })
         setsavedAddress({
             ...savedAddress,
             [e.target.name]: e.target.value,
@@ -642,6 +684,9 @@ const LocationPage = () => {
                                                                         onKeyPress={handleKeyPress}
                                                                         maxLength={10}
                                                                     />
+                                                                     {fieldErrors.userNumber1 && (
+                                                            <div className="error_messages">{fieldErrors.userNumber1}</div>
+                                                        )}
                                                                 </Col>
                                                                 <Col md={12} className='mt-2'>
                                                                     <FormGroup>
@@ -777,6 +822,10 @@ const LocationPage = () => {
                                                             onKeyPress={handleKeyPress}
                                                             maxLength={10}
                                                         />
+
+                                                        {fieldErrors.userNumber && (
+                                                            <div className="error_messages">{fieldErrors.userNumber}</div>
+                                                        )}
                                                     </Col>
                                                     <Col md={12} className='mt-2'>
                                                         <FormGroup>
@@ -808,7 +857,7 @@ const LocationPage = () => {
                                         <Col xs="10" sm="10" lg="10">
                                             <Row>
                                                 <p className='userName__txt'>{item.recipient_name}</p>
-                                                {item.street_address !="," &&<p className='street__adress'>{item.street_address}</p>}
+                                                {item.street_address != "," && <p className='street__adress'>{item.street_address}</p>}
                                                 <p className='street__adress'>{item.state}</p>
                                                 <p className='adress_txt' style={{ position: "relative", bottom: "7px" }}>{`${item.city}, ${item.country} - ${item.zip_code}`}</p>
                                                 <p className='mobile_num'>{item.phone}</p>
@@ -1055,9 +1104,10 @@ const LocationPage = () => {
                                                     name="password"
                                                     type="text"
                                                     value={userNum}
-                                                    onChange={(e) => {setUserNum(e.target.value)
+                                                    onChange={(e) => {
+                                                        setUserNum(e.target.value)
                                                         setFieldErrors({ ...fieldErrors, userNum: '' });
-                                                    
+
                                                     }}
                                                     onKeyPress={handleKeyPress}
                                                     maxLength={10}
