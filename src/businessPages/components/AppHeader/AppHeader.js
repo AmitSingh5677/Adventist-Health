@@ -80,6 +80,13 @@ const AppHeader = ({ name, ...props }) => {
       });
   };
 
+  const handleClick = ()=>{
+    const role = JSON.parse(sessionStorage.getItem("role"))
+    if (role == "business"){
+      navigate("/b/allorders")
+    }
+  }
+
   return (
     <div>
       <Navbar className="app-header" expand="md" fixed="top">
@@ -88,7 +95,7 @@ const AppHeader = ({ name, ...props }) => {
             src={DmeCartLogo}
             alt="mainLogo"
             className="app-logo"
-            onClick={() => navigate("/b/allorders")}
+            onClick={handleClick}
           />
         </NavbarBrand>
 
