@@ -58,7 +58,7 @@ const InventoryItemCard = (props) => {
 
                 <div className='inventory-text'>
                     <h6 >{item.equipment_name}</h6>
-                    <p>{item.description}</p>
+                    {/* <p>{item.description}</p> */}
                 </div>
 
 

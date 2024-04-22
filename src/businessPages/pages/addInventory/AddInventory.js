@@ -6,6 +6,7 @@ import AppHeader from "../../components/AppHeader/AppHeader"
 import mixpanel from "../../../mixpanel";
 import { Toast } from 'react-bootstrap';
 import SucessToast from "../../components/sucessToast/SucessToast"
+import { useNavigate } from 'react-router-dom';
 const AddInventory = () => {
     const [equipment_name, setEquipmentName] = useState("");
     const [price, setPrice] = useState("");
@@ -20,6 +21,7 @@ const AddInventory = () => {
     const [image, setImage] = useState(null);
     const [uploadedImage, setUploadedImage] = useState(null);
     const fileInputRef = useRef(null);
+    const navigate=useNavigate();
     const [sucessMessage, setSucessMessage] = useState("");
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -106,6 +108,7 @@ const AddInventory = () => {
                 setUploadedImage(null)
                 setShowSucessToast(true);
                 setSucessMessage("Product added successfully")
+                navigate('/b/my-inventory')
             } else {
 
             }
