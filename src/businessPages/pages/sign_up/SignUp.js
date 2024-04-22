@@ -85,17 +85,17 @@ const SignUpBusiness = () => {
     }
   };
   const textRegex = /^[a-zA-Z ]+$/;
-  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  const passwordRegex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const signUpHandler = async (e) => {
     e.preventDefault();
 
-    if (!textRegex.test(formData.business_location)) {
-      setLocationError("Provide suitable location");
-    } else {
-      setLocationError("");
-    }
+    // if (!textRegex.test(formData.business_location)) {
+    //   setLocationError("Provide suitable location");
+    // } else {
+    //   setLocationError("");
+    // }
     if (!textRegex.test(formData.owner_full_name)) {
       setNameError("Provide suitable name");
     } else {
@@ -115,7 +115,7 @@ const SignUpBusiness = () => {
     }
     if (!passwordRegex.test(formData.password)) {
       setPassError(
-        "Please choose a stronger password. Try mix of letters, numbers, and symbols (e.g. Example@1)"
+        "Please choose a stronger password of atleast 8 characters. Try mix of letters, numbers, and symbols (e.g. Example@1)"
       );
     } else {
       setPassError("");
@@ -239,6 +239,7 @@ const SignUpBusiness = () => {
       confirm_password: "",
       email: "",
     })
+    naviagte("/login")
   }
 
   return (

@@ -29,7 +29,7 @@ const AppFooter = () => {
                 <Container>
                     <div style={{ fontFamily: 'Inter', fontWeight: "400", padding: "5px", cursor: "pointer" }}>
                         <span style={{ float: 'left' }}>Copyright 2023 All Rights Reserved.</span>
-                        <span style={{ float: 'right' }} className='subFooterTxt'><span onClick={termsRouteHandler}>Terms Of Use</span>   |  Privacy Policy  | <span onClick={modleHandler}>Help Center</span> </span>
+                        <span style={{ float: 'right' }} className='subFooterTxt'><span onClick={termsRouteHandler}>Terms Of Use</span>   | <span onClick={()=>navigate('/Privacy-Policy')}>Privacy Policy </span>  | <span onClick={modleHandler}>Help Center</span> </span>
                     </div>
                 </Container>
 
