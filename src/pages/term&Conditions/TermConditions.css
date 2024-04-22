@@ -6,13 +6,13 @@
 
 /* Your existing styles for larger screens */
 .logo-terms {
-    height: 40px;
+    height: 56px;
     display: flex;
     justify-content: flex-start;
     position: relative;
-    left: 90px;
+    left: 13px;
     padding: 7px;
-    width: auto;
+    /* width: auto; */
     cursor: pointer;
 }
 

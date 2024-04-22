@@ -176,6 +176,8 @@ export const HomePage = () => {
         navigate(`/bussinessPage/${user_id.id}`);
     };
 
+    const role = JSON.parse(sessionStorage.getItem("role"))
+
     return (
         <Helmet title="HomePage">
             <AppHeader >
