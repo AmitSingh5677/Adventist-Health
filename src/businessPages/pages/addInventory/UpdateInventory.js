@@ -229,7 +229,7 @@ const UpdateInventory = () => {
 
                         <div className="d-flex flex-column m-3">
                             <label className='inventory__label'>Price</label>
-                            <input id='price-input' type="text" placeholder="Enter Price" className='inventory__inputBox '
+                            <input id='price-input' type="number" placeholder="Enter Price" className='inventory__inputBox '
                                 value={price}
                                 name="price"
                                 onChange={handleChange}
