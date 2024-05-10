@@ -311,7 +311,7 @@ const SpecificInquiry = () => {
                     <Row>
                         <h4 style={{ fontFamily: 'Poppins', fontSize: "13px", fontWeight: "600" }}>Write a Review</h4>
                         <Col md={6} lg={12}>
-                            <Input onChange={handleInputChange} className="form-control shadow-none" value={userMessage} id="exampleText" placeholder='How is the product? What do you like? What do you hate?'
+                            <Input onChange={handleInputChange} className="form-control shadow-none" value={userMessage} id="exampleText" placeholder='Tell us more, your feedback is important to us'
                                 name="text" style={{ height: "75px", marginBottom: "15px" }} />
                         </Col>
                         {errorMessage && (

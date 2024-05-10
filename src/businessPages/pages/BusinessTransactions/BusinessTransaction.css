@@ -1,5 +1,5 @@
-.analytics-section{
-    margin-top: 150px;
+.analytics-section1{
+    margin-top: 30px;
     padding-left: 150px ;
     padding-right: 150px ;
     height: 150vh;
@@ -20,8 +20,8 @@
     
 }
 .analytics-tile{
-    height: 196px;
-    width: 265px;
+    height: 28vh;
+    width: 20vw;
     border: 1px solid #ECECEC;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     /* background-color: #ECECEC; */
@@ -31,7 +31,7 @@
 }
 .box-tile-1{
     height: auto;
-    width: 580px;
+    width: 40vw;
     padding: 20px 12px;
     border: 1px solid #ECECEC;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;

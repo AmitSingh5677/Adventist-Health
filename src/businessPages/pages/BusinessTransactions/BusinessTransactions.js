@@ -3,6 +3,8 @@ import "./BusinessTransaction.css";
 import { Table } from "reactstrap";
 import AppHeader from "../../components/AppHeader/AppHeader";
 import AppFooter from "../../components/AppFooter/AppFooter";
+import DashboardNavbar from "../../components/dashboardNavbar/DashboardNavbar";
+import DashboardFooter from "../../components/DashboardFooter/DashboardFooter";
 const BusinessTransactions = () => {
     const [data, setData] = useState();
   const [updatedData, setUpdatedData] = useState();
@@ -137,7 +139,13 @@ const BusinessTransactions = () => {
   return (
      <div>
       <AppHeader />
-      <div className="analytics-section">
+      <div style={{marginTop:"107px"}}>
+        <DashboardNavbar btn_name={"analytics"} />
+
+      </div>
+      <div className="analytics-section1">
+      <div>
+      </div>
         <div className="d-flex tile-section">
           <div className="analytics-tile">
             <p><b>Total Revenue</b></p>
@@ -152,6 +160,27 @@ const BusinessTransactions = () => {
           <div className="box-tile-1">
             <div className="d-flex" style={{ justifyContent: "space-between" }}>
               <h5><b>Recent Transactions</b></h5>
+              <span
+                className="d-flex filter-bar"
+                style={{ justifyContent: "space-between" }}
+              >
+                <span>Start date </span>
+                <div className="ms-2">
+                  <input type="date" value={startDate} onChange={(e)=>setStartDate(e.target.value)} style={{ width: "110px" }} required />
+                </div>
+              </span>
+              <span
+                className="d-flex filter-bar"
+                style={{ justifyContent: "space-between" }}
+                >
+                <span>End date </span>
+                <div className="ms-2">
+                  <input type="date" value={endDate} onChange={(e)=>setEndDate(e.target.value)} style={{ width: "110px" }} required />
+                </div>
+              </span>
+              <span>
+                <button className="mt-1 submit-btn-date" onClick={fetchTransactions}>Submit</button>
+              </span>
               <span>
                 Filter by:{" "}
                 <select onChange={(e) => setTime(e.target.value)}>
@@ -169,7 +198,7 @@ const BusinessTransactions = () => {
                   style={{ backgroundColor: "#E3E3E3" }}
                 >
                   <tr>
-                    <th style={{fontSize:"12px"}} className=" py-2">Patient Name</th>
+                    <th style={{fontSize:"12px"}} className=" py-2">Consumer Name</th>
                     <th style={{fontSize:"12px"}} className="table_theader">Product Name</th>
                     <th style={{fontSize:"12px"}} className="table_theader">Order Date & Time</th>
                     <th style={{fontSize:"12px"}} className="table_theader">Transaction Amount</th>
@@ -247,7 +276,7 @@ const BusinessTransactions = () => {
                   style={{ backgroundColor: "#E3E3E3" }}
                 >
                   <tr>
-                    <th style={{fontSize:"12px"}} className=" py-2">Patient Name</th>
+                    <th style={{fontSize:"12px"}} className=" py-2">Consumer Name</th>
                     <th style={{fontSize:"12px"}} className="table_theader">Product Name</th>
                     <th style={{fontSize:"12px"}} className="table_theader">Order Date & Time</th>
                     <th style={{fontSize:"12px"}} className="table_theader">Transaction Amount</th>
@@ -288,7 +317,10 @@ const BusinessTransactions = () => {
             </div>
         </div>
       </div>
+      <div className="ms-4" style={{marginBottom:"100px"}}>
+      <DashboardFooter />
 
+      </div>
       <AppFooter />
     </div>
   )

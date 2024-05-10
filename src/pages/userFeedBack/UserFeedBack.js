@@ -119,7 +119,7 @@ const UserFeedback = ({ imgSrc, productTitle, userViews, rating }) => {
                                         id="exampleText"
                                         name="text"
                                         type="textarea"
-                                        placeholder='How is the product? What do you like? What do you hate?'
+                                        placeholder='Tell us more, your feedback is important to us'
                                         value={ratingMessage}
                                         onChange={changeRatingMessage}
                                     />

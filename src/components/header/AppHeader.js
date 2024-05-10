@@ -23,6 +23,8 @@ import { FaRegClock } from "react-icons/fa";
 import { FaBell } from "react-icons/fa";
 import { resetCart } from "../../store/shippingCart/cartSlice";
 import OneSignal from 'react-onesignal';
+import { GiHamburgerMenu } from "react-icons/gi";
+
 const AppHeader = ({
   bussinessName,
   Bussiness_location,
@@ -242,9 +244,9 @@ const AppHeader = ({
 
           <NavItem>
             <NavLink onClick={() => handleNavigate("#")}>
-              <FaCog className="icon" />
+              <GiHamburgerMenu className="icon me-2 mb-1" onClick={handleShow} />
               <span className="app-text" onClick={handleShow}>
-                Settings
+                Menu
               </span>
             </NavLink>
           </NavItem>
@@ -257,7 +259,7 @@ const AppHeader = ({
             className="offcanavs__conatiner"
           >
             <Offcanvas.Header closeButton>
-              <Offcanvas.Title>Settings</Offcanvas.Title>
+              <Offcanvas.Title>Menu</Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
               <div style={{ textAlign: "center", cursor: "pointer" }}>
@@ -284,7 +286,7 @@ const AppHeader = ({
                     navigate("/SendFeedBack");
                   }}
                 >
-                  Send Feedback
+                  Help Center
                 </p>
                 <hr />
                 <p
@@ -314,10 +316,10 @@ const AppHeader = ({
           </Offcanvas>
 
           <NavItem>
-            <NavLink onClick={() => setIsOpen(true)}>
+            {/* <NavLink onClick={() => setIsOpen(true)}>
               <FaSignOutAlt className="icon" />{" "}
               <span className="app-text">Logout</span>
-            </NavLink>
+            </NavLink> */}
           </NavItem>
         </Nav>
       </Navbar>

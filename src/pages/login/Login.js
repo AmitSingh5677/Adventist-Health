@@ -251,7 +251,7 @@ const Login = () => {
                       }}
                       onClick={signUpHandler}
                     >
-                      Sign up as patient
+                      Sign up as consumer
                     </p>
                     <p
                       style={{

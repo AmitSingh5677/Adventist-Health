@@ -113,9 +113,9 @@ const DashBoardReviews = () => {
                   <Table className="table table-hover borderless responsive striped">
                     <thead >
                       <tr >
-                        <th className='table_theader'>USER/PATIENT</th>
-                        <th className='table_theader ps-4'>STARS</th>
-                        <th className='table_theader ps-2'>REVIEW MESSAGE</th>
+                        <th className='table_theader'>CONSUMER</th>
+                        <th className='table_theader ps-4'>RATING</th>
+                        <th className='table_theader ps-2'>MESSAGE</th>
                         <th className='table_theader '></th>
                       </tr>
                     </thead>
