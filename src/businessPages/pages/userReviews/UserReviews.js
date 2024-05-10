@@ -162,10 +162,10 @@ const UserReviews = () => {
           >
             <thead className="reviews-header-section">
               <tr>
-                <th className="w-2 t-head-reviews">USER/PATIENT</th>
-                <th className="w-2 ps-3">STARS</th>
-                <th className="w-2 ps-5">RATING MESSAGE</th>
-                <th className="w-2">CHALLENGE RATING/REACH ADMIN</th>
+                <th className="w-2 t-head-reviews">CONSUMER</th>
+                <th className="w-2 ps-3">RATING</th>
+                <th className="w-2 ps-5">MESSAGE</th>
+                <th className="w-2">MESSAGE TO ADMIN</th>
                 <th className=""></th>
               </tr>
             </thead>
@@ -196,7 +196,7 @@ const UserReviews = () => {
                         className="ps-1 py-2 input-msg"
                         type="text"
                         onChange={(e) => setMsg(e.target.value)}
-                        placeholder="Message to Admin"
+                        placeholder="Comment"
                       />
                     </td>
                     <td>

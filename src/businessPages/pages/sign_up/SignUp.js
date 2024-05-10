@@ -14,6 +14,8 @@ const SignUpBusiness = () => {
     business_name: "",
     owner_full_name: "",
     business_location: "",
+    city: "",
+    state: "",
     description: "",
     password: "",
     confirm_password: "",
@@ -44,6 +46,8 @@ const SignUpBusiness = () => {
   const [sucessMessage, setSucessMessage] = useState("");
   const [businessError, setBusinessError] = useState("");
   const [locationError, setLocationError] = useState("");
+  const [cityError, setCityError] = useState("");
+  const [stateError, setStateError] = useState("");
   const [descError, setDescError] = useState("");
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -101,6 +105,16 @@ const SignUpBusiness = () => {
     } else {
       setNameError("");
     }
+    if (!textRegex.test(formData.city)) {
+      setCityError("Provide city name");
+    } else {
+      setCityError("");
+    }
+    if (!textRegex.test(formData.state)) {
+      setStateError("Provide state name");
+    } else {
+      setStateError("");
+    }
     if (!emailRegex.test(formData.email)) {
       setEmailError("Provide suitable email");
     } else {
@@ -140,6 +154,8 @@ const SignUpBusiness = () => {
       tnc && hipa &&
       formData.password == formData.confirm_password &&
       textRegex.test(formData.business_location) &&
+      textRegex.test(formData.city) &&
+      textRegex.test(formData.state) &&
       textRegex.test(formData.owner_full_name) &&
       emailRegex.test(formData.email) &&
       passwordRegex.test(formData.password) &&
@@ -150,6 +166,8 @@ const SignUpBusiness = () => {
       form.append("business_name", formData.business_name);
       form.append("owner_full_name", formData.owner_full_name);
       form.append("business_location", formData.business_location);
+      form.append("business_city", formData.city);
+      form.append("business_state", formData.state);
       form.append("description", formData.description);
       form.append("password", formData.password);
       form.append("confirm_password", formData.confirm_password);
@@ -175,29 +193,7 @@ const SignUpBusiness = () => {
         const data = await response.json();
           console.log("Account created successfully:", data.id);
         if (response.status === 201) {
-          // const data = await response.json();
-          // console.log("Account created successfully:", data.id);
-        //   setIsLoading(true);
-
-          // stripe Account Craetion API.
-          // const stripeApiResponse = await fetch(
-          //   `/business/connect_bank/${data.id}/`,
-          //   {
-          //     method: "GET",
-          //   }
-          // );
-
-          // if (stripeApiResponse.status === 200) {
-          //   const stripeUrl = await stripeApiResponse.json();
-          //   setIsLoading(true);
-          //   // Redirect the user to the received URL
-          //   window.location.href = stripeUrl.account_creation_url;
-          // } else {
-          //   console.error(
-          //     "Error calling second API:",
-          //     stripeApiResponse.statusText
-          //   );
-          // }
+          
         } else {
           // Handle other HTTP status codes
           const data = await response.json();
@@ -215,6 +211,8 @@ const SignUpBusiness = () => {
         setBusinessError("");
         setLocationError("");
         setNameError("");
+        setCityError("")
+        setStateError("")
         setDescError("");
         setEmailError("");
         setPassError("");
@@ -353,6 +351,28 @@ const SignUpBusiness = () => {
                       </Col>
                     </FormGroup>
                   </div>
+                </div>
+                <div className=" mb-3 d- flex input-group ">
+                  <Input
+                    type="text"
+                    className="form-control shadow-none"
+                    id="city"
+                    placeholder="City"
+                    value={formData.city}
+                    onChange={handleChange}
+                    // pattern="[A-Za-z]"
+                    required
+                  />
+                  <Input
+                    type="text"
+                    className="form-control shadow-none ms-3"
+                    id="state"
+                    placeholder="State"
+                    value={formData.state}
+                    onChange={handleChange}
+                    // pattern="[A-Za-z]"
+                    required
+                  />
                 </div>
                 <div className=" input-group">
                   <Input
@@ -527,7 +547,7 @@ const SignUpBusiness = () => {
                   </button>
                 </div>
                 <div className="mb-3 input-group">
-                  <p style={{textAlign:"center", color:"#7AC24F", border:"1px solid #7AC24F"}} className="cancelBtn" onClick={handleCancel}>
+                  <p style={{textAlign:"center", color:"#7AC24F", border:"1px solid #7AC24F", cursor:"pointer"}} className="cancelBtn" onClick={handleCancel}>
                     Cancel
                   </p>
                 </div>

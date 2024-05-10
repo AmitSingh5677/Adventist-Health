@@ -45,14 +45,23 @@ const MyInventory = () => {
 
     return <div>
         <AppHeader />
-        <div style={{ marginTop: "6%"}} className="w-100 p-5">
+        <div className='inventory-title-section'>
+        <h4>My Inventory</h4>
+        </div>
+        <div style={{ marginTop: "6%"}} className=" ps-5">
 
-            <div>
-                <div className="d-flex justify-content-between">
+            <div className='center-section-inventory'>
+                <div className="d-flex" style={{columnGap:"5vw"}}>
+                    <div className='d-flex' style={{width:"40vw", columnGap:"25vw"}}>
+                    <h5>Product</h5>
+                    <h5 className='me-5'>Price</h5> 
+                    </div>
+                    <div className='d-flex' style={{width:"40vw", columnGap:"25vw"}}>
                     <h5>Product</h5>
                     <h5 className='me-5'>Price</h5>
-                    <h5>Product</h5>
-                    <h5 className='me-5'>Price</h5>
+                    </div>
+                    
+             
                 </div>
                 
                 <Row className='inventory-card'>
@@ -66,11 +75,11 @@ const MyInventory = () => {
         </div>
 
 
-        <div className="d-flex flex-row justify-content-end ">
-            <Link to='/b/addInventory'> <button className="btn btn-success p-5 pt-1 pb-1 m-5 mt-3  inventory_btn" type="button" >Add New/Edit</button></Link>
+        <div className="d-flex flex-row justify-content-end mb-5 ">
+            <Link to='/b/addInventory'> <button className="btn btn-success p-5 pt-1 pb-1 m-5 mt-3  inventory_btn" type="button" >Add to Inventory</button></Link>
         </div>
 
-        <AppFooter />
+        <AppFooter  />
 
     </div>
 }

@@ -1,7 +1,23 @@
 .inventory-card {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+    column-gap: 5vw;
+}
+.inventory-title-section{
+    margin-top: 150px;
+    border: 1px solid #ECECEC;
+    border-radius: 8px;
+    background-color: #ECECEC;
+    height: 80px;
+    padding: 25px 20px;
+    margin-inline: 5vw ;
+}
+.center-section-inventory{
+    margin-left: 5vw;
+}
+.containerMain{
+    /* align-items: center; */
 }
 
 .inventory_btn{

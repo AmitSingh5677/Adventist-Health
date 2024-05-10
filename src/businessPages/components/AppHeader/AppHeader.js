@@ -18,6 +18,7 @@ import DmeCartLogo from "../../data/assests/downloaded__imgs/DmeCART.png";
 import "./AppHeader.css";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import OneSignal from 'react-onesignal';
+import { GiHamburgerMenu } from "react-icons/gi";
 
 const AppHeader = ({ name, ...props }) => {
   const [show, setShow] = useState(false);
@@ -124,10 +125,10 @@ const AppHeader = ({ name, ...props }) => {
             )}
 
             <NavItem>
-              <NavLink>
-                <FaCog className="icon" />
+              <NavLink >
+                <GiHamburgerMenu className="icon me-2 mb-1" onClick={handleShow} />
                 <span className="app-text" onClick={handleShow}>
-                  Settings
+                  Menu
                 </span>
               </NavLink>
             </NavItem>
@@ -140,7 +141,7 @@ const AppHeader = ({ name, ...props }) => {
               className="offcanavs__conatiner"
             >
               <Offcanvas.Header closeButton>
-                <Offcanvas.Title>Settings</Offcanvas.Title>
+                <Offcanvas.Title>Menu</Offcanvas.Title>
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <div style={{ textAlign: "center", cursor: "pointer" }}>
@@ -186,10 +187,10 @@ const AppHeader = ({ name, ...props }) => {
             </Offcanvas>
 
             <NavItem>
-              <NavLink onClick={() => setIsOpen(true)}>
+              {/* <NavLink onClick={() => setIsOpen(true)}>
                 <FaSignOutAlt className="icon" />{" "}
                 <span className="app-text">Logout</span>
-              </NavLink>
+              </NavLink> */}
             </NavItem>
           </Nav>
         )}

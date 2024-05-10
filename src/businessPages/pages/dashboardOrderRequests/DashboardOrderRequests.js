@@ -176,7 +176,7 @@ const DashboardOrderRequests = () => {
                     <Table className="table table-hover borderless responsive striped">
                       <thead>
                         <tr>
-                          <th className="table_theader">USER/PATIENT</th>
+                          <th className="table_theader">CONSUMER</th>
                           <th className="table_theader">EQUIPMENT DETAILS</th>
                           <th className="table_theader">ORDER DETAILS</th>
                           <th className="table_theader ps-5">ACTIONS</th>

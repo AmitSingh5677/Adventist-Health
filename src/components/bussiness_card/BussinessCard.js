@@ -132,19 +132,19 @@ const BussinessCard = ({ rating }) => {
                 <Card style={{ width: '35%', textAlign: "center" }} className='ms-3'>
                     {/* <CardImg top width="50%" src={dummyImg} alt="Product Image" style={{ width: '70%', objectFit: 'cover' }} /> */}
                     <CardBody >
-                        <CardTitle tag="h5" className='cardTxt'>{bussinessName}</CardTitle>
-                        <CardText className='userRiews'>User Views</CardText>
-                        <CardText>
-                            <button className='rating__btn'>{averageRating} <FaStar color='#ffff' /></button>
+                        <CardTitle tag="h5" className='cardTxt '>{bussinessName}</CardTitle>
+                        {/* <CardText className='userRiews'>Reviews</CardText> */}
+                        <CardText className='mt-4'>
+                            <button className='rating__btn'> <FaStar color='#ffff' className='mb-1' /> {averageRating}</button>
                         </CardText>
-                        <div className='rating__txt'>
+                        <div className='rating__txt '>
                         <StarRating  rating={averageRating} />
                             <span style={{
-                                fontSize: "20px", position: "relative", left: "13px", top: "-3px", color: "#687D94", fontWeight: 600
+                                fontSize: "20px", position: "relative", left: "13px", top: "-7px", color: "#687D94", fontWeight: 600
                             }}>{averageRating}/5</span>
                         </div>
                         <div>
-                            <p className='total_reviews'>{totalRating < 9 ? "0" + totalRating : totalRating} user Reviews</p>
+                            <p className='total_reviews'>{totalRating < 9 ? "0" + totalRating : totalRating} Reviews</p>
                         </div>
                     </CardBody>
                 </Card>
