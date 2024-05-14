@@ -1,12 +1,23 @@
 .my-review-section{
-    margin-top: 120px;
+    margin-top: 20px;
+    margin-right: 4vw;
 }
 .table-reviews{
-    margin-top: 40px;
+    margin-top: 20px;
 }
 .profImage{
     height: 40px;
     width: 40px;
+}
+.title-section{
+    border: 1px solid #ECECEC;
+    background-color: #ECECEC;
+    margin-top: 120px;
+    border-radius: 8px;
+    margin-inline: 4vw;
+    padding-left: 30px;
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 .reviews-header-section{

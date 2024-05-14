@@ -12,6 +12,16 @@
     border-radius: 8px;
     /* color: #AAAAAA; */
 }
+.addinvetory-title-section{
+    border: 1px solid #ECECEC;
+    background-color: #ECECEC;
+    margin-top: 120px;
+    border-radius: 8px;
+    margin-inline: 4vw;
+    padding-left: 30px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
 
 .inventory__Descbox {
     font-family: 'Poppins';

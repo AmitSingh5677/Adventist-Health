@@ -15,12 +15,11 @@
     /* justify-content: space-around; */
     /* text-align: left; */
 }
-.box-tile-section{
-    justify-content: space-around;
-    
+.box-tile-section1{
+    margin-left: 8vw;
 }
 .analytics-tile{
-    height: 28vh;
+    height: 200px;
     width: 20vw;
     border: 1px solid #ECECEC;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
@@ -31,7 +30,7 @@
 }
 .box-tile-1{
     height: auto;
-    width: 40vw;
+    width: 64vw;
     padding: 20px 12px;
     border: 1px solid #ECECEC;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
@@ -57,10 +56,15 @@
     padding: 3px 4px;
 }
 .body__elemnts{
-    font-size: 13px;
+    font-size: 15px;
     text-wrap: wrap;
 }
 .revenue-detail{
     justify-content: space-between;
-    width: 35vw;
+    width: 62vw;
+}
+.revenue-total-section{
+    margin-left: 8vw;
+    padding-inline: 20px;
+    /* width: 62vw; */
 }

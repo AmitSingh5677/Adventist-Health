@@ -7,6 +7,7 @@ import mixpanel from "../../../mixpanel";
 import { Toast } from 'react-bootstrap';
 import SucessToast from "../../components/sucessToast/SucessToast"
 import { useNavigate } from 'react-router-dom';
+import BackButton from '../../../components/Button/BackButton';
 const AddInventory = () => {
     const [equipment_name, setEquipmentName] = useState("");
     const [price, setPrice] = useState("");
@@ -169,7 +170,10 @@ const AddInventory = () => {
               message={sucessMessage}
             />
           ) : null}
-            <div style={{ marginTop: "10%" }}>
+          <div className='addinvetory-title-section'>
+<h4>Add Inventory</h4>
+          </div>
+            <div style={{ marginTop:"20px" }}>
                 <form className="d-flex flex-row justify-content-around" onSubmit={submitHandler}>
                     <div className="d-flex flex-column justify-content-start">
                         <div className="d-flex flex-column m-3">
@@ -210,6 +214,9 @@ const AddInventory = () => {
                             <span className='errorTxt'> {priceError && <span style={{ color: '#FF0000' }}>{priceError}</span>} </span>
 
                         </div>
+                        <div className='ms-3 mt-1'>
+                            <BackButton width={"150px"} height={"30px"}/>
+                        </div>
                     </div>
                     <div className="d-flex flex-column justify-content-end">
                         <div className="d-flex flex-column m-3 mt-5">
@@ -231,10 +238,11 @@ const AddInventory = () => {
                             <span className='errorTxt'> {detailError && <span style={{ color: '#FF0000' }}>{detailError}</span>} </span>
 
                         </div>
-                        <button type="submit" className="btn btn-success p-5 pt-1 pb-1 m-3 addinventory_btn" style={{ fontFamily: "Poppins" }}>Save</button>
+                        <button type="submit" className="btn btn-success mt-4 p-5 pt-1 pb-1 m-3 addinventory_btn" style={{ fontFamily: "Poppins" }}>Save</button>
                     </div>
                 </form >
             </div>
+                        
             <AppFooter />
         </div >
     )

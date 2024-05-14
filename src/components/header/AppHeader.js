@@ -172,9 +172,7 @@ const AppHeader = ({
         expand="md"
         fixed="top"
       >
-        <NavbarBrand onClick={() => handleNavigate("/homepage")}>
-          {location.pathname === `/bussinessPage/${id}` ? (
-            <div
+        {/* <div
               style={{
                 display: "flex",
                 justifyContent: "center",
@@ -203,10 +201,9 @@ const AppHeader = ({
                   {Bussiness_location}
                 </h6>
               </div>
-            </div>
-          ) : (
+            </div> */}
+        <NavbarBrand onClick={() => handleNavigate("/homepage")}>
             <img src={DmeCartLogo} alt="otherLogo" className="app-logo" />
-          )}
         </NavbarBrand>
 
         {children}

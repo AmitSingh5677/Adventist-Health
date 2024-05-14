@@ -156,7 +156,7 @@ const BusinessTransactions = () => {
             <h3>{data?.transaction_count}</h3>
           </div>
         </div>
-        <div className="d-flex box-tile-section mt-5">
+        <div className="box-tile-section1 mt-5">
           <div className="box-tile-1">
             <div className="d-flex" style={{ justifyContent: "space-between" }}>
               <h5><b>Recent Transactions</b></h5>
@@ -198,14 +198,14 @@ const BusinessTransactions = () => {
                   style={{ backgroundColor: "#E3E3E3" }}
                 >
                   <tr>
-                    <th style={{fontSize:"12px"}} className=" py-2">Consumer Name</th>
-                    <th style={{fontSize:"12px"}} className="table_theader">Product Name</th>
-                    <th style={{fontSize:"12px"}} className="table_theader">Order Date & Time</th>
-                    <th style={{fontSize:"12px"}} className="table_theader">Transaction Amount</th>
+                    <th style={{fontSize:"16px"}} className="table_theader">Product Name</th>
+                    <th style={{fontSize:"16px"}} className=" py-2">Consumer Name</th>
+                    <th style={{fontSize:"16px"}} className="table_theader">Order Date & Time</th>
+                    <th style={{fontSize:"16px"}} className="table_theader">Transaction Amount</th>
                   </tr>
                 </thead>
                 {/* <tbody className="body__txt"> */}
-              {!updatedData ? <tbody className="body__txt"> {data?.transaction_details?.map((item, index) => (
+             { !orderData ? <tbody className="body__txt"> {data?.transaction_details?.map((item, index) => (
                     <tr key={index}>
                       <td className="body__elemnts">{item.patient_name}</td>
                       <td className="body__elemnts">
@@ -219,7 +219,23 @@ const BusinessTransactions = () => {
                         ${item.amount_paid}
                       </td>
                     </tr>
-                  ))} </tbody> : <tbody className="body__txt"> {updatedData?.filter_by?.order_details?.map((item, index) => (
+                  ))} </tbody> :  <tbody className="body__txt"> 
+                  { !updatedData && orderData ? 
+                    orderData?.date_filter?.order_details?.map((item, index) => (
+                    <tr key={index}>
+                    <td style={{fontSize:"12px"}} className="body__elemnts">{item.patient_name}</td>
+                    <td style={{fontSize:"12px"}} className="body__elemnts">
+                      {item.product_name}
+                    </td>
+                    <td style={{fontSize:"12px"}} className="body__elemnts">
+                    {formatDate(item.order_date)}, {" "}
+            {formatTime(item.order_date)} 
+                    </td>
+                    <td style={{fontSize:"12px"}} className="body__elemnts">
+                      ${item.amount_paid}
+                    </td>
+                  </tr>
+                  )) : updatedData && updatedData?.filter_by?.order_details?.map((item, index) => (
                     <tr key={index}>
                       <td className="body__elemnts">{item.patient_name}</td>
                       <td className="body__elemnts">
@@ -233,13 +249,16 @@ const BusinessTransactions = () => {
                         ${item.amount_paid}
                       </td>
                     </tr>
-                  ))} </tbody>}    
+                  ))}
+                  
+                   
+                  </tbody> }
                   
                 {/* </tbody> */}
               </Table>
             </div>
           </div>
-          <div className="box-tile-2">
+          {/* <div className="box-tile-2">
           
             <div
               className="d-flex "
@@ -302,9 +321,9 @@ const BusinessTransactions = () => {
                 </tbody>
               </Table>
             </div>
-          </div>
+          </div> */}
         </div>
-        <div className="ms-4 mt-3">
+        <div className="revenue-total-section mt-3">
             <div className="d-flex revenue-detail">
             <h6><b>Total Revenue :</b></h6>
             {!updatedData ? <h6><b>${data?.total_transaction_amount}</b></h6> : <h6><b>${updatedData?.filter_by?.transaction_amount}</b></h6> }

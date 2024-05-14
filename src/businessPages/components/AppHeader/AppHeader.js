@@ -145,7 +145,13 @@ const AppHeader = ({ name, ...props }) => {
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <div style={{ textAlign: "center", cursor: "pointer" }}>
-                  <p onClick={orderDeatilsHandler}>My Orders</p>
+                  <p onClick={()=>navigate("/b/allorders")}>My Homepage</p>
+                  <hr />
+                  <p onClick={()=>navigate("/b/my-profile")}>My Profile</p>
+                  <hr />
+                  <p onClick={()=>navigate("/b/my-inventory")}>My Inventory</p>
+                  <hr />
+                  <p onClick={orderDeatilsHandler}>Order History</p>
                   <hr />
                   {/* <p onClick={() => { navigate("/SendFeedBack") }}>Send Feedback</p>
                                 <hr />
@@ -168,6 +174,8 @@ const AppHeader = ({ name, ...props }) => {
                   </p>}
                   
                   <hr /> */}
+                  <p onClick={()=>navigate("/b/my-reviews")}>Reviews</p>
+                  <hr />
                   <p onClick={termsRouteHandler}>Terms and Conditions</p>
                   <hr />
                   <p

@@ -1,3 +1,4 @@
+import BackButton from "../../../components/Button/BackButton";
 import AppFooter from "../../components/AppFooter/AppFooter"
 import AppHeader from "../../components/AppHeader/AppHeader"
 import InquiriesCard from "../../components/InquiriesCard"
@@ -53,13 +54,18 @@ const InquiriesBusiness = ()=>{
             <h1>All Inquiries</h1>
             <div className="mt-3">
             <InquiriesCard  inquiryData={inquiryData}/>
-
+            <div className="ms-2">
+              <BackButton width={"132px"} height={"35px"}/>
+            </div>
             </div>
            
            </div>
         </div>
        </div>
+       <div className="mt-3">
        <AppFooter />
+
+       </div>
     </div>
 }
 

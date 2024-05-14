@@ -3,6 +3,7 @@ import AppHeader from "../../components/AppHeader/AppHeader";
 import DashboardFooter from "../../components/DashboardFooter/DashboardFooter";
 import AppFooter from "../../components/AppFooter/AppFooter";
 import "./index.css";
+import BackButton from "../../../components/Button/BackButton";
 
 const OrderHistoryBusiness = () => {
   const [orders, setOrders] = useState([]);
@@ -117,6 +118,9 @@ const OrderHistoryBusiness = () => {
             })}
           </tbody>
         </table>
+      <div className="mb-5" style={{marginLeft:"80px"}}>
+        <BackButton width={"150px"}/>
+      </div>
       </div>
 
       <div className="mb-5">{/* <DashboardFooter /> */}</div>
