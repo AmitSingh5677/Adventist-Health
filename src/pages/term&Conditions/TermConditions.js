@@ -6,6 +6,9 @@ import mainLogo from "../../data/assests/logo/DmeCART.png";
 import AppFooter from "../../components/footer/AppFooter";
 import DmeCartLogo from "../../businessPages/data/assests/downloaded__imgs/DmeCART.png"
 import { useNavigate } from "react-router-dom";
+import AppHeader from "../../businessPages/components/AppHeader/AppHeader";
+import AppHeader1 from "../../components/header/AppHeader";
+import BackButton from "../../components/Button/BackButton";
 
 const TermConditions = () => {
   const naviagte = useNavigate()
@@ -19,6 +22,7 @@ const TermConditions = () => {
   naviagte("/b/allorders")
  }
   } 
+
 
   return (
     <Helmet title="Terms and Conditions">
@@ -44,6 +48,8 @@ const TermConditions = () => {
                   width: "100%",
                 }}
               >
+              {role == "business" && <AppHeader/> }  
+              { role == "patient" && <AppHeader1/>}
                 <h3 className="termTxt">Terms of use</h3>
               </div>
             </div>
@@ -426,10 +432,16 @@ const TermConditions = () => {
                 automated translation obtained from Google Translate, please
                 refer back to our official English-language website.
               </p>
+              <div>
+     { role &&
+     <BackButton width={"150px"}/>
+     }  
+     </div>
             </div>
             {/* <button>Accept</button> */}
           </Col>
         </Row>
+     
       </Container>
 
       <AppFooter />

@@ -5,6 +5,9 @@ import { Col, Container, Row } from "reactstrap";
 import mainLogo from "../../data/assests/logo/DmeCART.png";
 import AppFooter from "../../components/footer/AppFooter";
 import { useNavigate } from "react-router-dom";
+import AppHeader from "../../businessPages/components/AppHeader/AppHeader";
+import AppHeader1 from "../../components/header/AppHeader";
+import BackButton from "../../components/Button/BackButton";
 
 const PrivacyPage = () => {
   const naviagte = useNavigate()
@@ -42,6 +45,8 @@ const PrivacyPage = () => {
                   width: "100%",
                 }}
               >
+                 {role == "business" && <AppHeader/> }  
+              { role == "patient" && <AppHeader1/>}
                 <h3 className="termTxt">Privacy Policy</h3>
               </div>
             </div>
@@ -339,6 +344,11 @@ const PrivacyPage = () => {
                 Adventist Health’s handling of your information, please contact
                 us and we will respond promptly.{" "}
               </p>
+              <div>
+     { role &&
+     <BackButton width={"150px"}/>
+     }  
+     </div>
             </div>
             {/* <button>Accept</button> */}
           </Col>

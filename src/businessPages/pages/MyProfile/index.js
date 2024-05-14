@@ -15,6 +15,7 @@ import SucessMessage from "../../../components/successToast/SuccessToast";
 import SucessToast from "../../components/sucessToast/SucessToast";
 import { Navigate, useNavigate } from "react-router-dom";
 import OneSignal from 'react-onesignal';
+import BackButton from "../../../components/Button/BackButton";
 
 
 const MyProfileBusiness = () => {
@@ -300,6 +301,10 @@ const MyProfileBusiness = () => {
           >
             HIPAA and compliance
           </button>
+        </div>
+        <div className="mt-4 ms-2">
+        <BackButton width={"160px"}/>
+
         </div>
         {/* Logout Model */}
       <Modal

@@ -8,6 +8,7 @@ import { StarRating } from "../../../pages/ratingsScreen/RatingScreen";
 import SucessToast from "../../components/sucessToast/SucessToast";
 import profileImage from "../../../data/assests/profImage.jpg";
 import ToastMessage from "./../../../components/toast/ToastMessage";
+import BackButton from "../../../components/Button/BackButton";
 
 const UserReviews = () => {
   const [data, setData] = useState(null);
@@ -42,24 +43,7 @@ const UserReviews = () => {
     fetchRatings();
   }, []);
 
-  // const handleSort = (e) => {
-  //   setSortBy(e.target.value);
-  //   if (sortBy == "new_to_old") {
-  //     const newData = data?.sort((a, b) => a.created_at - b.created_at);
-  //     setSortedData(newData);
-  //     console.log(newData,"NtoO");
-  //   }
-  //   if (sortBy == "old_to_new") {
-  //     const newData = data?.sort((a, b) => b.created_at - a.created_at);
-  //     setSortedData(newData);
-  //     console.log(newData, "OtoN");
-  //   }
-  //   if (sortBy == "stars") {
-  //     const newData = data?.sort((a, b) => a.stars - b.stars);
-  //     setSortedData(newData);
-  //     console.log(newData, "star");
-  //   }
-  // };
+  
 
   const handleSort = (e) => {
     const selectedSortOption = e.target.value;
@@ -134,6 +118,9 @@ const UserReviews = () => {
           onClose={() => setShowErrorToast(false)}
         />
       ) : null}
+      <div className="title-section">
+<h4>My Reviews</h4>
+      </div>
       <div
         className="my-review-section"
         style={{ overflowY: "auto", maxHeight: "100vh", marginBottom: "100px" }}
@@ -214,7 +201,10 @@ const UserReviews = () => {
             </tbody>
           </table>
         </div>
-        {/* <DashboardFooter className='mb-5' /> */}
+        <div className="mt-3" style={{marginLeft:"80px"}}>
+        <BackButton width={"121px"} height={"37px"}/>
+
+        </div>
       </div>
 
       <AppFooter />

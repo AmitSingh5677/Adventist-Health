@@ -5,6 +5,7 @@ import AppHeader from "../../components/AppHeader/AppHeader"
 import InventoryItemCard from "../../components/InventoryItemCard/InventoryItemCard"
 import './index.css'
 import { Col, Row } from 'reactstrap';
+import BackButton from '../../../components/Button/BackButton';
 
 
 const MyInventory = () => {
@@ -75,7 +76,10 @@ const MyInventory = () => {
         </div>
 
 
-        <div className="d-flex flex-row justify-content-end mb-5 ">
+        <div className="d-flex flex-row justify-content-between mb-5 mx-5">
+            <div className='mt-3 ms-5' onClick={()=>navigate(-1)}>
+            <BackButton width={"300px"} />
+            </div>
             <Link to='/b/addInventory'> <button className="btn btn-success p-5 pt-1 pb-1 m-5 mt-3  inventory_btn" type="button" >Add to Inventory</button></Link>
         </div>
 

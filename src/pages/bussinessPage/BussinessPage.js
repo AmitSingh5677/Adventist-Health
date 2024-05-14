@@ -17,6 +17,8 @@ import { cartActions } from "../../store/shippingCart/cartSlice";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { RiArrowRightDoubleFill } from "react-icons/ri";
 import Button from "react-bootstrap/Button";
+import { IoLocation } from "react-icons/io5";
+import { FaRegClock } from "react-icons/fa";
 import Modal from "react-bootstrap/Modal";
 import noImage from "../../data/assests/noImage.jpg";
 import mixpanel from "../../mixpanel";
@@ -356,7 +358,7 @@ const BussinessPage = () => {
   return (
     <Helmet title="BussinessPage">
       <AppHeader
-        bussinessimg={avatarSignedUrl}
+        // bussinessimg={avatarSignedUrl}
         bussinessName={businessName}
         Bussiness_location={businessLocation}
       >
@@ -386,7 +388,38 @@ const BussinessPage = () => {
         onClose={() => setIsError(false)}
         message={errorMessage}
       />
+      <div className="specific-business-title">
+    <div
+              style={{
+                display: "flex",
+                // justifyContent: "center",
+                // position: "relative",
+              }}
+            >
+              <img
+                src={avatarSignedUrl}
+                alt="mainLogo"
+                className="bussiness-logo"
+              />
+              <div className="bussiness_txt">
+                <h6>
+                  {" "}
+                  <span style={{ marginRight: "7px", fontSize:"12px" }}>
+                    <FaRegClock />
+                  </span>
+                  {businessName}
+                </h6>
+                <h6>
+                  {" "}
+                  <span style={{ marginRight: "7px", fontSize:"12px" }}>
+                    <IoLocation />
+                  </span>
+                  {businessLocation}
+                </h6>
+              </div>
+            </div>
 
+      </div>
       {IsLoading ? (
         <SpinLoader />
       ) : (

@@ -1,13 +1,13 @@
 .app-header {
-    background: #007d8a;
-    color: white;
+    background: #ECECEC;
+    color: black;
     cursor: pointer;
     padding: 0px;
 }
 
 .icon {
     margin-right: 5px;
-    color: #ffff;
+    color: black;
     cursor: pointer;
 }
 
@@ -19,7 +19,7 @@
 
 .bussiness-logo {
     padding: 15px;
-    height: 120px;
+    height: 80px;
     cursor: pointer;
     border-radius: 25%;
 }
@@ -27,15 +27,18 @@
 .bussiness_txt {
     color: rgba(85, 86, 90, 1);
     position: relative;
-    top: 30px;
+    top: 14px;
     padding: 0px;
-    font-weight: 800;
+    /* font-weight: 800; */
+}
+.bussiness_txt h6{
+    font-size: 13px;
 }
 
 
 .app-text {
     font-family: "Poppins", sans-serif !important;
-    color: #ffff;
+    color: black;
     position: relative;
     right: 4px;
 }
