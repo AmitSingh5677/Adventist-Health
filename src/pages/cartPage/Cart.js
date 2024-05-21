@@ -141,7 +141,7 @@ useEffect(()=>{
                     <h6 className='amount__conatiner'>Summary</h6>
                     <hr />
                     <h6 className="d-flex align-items-center justify-content-between mb-3 amount__conatiner">
-                      Sub-Total: <span>${calculateTotalPrice()}.00</span>
+                    Products Amount: <span>${calculateTotalPrice()}.00</span>
                     </h6>
                     <h6 className="d-flex align-items-center justify-content-between mb-3 amount__conatiner">
                       {/* Tax & Application Fee: <span>$ {tax}</span> */}
@@ -168,7 +168,7 @@ useEffect(()=>{
       </div>
       <div className="mt-1 ">
         <div style={{ display: "flex", justifyContent: "space-evenly", marginBottom: "7%", marginTop: "3%" }}>
-          <button className="addTOCart__button" onClick={() => navigate("/homepage")}>
+          <button className="addTOCart__button" onClick={() => navigate(-1)}>
             Back
           </button>
           {cartItems.length === 0 ? null : <button className="buy__btn" style={{backgroundColor:"#7AC24F", border:"1px solid #7AC24F"}} onClick={() => navigate("/delivery-Address")}>

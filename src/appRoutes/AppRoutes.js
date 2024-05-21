@@ -52,6 +52,7 @@ import AccountInfo from '../businessPages/pages/AccountInfo/AccountInfo';
 import Analytics from '../businessPages/pages/AnalyticsBoard/Analytics';
 import TransactionsBusiness from '../businessPages/pages/TransactionsPerBusiness/Transactions';
 import BusinessTransactions from '../businessPages/pages/BusinessTransactions/BusinessTransactions';
+import InventoryProductPage from '../businessPages/pages/InventoryProductPage/InventoryProductPage';
 
 
 const AppRoutes = () => {
@@ -93,6 +94,7 @@ const AppRoutes = () => {
             <Route path="/b/patient-profile-screen/:id" element={<PatientProfileScreen />} />
             <Route path="/b/reviews" element={<DashBoardReviews />} />
             <Route path='/b/my-inventory' element={<MyInventory />} />
+            <Route path='/b/inventory-product/:id' element={<InventoryProductPage />} />
             <Route path='/b/add-inventory' element={<AddInventory />} />
             <Route path='/b/order-history' element={<OrderHistoryBusiness />} />
             <Route path='/b/my-reviews' element={<MyReviews />} />

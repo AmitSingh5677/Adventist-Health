@@ -12,31 +12,7 @@ import SpinLoader from '../../components/spin-loader/SpinLoader';
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from '@stripe/react-stripe-js';
 import CheckoutForm from '../../utility/CheckoutForm';
-// const useData = {
-//     "id": 326,
-//     "equipment_name": "Wheelchair 2",
-//     "avatar": "images/order/None/th.jfif",
-//     "price": "2000.00",
-//     "product_description": "wheel chair",
-//     "stripe_business_id": "acct_1OjjVVC2gPDgAOQf",
-//     "stripe_patient_id": "cus_PbkzgLZ4EX4lLD",
-//     "stripe_client_secret": "pi_3OmgOvC2gPDgAOQf1XouiZdE_secret_mcQNqE4br0u5dlxWrbsBDaktm",
-//     "stripe_payment_intent_id": "pi_3OmgOvC2gPDgAOQf1XouiZdE",
-//     "stripe_application_id": "ca_PVpyUGcC9vYZEy0z3yRPojwKgqu9sGAB",
-//     "order_id": "WcJZWK7WLvurClNM-1708624181",
-//     "payment_status": "requires_payment_method",
-//     "payment_details": "",
-//     "amount_paid": "2000.00",
-//     "payment_type": "card",
-//     "delivery_status": "pending",
-//     "order_date": "2024-02-22T17:49:42.025639Z",
-//     "patient_user": 65,
-//     "business_user": 49,
-//     "delivery_location_details": 39,
-//     "product": 3
-// };
-
-
+import BackButton from '../../components/Button/BackButton';
 
 
 const OrderDeatils = () => {
@@ -164,8 +140,12 @@ const OrderDeatils = () => {
                 </Elements>
             ) : (<Helmet title="Order-Deatils">
                 <AppHeader />
+                <div style={{marginTop:"150px", marginInline:"120px"}} className='title-section-order'>
+                <h3><b>Order Detail</b></h3>
+                    </div>
+                
                 {isLoading ? <SpinLoader /> : <div className='order__conatiner'>
-                    <section>
+                    <section className='mt-2 mx-2'>
                         <Container>
                             <Row className='order_deatils'>
                                 <Col xs={3} sm={3} lg={3}>
@@ -254,12 +234,13 @@ const OrderDeatils = () => {
 
                             </Container>
                         </div>
-                    </section>
-                    <Container>
-                        <Row>
-                            <button className='order__btn' style={{backgroundColor:"#7AC24F", marginBottom: "2%", marginRight: "10%"}} onClick={reorederHandler}>Re-order</button>
-                        </Row>
+                    <Container className='mt-3 mb-3'>
+                        <div className='d-flex justify-content-between' style={{width:'70vw'}}>
+                            <BackButton width={"150px"}/>
+                            <button className='order__btn me-5' style={{backgroundColor:"#7AC24F", width:'350px'}} onClick={reorederHandler}>Re-order</button>
+                        </div>
                     </Container>
+                    </section>
 
                 </div>}
 

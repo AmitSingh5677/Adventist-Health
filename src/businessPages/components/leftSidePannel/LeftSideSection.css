@@ -18,7 +18,7 @@
 .logo_conatiner {
     width: 100%;
     background-color: #ECECEC;
-    height: 30vh;
+    height: 41vh;
     margin-top: 15px;
 
     @media (max-width: 767px) {

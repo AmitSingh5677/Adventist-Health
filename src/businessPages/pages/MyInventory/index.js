@@ -77,7 +77,7 @@ const MyInventory = () => {
 
 
         <div className="d-flex flex-row justify-content-between mb-5 mx-5">
-            <div className='mt-3 ms-5' onClick={()=>navigate(-1)}>
+            <div className='mt-3 ms-5'>
             <BackButton width={"300px"} />
             </div>
             <Link to='/b/addInventory'> <button className="btn btn-success p-5 pt-1 pb-1 m-5 mt-3  inventory_btn" type="button" >Add to Inventory</button></Link>

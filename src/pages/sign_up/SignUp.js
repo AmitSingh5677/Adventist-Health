@@ -498,19 +498,23 @@ const SignUp = () => {
                     />{" "}
                     <span>
                       I have read the{" "}
-                      <span
-                        style={{ color: "#00A0DD", cursor: "pointer" }}
-                        onClick={termPageRouteHandler}
+                      <a
+                        style={{ color: "#00A0DD", cursor: "pointer" ,textDecoration:"none" }}
+                        // onClick={termPageRouteHandler}
+                        href="/Terms&&Conditions"
+                        target="_blank"
                       >
                         Terms and Conditions
-                      </span>{" "}
+                      </a>{" "}
                       and{" "}
-                      <span
-                        style={{ color: "#00A0DD", cursor: "pointer" }}
-                        onClick={PrivacyPageHandler}
+                      <a
+                        style={{ color: "#00A0DD", cursor: "pointer",textDecoration:"none" }}
+                        // onClick={PrivacyPageHandler}
+                        href="/Privacy-Policy"
+                        target="_blank"
                       >
                         Privacy Policy
-                      </span>{" "}
+                      </a>{" "}
                     </span>
                   </div>
                   <span className="errorTxt">

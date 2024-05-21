@@ -5,6 +5,10 @@
 .allContainer{
     border-bottom: 1px solid rgba(226, 232, 240, 1);
 }
+.filter-section-notification{
+    border: 1px solid #d4d1d1;
+    border-radius: 8px;
+}
 .close_icon {
     color: #64748B;
     font-family: 'Poppins';

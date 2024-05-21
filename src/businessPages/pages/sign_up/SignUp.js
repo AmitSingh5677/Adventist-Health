@@ -17,6 +17,7 @@ const SignUpBusiness = () => {
     city: "",
     state: "",
     description: "",
+    zip: "",
     password: "",
     confirm_password: "",
     email: "",
@@ -48,6 +49,7 @@ const SignUpBusiness = () => {
   const [locationError, setLocationError] = useState("");
   const [cityError, setCityError] = useState("");
   const [stateError, setStateError] = useState("");
+  const [zipError, setZipError] = useState("");
   const [descError, setDescError] = useState("");
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -110,6 +112,11 @@ const SignUpBusiness = () => {
     } else {
       setCityError("");
     }
+    if (formData.zip.length !== 5){
+      setZipError("Provide a 5 digit zipcode");
+    } else {
+      setZipError("");
+    }
     if (!textRegex.test(formData.state)) {
       setStateError("Provide state name");
     } else {
@@ -153,9 +160,11 @@ const SignUpBusiness = () => {
     if (
       tnc && hipa &&
       formData.password == formData.confirm_password &&
-      textRegex.test(formData.business_location) &&
+      // textRegex.test(formData.business_location) &&
+      formData.business_location &&
       textRegex.test(formData.city) &&
-      textRegex.test(formData.state) &&
+      textRegex.test(formData.state) && 
+      formData.zip.length == 5 &&
       textRegex.test(formData.owner_full_name) &&
       emailRegex.test(formData.email) &&
       passwordRegex.test(formData.password) &&
@@ -168,6 +177,7 @@ const SignUpBusiness = () => {
       form.append("business_location", formData.business_location);
       form.append("business_city", formData.city);
       form.append("business_state", formData.state);
+      form.append("business_zipcode", formData.zip);
       form.append("description", formData.description);
       form.append("password", formData.password);
       form.append("confirm_password", formData.confirm_password);
@@ -232,6 +242,9 @@ const SignUpBusiness = () => {
       business_name: "",
       owner_full_name: "",
       business_location: "",
+      city:"",
+      state:"",
+      zip:"",
       description: "",
       password: "",
       confirm_password: "",
@@ -375,6 +388,25 @@ const SignUpBusiness = () => {
                   />
                 </div>
                 <div className=" input-group">
+                  <Input
+                    type="number"
+                    className="form-control shadow-none"
+                    id="zip"
+                    placeholder="Business Zipcode"
+                    value={formData.zip}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+                {zipError && (
+                          <span
+                            className="ms-1"
+                            style={{ color: "red", fontSize: "10px" }}
+                          >
+                            {zipError}
+                          </span>
+                        )}
+                <div className=" input-group mt-3">
                   <Input
                     type="textarea"
                     className="form-control shadow-none"

@@ -10,6 +10,7 @@ import SucessMessage from '../../components/successToast/SuccessToast';
 import ToastMessage from "../../components/toast/ToastMessage"
 import { useNavigate } from 'react-router-dom';
 import SpinLoader from '../../components/spin-loader/SpinLoader';
+import BackButton from '../../components/Button/BackButton';
 
 const UserFeedback = ({ imgSrc, productTitle, userViews, rating }) => {
     const [selectedRating, setSelectedRating] = useState(0);
@@ -129,10 +130,15 @@ const UserFeedback = ({ imgSrc, productTitle, userViews, rating }) => {
                     </div>
                 </div>
                 <div className='btn-container'>
+                    <div>
 
-                        <button className='nxt__btn' style={{ marginBottom: "7%", backgroundColor:"#7AC24F" }} onClick={saveRating}>Save</button>
+                        <BackButton width={"280px"}/>
+                    </div>
+                    <div>
+                        <button className='nxt__btn mb-5' style={{backgroundColor:"#7AC24F" }} onClick={saveRating}>Save</button>
+
+                    </div>
                 </div>
-                        {/* <button className='all_Reviews' style={{ marginBottom: "7%" }} onClick={userRatingHandler}>Back</button> */}
                     </div>}
             {showErrorToast ? <ToastMessage show={showErrorToast} message={isError} onClose={() => setShowErrorToast(false)} /> : <SucessMessage show={sucessToast} message={isSuccess} onClose={() => setSucessToast(false)} />}
 

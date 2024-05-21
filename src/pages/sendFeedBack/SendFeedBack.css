@@ -11,6 +11,15 @@
     outline: none;
 
  }
+ .help-center-title{
+  border: 1px solid #ECECEC;
+  border-radius: 8px;
+  background-color: #ECECEC;
+  height: 80px;
+  padding: 25px 20px;
+  margin-inline: 5vw ;
+  margin-top: 120px;
+ }
 
  .feedBack__submitBtn {
     color: #ffff;

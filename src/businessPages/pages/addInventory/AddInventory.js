@@ -173,7 +173,7 @@ const AddInventory = () => {
           <div className='addinvetory-title-section'>
 <h4>Add Inventory</h4>
           </div>
-            <div style={{ marginTop:"20px" }}>
+            <div style={{ marginTop:"20px", height:"100vh" }}>
                 <form className="d-flex flex-row justify-content-around" onSubmit={submitHandler}>
                     <div className="d-flex flex-column justify-content-start">
                         <div className="d-flex flex-column m-3">

@@ -10,6 +10,7 @@ import SpinLoader from '../../components/spin-loader/SpinLoader';
 import ToastMessage from '../../components/toast/ToastMessage';
 import SucessMessage from '../../components/successToast/SuccessToast';
 import noImage from '../../data/assests/noImage.jpg'
+import BackButton from '../../components/Button/BackButton';
 
 const Inquiries = () => {
     const [isLoading, setIsLoading] = useState(true)
@@ -109,6 +110,9 @@ const Inquiries = () => {
                                 ))
                             )}
                         </Container>
+                        <div className='mt-4' style={{marginLeft:"120px"}}>
+                            <BackButton width={"150px"}/>
+                        </div>
                     </section>
                 </div>
             )}

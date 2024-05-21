@@ -11,6 +11,7 @@ import SpinLoader from '../../components/spin-loader/SpinLoader';
 import { RiDeleteBin5Line } from "react-icons/ri";
 import ToastMessage from '../../components/toast/ToastMessage';
 import SucessMessage from '../../components/successToast/SuccessToast';
+import BackButton from '../../components/Button/BackButton';
 const LocationPage = () => {
     const navigate = useNavigate();
     const [apiData, setApiData] = useState([]);
@@ -1138,6 +1139,9 @@ const LocationPage = () => {
                         <button className='save_Address' style={{ color: "#7AC24F", border: "1px solid #7AC24F" }} onClick={saveAddress}>Save Address</button>
                         {apiData.length === 0 ? null : <button className='nxt__btn' style={{ backgroundColor: "#7AC24F" }} onClick={stripeHandler} >Next</button>}
                     </Row>
+                    <div className='mt-4' style={{marginLeft:"53px"}}>
+                        <BackButton width={"150px"}/>
+                    </div>
                 </Container>
             </div>}
 

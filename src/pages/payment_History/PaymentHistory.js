@@ -7,6 +7,7 @@ import { Col, Container, Row, Table } from 'reactstrap'
 import Helmet from '../../components/helmet/Helmet';
 import { formatDate } from '../order_History/OrderHistory';
 import SpinLoader from '../../components/spin-loader/SpinLoader';
+import BackButton from '../../components/Button/BackButton';
 
 
 
@@ -70,11 +71,12 @@ const PaymentHistory = () => {
                         <Container>
                             <Row xs="12" sm="12" lg="12">
                                 <div>
-                                    <p className='page__title'>Payment History</p>
+                                    <h3 className='page__title'>Payment History</h3>
+                                    
                                 </div>
                             </Row>
                             {paymentHistory.length === 0 ? (<p className='order_info'>No Payment History Found.</p>
-                            ) : <div style={{ marginTop: "1%", marginBottom: "7%" }}>
+                            ) : <div style={{ marginTop: "1%", marginBottom: "30px" }}>
                                 <section>
                                     <Container>
                                         <Row className='cards_conatiner'>
@@ -110,9 +112,16 @@ const PaymentHistory = () => {
                                     </Container>
                                 </section>
                             </div>}
-
+                            
                         </Container>
+                        <div style={{marginBottom:"100px", marginLeft:"125px"}}>
+                            <BackButton width={"150px"}/>
+                        </div>
                     </section>
+                    {/* <div style={{backgroundColor:"green", border:"1px solid red"}}>
+                            <BackButton/>
+                            hello
+                        </div>    */}
                 </div>}
 
                 <AppFooter />

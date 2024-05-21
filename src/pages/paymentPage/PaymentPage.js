@@ -172,9 +172,9 @@ const PaymentPage = () => {
                 ( {isOpen ? <PaymentConfirmation equipmentName="Wheel Chair" amount="$ 1200" currentdate="19/02/2024" /> : (<div className='payment_div'>
                     <section>
                         <Container>
-                            <h4 style={{ fontSize: "15px", fontWeight: "700", marginBottom: "10px", marginLeft: "-6px" }}>Payment information</h4>
+                            {/* <h4 style={{ fontSize: "18px", fontWeight: "700", marginBottom: "10px", marginLeft: "-6px" }}>Payment information</h4> */}
                             <Row className='payment_conatiner'>
-                                <div className='header_row'>Payment Details</div>
+                                <div className='header_row'><h4>Payment Details</h4></div>
                                 <Row xs="12" sm="12" lg="12" className="feature__item text-center">
                                     <Col xs="3" sm="4" lg="4">
                                         <h6 className='payment_deatils'>Total Cost</h6>
