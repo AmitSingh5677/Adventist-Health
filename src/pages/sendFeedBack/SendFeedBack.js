@@ -74,7 +74,10 @@ const SendFeedBack = () => {
         <Helmet title="Send Feedback">
             <AppHeader />
             {showTost ? <ToastMessage show={showTost} message={isError} onClose={() => setShowTost(false)} /> : <SucessMessage show={sucessToast} message={isSucess} onClose={() => setSucessTaost(false)} />}
-            <div style={{ maxWidth: "90%", margin: "0 auto", position: "relative", top: "150px" }}>
+          <div className='help-center-title'>
+            <h4>Help Center</h4>
+          </div>
+            <div style={{ maxWidth: "90%", margin: "0 auto", position: "relative"}} className='mt-4'>
                 <Col md={4}>
                     <FormGroup>
                         <Label for="exampleAddress2" className='card__input'>
@@ -101,7 +104,7 @@ const SendFeedBack = () => {
                     </Col>
                 </FormGroup>
                 <div style={{ display: "flex", justifyContent: "space-around" }}>
-                    <button className='feedBack__btn ' style={{color:"#7AC24F", border:"1px solid #7AC24F"}} onClick={() => { navaigate("/homepage") }}>
+                    <button className='feedBack__btn ' style={{color:"#7AC24F", border:"1px solid #7AC24F"}} onClick={() => { navaigate(-1) }}>
                         Back
                     </button>
                     <button className='feedBack__submitBtn' style={{backgroundColor:"#7AC24F"}} onClick={reportHandler}>

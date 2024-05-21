@@ -1,0 +1,16 @@
+.product-page-main{
+    height: 100vh;
+}
+.product-page-section{
+    margin: 100px;
+    margin-top: 200px;
+
+}
+.product-detail-section{
+    column-gap: 120px;
+}
+.product-img-inventory{
+    width: 252px;
+    height: 220px;
+    object-fit: contain;
+}

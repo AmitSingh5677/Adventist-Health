@@ -22,6 +22,7 @@ import { FaRegClock } from "react-icons/fa";
 import Modal from "react-bootstrap/Modal";
 import noImage from "../../data/assests/noImage.jpg";
 import mixpanel from "../../mixpanel";
+import BackButton from "../../components/Button/BackButton";
 
 const BussinessPage = () => {
   const { id } = useParams();
@@ -39,9 +40,9 @@ const BussinessPage = () => {
   const [show, setShow] = useState(false);
   const [replaceItem, setReplaceItem] = useState({
     id: "",
-        equipment_name: "",
-        product_signed_url: "",
-        price: ""
+    equipment_name: "",
+    product_signed_url: "",
+    price: "",
   });
 
   const handleClose = () => setShow(false);
@@ -74,10 +75,10 @@ const BussinessPage = () => {
       sessionStorage.getItem("businessId")
     );
     // console.log(cart_business_id[0]?.businessId,id,equipment_name,"cart")
-    console.log(cart_business_id,"cart")
+    console.log(cart_business_id, "cart");
 
-    if( cart_business_id?.length === 0){
-      handleClose()
+    if (cart_business_id?.length === 0) {
+      handleClose();
       mixpanel.track("Add to Cart", {
         equipmentId: id,
         equipmentName: equipment_name,
@@ -92,8 +93,8 @@ const BussinessPage = () => {
           cartBusinessName,
         })
       );
-    }
-    else if ( cart_business_id &&
+    } else if (
+      cart_business_id &&
       cart_business_id[0]?.businessId !== business_id_to_check
     ) {
       console.log("error", id, equipment_name);
@@ -101,12 +102,11 @@ const BussinessPage = () => {
         id: id,
         equipment_name: equipment_name,
         product_signed_url: product_signed_url,
-        price: price
-      })
+        price: price,
+      });
       handleShow();
-    } 
-    else if (
-      !cart_business_id || 
+    } else if (
+      !cart_business_id ||
       cart_business_id[0]?.businessId == business_id_to_check
     ) {
       mixpanel.track("Add to Cart", {
@@ -125,8 +125,6 @@ const BussinessPage = () => {
       );
     }
   };
-
-
 
   const paymentRoute = (price, id) => {
     console.log("product_id" + id);
@@ -330,12 +328,12 @@ const BussinessPage = () => {
     navigate("/cart");
   };
   const handleReplace = () => {
-    console.log(replaceItem, "replace")
+    console.log(replaceItem, "replace");
     // const replaceItem = {id,equipment_name, product_signed_url, price}
-    const id = replaceItem.id
-    const equipment_name = replaceItem.equipment_name
-    const product_signed_url = replaceItem.product_signed_url
-    const price = replaceItem.price
+    const id = replaceItem.id;
+    const equipment_name = replaceItem.equipment_name;
+    const product_signed_url = replaceItem.product_signed_url;
+    const price = replaceItem.price;
     dispatch(cartActions.resetCart());
     mixpanel.track("Add to Cart", {
       equipmentId: replaceItem.id,
@@ -352,7 +350,7 @@ const BussinessPage = () => {
       })
     );
     handleClose();
-    setReplaceItem("")
+    setReplaceItem("");
   };
   // const img = "https://dmecart-38297.s3.amazonaws.com/media/images/order/None/th.jfif?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA4KGTUZ6KMU75EMVU%2F20240305%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20240305T050859Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=a2fd03a3370ee4b5b2f52e3f84702f1f8f3e8130e25f25fcc6810ae662b1b3a3"
   return (
@@ -389,36 +387,80 @@ const BussinessPage = () => {
         message={errorMessage}
       />
       <div className="specific-business-title">
-    <div
-              style={{
-                display: "flex",
-                // justifyContent: "center",
-                // position: "relative",
-              }}
-            >
-              <img
-                src={avatarSignedUrl}
-                alt="mainLogo"
-                className="bussiness-logo"
-              />
-              <div className="bussiness_txt">
-                <h6>
-                  {" "}
-                  <span style={{ marginRight: "7px", fontSize:"12px" }}>
-                    <FaRegClock />
-                  </span>
-                  {businessName}
-                </h6>
-                <h6>
-                  {" "}
-                  <span style={{ marginRight: "7px", fontSize:"12px" }}>
-                    <IoLocation />
-                  </span>
-                  {businessLocation}
-                </h6>
-              </div>
-            </div>
-
+        <div
+          style={{
+            display: "flex",
+            // justifyContent: "center",
+            // position: "relative",
+          }}
+        >
+          <img
+            src={avatarSignedUrl}
+            alt="mainLogo"
+            className="bussiness-logo"
+          />
+          <div className="bussiness_txt">
+            <h6>
+              {" "}
+              <span style={{ marginRight: "7px", fontSize: "12px" }}>
+                <FaRegClock />
+              </span>
+              {businessName}
+            </h6>
+            <h6>
+              {" "}
+              <span style={{ marginRight: "7px", fontSize: "12px" }}>
+                <IoLocation />
+              </span>
+              {businessLocation}
+            </h6>
+          </div>
+        </div>
+        <div className="bussiness--btn my-3">
+          {/* <button className='send__inquiry ' onClick={routeFeedback}>Send Inquiry</button> */}
+          <button
+            className="rate__bussiness"
+            style={{
+              backgroundColor: "#7AC24F",
+              border: "1px solid #7AC24F",
+            }}
+            onClick={routeToRate}
+          >
+            Rate Business
+          </button>
+          <Container style={{ marginTop: "0" }}>
+            <Row className="bottom__conatiner">
+              <Col xs="3" lg="3">
+                <div className="mt-3">
+                  <StarRating rating={averageRating} />
+                </div>
+              </Col>
+              <Col
+                xs="2"
+                lg="2"
+                className="bottom_txt rating_text mt-2"
+                onClick={ratingHandler}
+                style={{ cursor: "pointer" }}
+              >
+                View rating
+              </Col>
+              <Col xs="1" lg="1">
+                <button
+                  className="bottom_btn"
+                  style={{
+                    backgroundColor: "#7AC24F",
+                    paddingTop: "10px",
+                    paddingBottom: "10px",
+                    borderRadius: "8px",
+                  }}
+                  onClick={modleHandler}
+                >
+                  Report
+                </button>
+              </Col>
+            </Row>
+          </Container>
+        </div>
       </div>
       {IsLoading ? (
         <SpinLoader />
@@ -508,48 +550,47 @@ const BussinessPage = () => {
                                   </div>
                                   <hr></hr>
                                   <div>
-                              <Modal show={show} onHide={handleClose}>
-                                <Modal.Header closeButton>
-                                  {/* <Modal.Title>Modal heading</Modal.Title> */}
-                                </Modal.Header>
-                                <Modal.Body>
-                                  Your cart contains items from{" "}
-                                  {cartItemBusinessName}. Do you want to discard
-                                  the selection and add items from{" "}
-                                  {businessName}
-                                </Modal.Body>
-                                <Modal.Footer>
-                                  <Button
-                                    style={{
-                                      border: "1px solid #7AC24F",
-                                      backgroundColor: "transparent",
-                                      color: "#7AC24F",
-                                    }}
-                                    onClick={() =>
-                                      handleReplace(
-                                        // item.id,
-                                        // item.equipment_name,
-                                        // item.product_signed_url,
-                                        // item.price
-                                      )
-                                    }
-                                  >
-                                    Replace
-                                  </Button>
-                                  <Button
-                                    style={{
-                                      backgroundColor: "#7AC24F",
-                                      border: "none",
-                                      color: "#fff",
-                                    }}
-                                    className="px-4"
-                                    onClick={handleClose}
-                                  >
-                                    {/* <Button style={{backgroundColor:"#7AC24F", border:"none" , color:"#fff"}} className='px-4' onClick={handleNo}> */}
-                                    No
-                                  </Button>
-                                </Modal.Footer>
-                              </Modal>
+                                    <Modal show={show} onHide={handleClose}>
+                                      <Modal.Header closeButton>
+                                        {/* <Modal.Title>Modal heading</Modal.Title> */}
+                                      </Modal.Header>
+                                      <Modal.Body>
+                                        Your cart contains items from{" "}
+                                        {cartItemBusinessName}. Do you want to
+                                        discard the selection and add items from{" "}
+                                        {businessName}
+                                      </Modal.Body>
+                                      <Modal.Footer>
+                                        <Button
+                                          style={{
+                                            border: "1px solid #7AC24F",
+                                            backgroundColor: "transparent",
+                                            color: "#7AC24F",
+                                          }}
+                                          onClick={() =>
+                                            handleReplace()
+                                            // item.id,
+                                            // item.equipment_name,
+                                            // item.product_signed_url,
+                                            // item.price
+                                          }
+                                        >
+                                          Replace
+                                        </Button>
+                                        <Button
+                                          style={{
+                                            backgroundColor: "#7AC24F",
+                                            border: "none",
+                                            color: "#fff",
+                                          }}
+                                          className="px-4"
+                                          onClick={handleClose}
+                                        >
+                                          {/* <Button style={{backgroundColor:"#7AC24F", border:"none" , color:"#fff"}} className='px-4' onClick={handleNo}> */}
+                                          No
+                                        </Button>
+                                      </Modal.Footer>
+                                    </Modal>
                                     {/* <button className="addToCart_Btn" onClick={() => addToCart(item.id, item.equipment_name, item.product_signed_url, item.price)}> */}
                                     <button
                                       className="addToCart_Btn"
@@ -679,12 +720,11 @@ const BussinessPage = () => {
                                       color: "#7AC24F",
                                     }}
                                     onClick={() =>
-                                      handleReplace(
-                                        // item.id,
-                                        // item.equipment_name,
-                                        // item.product_signed_url,
-                                        // item.price
-                                      )
+                                      handleReplace()
+                                      // item.id,
+                                      // item.equipment_name,
+                                      // item.product_signed_url,
+                                      // item.price
                                     }
                                   >
                                     Replace
@@ -711,45 +751,10 @@ const BussinessPage = () => {
               </Row>
             </Container>
 
-            <Container>
-              <Row className="bottom__conatiner">
-                <Col xs="2" lg="2">
-                  <div>
-                    <StarRating rating={averageRating} />
-                  </div>
-                </Col>
-                <Col
-                  xs="2"
-                  lg="2"
-                  className="bottom_txt rating_text"
-                  onClick={ratingHandler}
-                  style={{ cursor: "pointer" }}
-                >
-                  View rating
-                </Col>
-                <Col xs="1" lg="1">
-                  <button
-                    className="bottom_btn"
-                    style={{ backgroundColor: "#7AC24F" }}
-                    onClick={modleHandler}
-                  >
-                    Report
-                  </button>
-                </Col>
-              </Row>
+            <Container className="mt-5">
+              <div className="ms-3">
+              <BackButton width={"150px"}/>
 
-              <div className="bussiness__btn">
-                {/* <button className='send__inquiry ' onClick={routeFeedback}>Send Inquiry</button> */}
-                <button
-                  className="rate__bussiness"
-                  style={{
-                    backgroundColor: "#7AC24F",
-                    border: "1px solid #7AC24F",
-                  }}
-                  onClick={routeToRate}
-                >
-                  Rate Business
-                </button>
               </div>
             </Container>
           </section>

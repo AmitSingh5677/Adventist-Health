@@ -12,6 +12,7 @@ import SucessMessage from '../../components/successToast/SuccessToast';
 import { useParams } from 'react-router-dom';
 import mixpanel from "../../mixpanel";
 import OneSignal from 'react-onesignal';
+import BackButton from '../../components/Button/BackButton';
 
 const SpecificInquiry = () => {
     const { id } = useParams();
@@ -319,7 +320,8 @@ const SpecificInquiry = () => {
                         )}
                         <hr />
                     </Row>
-                    <div style={{ display: "flex", justifyContent: "end" }}>
+                    <div className='mt-3' style={{ display: "flex", justifyContent: "space-between" }}>
+                        <BackButton width={"150px"}/>
                         <button className='specific__btn' style={{backgroundColor:"#7AC24F"}} onClick={handleSendMessage}>Send</button>
                     </div>
                 </div>

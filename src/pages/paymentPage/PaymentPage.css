@@ -20,6 +20,7 @@
     box-sizing: border-box;
     width: 100%;
     padding: 0px;
+    padding-bottom: 15px;
     border-radius: 8px;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 
@@ -97,7 +98,7 @@
     display: flex;
     justify-content: space-around;
     max-width: 80%;
-    margin: 0 auto;
+    margin: 15px auto;
     position: relative;
     top: 25px;
 }

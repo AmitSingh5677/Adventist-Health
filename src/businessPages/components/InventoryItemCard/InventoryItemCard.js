@@ -56,7 +56,7 @@ const InventoryItemCard = (props) => {
 
             <div className='inventory-container mb-3'>
 
-                <div className='inventory-text'>
+                <div className='inventory-text cursor' onClick={()=>navigate(`/b/inventory-product/${item.id}`)}>
                     <h6 >{item.equipment_name}</h6>
                     {/* <p>{item.description}</p> */}
                 </div>

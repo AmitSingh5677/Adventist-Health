@@ -17,6 +17,7 @@ const BusinessTransactions = () => {
   const [orderData, setOrderData] = useState([]);
   const [error, setError] = useState();
   const [table, setTable] = useState(false);
+  const [tableData, setTableData] = useState("");
 
   const id = sessionStorage.getItem("userid")
   const token = JSON.parse(sessionStorage.getItem("token"))
@@ -66,6 +67,7 @@ const BusinessTransactions = () => {
     );
     const resData = await response.json();
     setUpdatedData(resData);
+    setTableData("time_filter")
   };
   // console.log(time,"time")
   useEffect(() => {
@@ -109,6 +111,7 @@ const BusinessTransactions = () => {
     );
       const resData = await response.json();
       setOrderData(resData);
+      setTableData("date_filter")
       setTable(true)
     }
   };
@@ -158,7 +161,7 @@ const BusinessTransactions = () => {
         </div>
         <div className="box-tile-section1 mt-5">
           <div className="box-tile-1">
-            <div className="d-flex" style={{ justifyContent: "space-between" }}>
+            <div className="d-flex mb-4" style={{ justifyContent: "space-between", alignItems:"center" }}>
               <h5><b>Recent Transactions</b></h5>
               <span
                 className="d-flex filter-bar"
@@ -205,7 +208,7 @@ const BusinessTransactions = () => {
                   </tr>
                 </thead>
                 {/* <tbody className="body__txt"> */}
-             { !orderData ? <tbody className="body__txt"> {data?.transaction_details?.map((item, index) => (
+             { !tableData ? <tbody className="body__txt"> {data?.transaction_details?.map((item, index) => (
                     <tr key={index}>
                       <td className="body__elemnts">{item.patient_name}</td>
                       <td className="body__elemnts">
@@ -220,22 +223,22 @@ const BusinessTransactions = () => {
                       </td>
                     </tr>
                   ))} </tbody> :  <tbody className="body__txt"> 
-                  { !updatedData && orderData ? 
+                  { tableData == "date_filter" ? 
                     orderData?.date_filter?.order_details?.map((item, index) => (
                     <tr key={index}>
-                    <td style={{fontSize:"12px"}} className="body__elemnts">{item.patient_name}</td>
-                    <td style={{fontSize:"12px"}} className="body__elemnts">
+                    <td style={{fontSize:"14px"}} className="body__elemnts">{item.patient_name}</td>
+                    <td style={{fontSize:"14px"}} className="body__elemnts">
                       {item.product_name}
                     </td>
-                    <td style={{fontSize:"12px"}} className="body__elemnts">
+                    <td style={{fontSize:"14px"}} className="body__elemnts">
                     {formatDate(item.order_date)}, {" "}
             {formatTime(item.order_date)} 
                     </td>
-                    <td style={{fontSize:"12px"}} className="body__elemnts">
+                    <td style={{fontSize:"14px"}} className="body__elemnts">
                       ${item.amount_paid}
                     </td>
                   </tr>
-                  )) : updatedData && updatedData?.filter_by?.order_details?.map((item, index) => (
+                  )) : tableData == "time_filter" && updatedData?.filter_by?.order_details?.map((item, index) => (
                     <tr key={index}>
                       <td className="body__elemnts">{item.patient_name}</td>
                       <td className="body__elemnts">

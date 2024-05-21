@@ -10,7 +10,7 @@ const PageHelmet = ({pageTitle}) => {
                     <Container>
                         <Row xs="12" sm="12" lg="12">
                             <div>
-                                <p className='page__title'>{pageTitle}</p>
+                                <h3 className='page__title'>{pageTitle}</h3>
                             </div>
                         </Row>
                     </Container>

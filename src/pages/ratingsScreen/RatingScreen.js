@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux';
 import SpinLoader from '../../components/spin-loader/SpinLoader';
 import UserProfile from '../../utility/useravthar/UserAvathar';
 import mixpanel from "../../mixpanel";
+import BackButton from '../../components/Button/BackButton';
 export const StarRating = ({ rating }) => {
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating - fullStars >= 0.5;
@@ -304,7 +305,11 @@ console.log(rating,"rating")
                     </Container>
                 </div>
                 <div className='navigate-rate-btn'>
-                    <button className='nxt__btn' style={{ marginBottom: "7%", backgroundColor:"#7AC24F" }} onClick={() => naviagte("/feedBack")}>Rate Business</button>
+                    <div className='mt-5'>
+                    <BackButton width={"150px"}/>
+
+                    </div>
+                    <button className='nxt__btn' style={{backgroundColor:"#7AC24F", marginRight:"0" }} onClick={() => naviagte("/feedBack")}>Rate Business</button>
 
                 </div>
 

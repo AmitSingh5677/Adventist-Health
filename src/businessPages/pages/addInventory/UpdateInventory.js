@@ -5,7 +5,9 @@ import AppFooter from "../../components/AppFooter/AppFooter"
 import AppHeader from "../../components/AppHeader/AppHeader"
 import mixpanel from "../../../mixpanel";
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import SucessToast from "../../components/sucessToast/SucessToast"
+import BackButton from '../../../components/Button/BackButton';
 
 const UpdateInventory = () => {
     const [equipment_name, setEquipmentName] = useState("");
@@ -23,6 +25,7 @@ const UpdateInventory = () => {
     const fileInputRef = useRef(null);
     const [sucessMessage, setSucessMessage] = useState("");
     const [showSucessToast, setShowSucessToast] = useState(false);
+    const navigate=useNavigate();
 
     const userid = sessionStorage.getItem("userid");
 
@@ -136,7 +139,8 @@ const UpdateInventory = () => {
             if (response) {
                 setShowSucessToast(true);
                 setSucessMessage("Product updated successfully")
-
+                navigate('/b/my-inventory')
+                
             } else {
 
             }
@@ -196,7 +200,10 @@ const UpdateInventory = () => {
                     message={sucessMessage}
                 />
             ) : null}
-            <div style={{ marginTop: "10%" }}>
+            <div className='addinvetory-title-section'>
+<h4>Add Inventory</h4>
+          </div>
+            <div style={{ marginTop:"20px", height:"100vh" }}>
                 <form className="d-flex flex-row justify-content-around" onSubmit={submitHandler}>
                     <div className="d-flex flex-column justify-content-start">
                         <div className="d-flex flex-column m-3">
@@ -210,6 +217,7 @@ const UpdateInventory = () => {
                             <span className='errorTxt'> {nameError && <span style={{ color: '#FF0000' }}>{nameError}</span>} </span>
 
                         </div>
+                        
                         <div className="border rounded p-4 d-flex flex-column align-items-center m-3 mb-0">
                             {!uploadedImage ? <RiImageAddFill fontSize={40} onClick={handleButtonClick} /> :
                                 <img src={uploadedImage} alt="User Photo" style={{ width: '80px', height: '80px' }} />}
@@ -222,7 +230,7 @@ const UpdateInventory = () => {
                                 onChange={handleImageChange}
                             />
 
-                            <button className="inventory__Descbox" type='button' onClick={handleButtonClick} style={{ background: "#026937", color: "#ffff", height: "30px", fontSize: "13px", padding: "5px", fontFamily: "Poppins", width: "60%" }} >Upload Image</button>
+                            <button className="inventory__Descbox" type='button' onClick={handleButtonClick} style={{ background: "#7AC24F", color: "#ffff", height: "30px", fontSize: "13px", padding: "5px", fontFamily: "Poppins", width: "60%" }} >Upload Image</button>
 
                         </div> <span className='errorTxt ms-3'> {imageError && <span style={{ color: '#FF0000' }}>{imageError}</span>} </span>
 
@@ -236,6 +244,9 @@ const UpdateInventory = () => {
                             />
                             <span className='errorTxt'> {priceError && <span style={{ color: '#FF0000' }}>{priceError}</span>} </span>
 
+                        </div>
+                        <div className='ms-3 mt-1'>
+                            <BackButton width={"150px"} height={"30px"}/>
                         </div>
                     </div>
                     <div className="d-flex flex-column justify-content-end">
